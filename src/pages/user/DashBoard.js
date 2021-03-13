@@ -4,11 +4,19 @@ import {
   BadgeBox,
   DashBoardBox,
   DashBoardContainer,
+  DashBoardTabs,
   LevelBox,
   ProfileButtonBox,
 } from "./style";
+import { Tabs } from "antd";
 
-export default function DashBoard() {
+const { TabPane } = Tabs;
+
+function callback(key) {
+  console.log(key);
+}
+
+const Dashboard = () => {
   return (
     <>
       <DashBoardContainer>
@@ -330,7 +338,29 @@ export default function DashBoard() {
             </p>
           </div>
         </DashBoardBox>
+        <DashBoardTabs defaultActiveKey="1" onChange={callback}>
+          <TabPane tab="My Courses" key="1">
+            Content of Tab Pane 1
+          </TabPane>
+          <TabPane tab="My Challenges" key="2">
+            Content of Tab Pane 2
+          </TabPane>
+          <TabPane tab="My Issues" key="3">
+            Content of Tab Pane 3
+          </TabPane>
+          <TabPane tab="My Notes" key="4">
+            Content of Tab Pane 4
+          </TabPane>
+          <TabPane tab="My Coupons" key="5">
+            Content of Tab Pane 5
+          </TabPane>
+          <TabPane tab="My Payment History" key="6">
+            Content of Tab Pane 6
+          </TabPane>
+        </DashBoardTabs>
       </DashBoardContainer>
     </>
   );
-}
+};
+
+export default Dashboard;

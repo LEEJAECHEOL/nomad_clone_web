@@ -1,3 +1,4 @@
+import { Tabs } from "antd";
 import styled from "styled-components";
 
 export const DashBoardContainer = styled.div`
@@ -160,4 +161,8 @@ export const BadgeBox = styled.div`
       border-radius: 8px;
     }
   }
+`;
+
+export const DashBoardTabs = styled(Tabs)`
+  margin-top: 7rem;
 `;

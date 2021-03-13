@@ -17,6 +17,8 @@ import Write from "./pages/community/Write";
 import FaqDetail from "./pages/faq/FaqDetail";
 import CommunityDetail from "./pages/community/CommunityDetail";
 import DashBoard from "./pages/user/DashBoard";
+import UploadTest from "./pages/test/UploadTest";
+
 const App = () => {
   return (
     <>
@@ -47,6 +49,7 @@ const App = () => {
               <Route path="/faq-detail" exact={true} component={FaqDetail} />
               <Route path="/write" exact={true} component={Write} />
               <Route path="/dashboard" exact={true} component={DashBoard} />
+              <Route path="/upload" exact={true} component={UploadTest} />
             </Switch>
           </Col>
           <Col xs={1} sm={1} md={2} lg={2} xl={3}></Col>
