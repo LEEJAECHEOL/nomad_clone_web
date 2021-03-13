@@ -4,17 +4,25 @@ export const Global = createGlobalStyle`
   .logo {
     width: 38px;
   }
+
   .ant-layout-header {
     display:flex;
     position:fixed;
     width:100%;
     align-items:center;
-    background-color:white;
+    background:rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
     padding:0;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    z-index: 100;
+    ul{
+      background:rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+    }
   }
+  .ant-layout-header .ant-row {width:100%}
   .ant-menu-horizontal{
-    width:100%;
+    width: 100%;
     display:flex; 
   }
   .ant-menu-item.ant-menu-item-only-child{border-bottom: none; }
@@ -27,7 +35,7 @@ export const Global = createGlobalStyle`
   }
   .ant-layout-content {padding-top:64px;}
 
-  .ant-layout-footer {background-color:white;    padding: 24px 30px;}
+  .ant-layout-footer {background-color:white; padding: 24px 30px;}
   .footer_info {display:flex;flex-wrap:wrap; color:#828894;justify-content:center;}
   .footer_info h4 {color:#828894;font-size:900;}
   .footer_info > div {flex:1;padding-top:40px;}
@@ -46,4 +54,5 @@ export const Global = createGlobalStyle`
   .footer_copyright > div > div span {visibility:hidden; width:1px;position:absolute;}
   .footer_copyright > div {margin-left:auto; display:flex; align-items:center;}
   .footer_copyright > div > div {margin-left:15px; color:#828894;}
+  ::selection {color: inherit;background: inherit;}
 `;
