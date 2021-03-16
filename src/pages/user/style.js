@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { Col, Row, Tabs } from "antd";
 import styled from "styled-components";
 
 export const DashBoardContainer = styled.div`
@@ -165,4 +165,67 @@ export const BadgeBox = styled.div`
 
 export const DashBoardTabs = styled(Tabs)`
   margin-top: 7rem;
+`;
+
+export const EditProfileContainer = styled.div`
+  padding: 86px 0 228px;
+`;
+
+// 유저수정 로우 한박스
+export const AccountInfromation = styled(Row)`
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px;
+`;
+
+// 유저 수정 Col 왼쪽
+export const AccountInfromationCol = styled(Col)`
+  h2 {
+    font-size: 18px;
+  }
+`;
+
+// 탈퇴용 Col
+export const DeleteAccountCol = styled(AccountInfromationCol)`
+  h2 {
+    color: red;
+  }
+`;
+
+// 유저 수정 인풋 Col
+export const AccountInfromationColInput = styled(Col)`
+  padding: 24px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  form {
+    label {
+      display: flex;
+    }
+    span {
+      white-space: nowrap;
+    }
+    .AccountUpdate {
+      text-align: right;
+      margin-bottom: 0;
+    }
+  }
+`;
+
+// 유저 수정 인풋박스
+export const AccountInputBox = styled.div`
+  display: grid;
+  grid-column-gap: 30px;
+  grid-template-columns: repeat(2, 2fr);
+`;
+
+export const EmailInputBox = styled.div`
+  input {
+    width: 50%;
+  }
+  p {
+    line-height: 1;
+    margin: 0;
+  }
+  label {
+    display: flex;
+    align-items: center;
+  }
 `;
