@@ -1,15 +1,26 @@
 import produce from "immer";
 
 // 상태
-export const initialState = {};
+export const initialState = {
+  logInLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  logInDone: false,
+  logInError: null,
+
+  principal: null,
+};
 
 // 타입
 export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
 
+export const LOG_OUT_REQUEST = "LOG_OUT_REQUEST";
+export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
+export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
+
 // 액션
 export const loginRequestAction = (data) => {
+  console.log("loginRequestAction is run");
   return {
     type: LOG_IN_REQUEST,
     data,
@@ -19,6 +30,41 @@ export const loginRequestAction = (data) => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case LOG_IN_REQUEST:
+        console.log("reducer LOG_IN_REQUEST is run");
+        draft.logInLoading = true;
+        draft.logInDone = false;
+        draft.logInError = null;
+        break;
+
+      case LOG_IN_SUCCESS:
+        console.log("reducer LOG_IN_SUCCESS is run");
+        draft.logInLoading = false;
+        draft.logInDone = true;
+        draft.principal = action.data;
+        break;
+
+      case LOG_IN_FAILURE:
+        draft.logInLoading = false;
+        draft.logInError = action.error;
+        break;
+
+      case LOG_OUT_REQUEST:
+        draft.logOutLoading = true;
+        draft.logOutDone = false;
+        draft.logOutError = null;
+        break;
+
+      case LOG_OUT_SUCCESS:
+        draft.logOutLoading = false;
+        draft.logOutDone = true;
+        draft.principal = null;
+        break;
+
+      case LOG_OUT_FAILURE:
+        draft.logOutLoading = false;
+        draft.logOutError = action.error;
+        break;
       default:
         return state;
     }
