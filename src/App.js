@@ -19,6 +19,7 @@ import CommunityDetail from "./pages/community/CommunityDetail";
 import DashBoard from "./pages/user/DashBoard";
 import EditProfile from "./pages/user/EditProfile";
 import UploadTest from "./pages/test/UploadTest";
+import CoursesDetail from "./pages/admin/courses/CoursesDetail";
 
 const App = () => {
   return (
@@ -34,11 +35,6 @@ const App = () => {
               <Route path="/login" exact={true} component={Login} />
               <Route path="/join" exact={true} component={Join} />
               <Route path="/courses" exact={true} component={Courses} />
-              {/* <Route
-                path="/courses/:id"
-                exact={true}
-                component={CoursesDetail}
-              /> */}
               <Route path="/challenges" exact={true} component={Challenges} />
               <Route path="/community" exact={true} component={Community} />
               <Route
@@ -60,6 +56,11 @@ const App = () => {
           </Col>
           <Col xs={1} sm={1} md={2} lg={2} xl={3}></Col>
         </Row>
+        <Route
+          path="/admin/courses/:id"
+          exact={true}
+          component={CoursesDetail}
+        />
       </Content>
       <MyFooter />
     </>

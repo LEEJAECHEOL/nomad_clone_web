@@ -1,4 +1,4 @@
-import { Form, Input, Checkbox } from "antd";
+import { Form, Input } from "antd";
 import React from "react";
 import { LoginContainer } from "./style";
 import { SubmitButton } from "../join/style";

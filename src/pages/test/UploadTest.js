@@ -4,18 +4,18 @@ import axios from "axios";
 
 const accessToken = "eaa9082d712ad678b61aa97956a64ad0";
 
-const headerDelete = {
-  Accept: "application/vnd.vimeo.*+json;version=3.4",
-  Authorization: `bearer ${accessToken}`,
-  "Content-Type": "application/x-www-form-urlencode",
-};
+// const headerDelete = {
+//   Accept: "application/vnd.vimeo.*+json;version=3.4",
+//   Authorization: `bearer ${accessToken}`,
+//   "Content-Type": "application/x-www-form-urlencode",
+// };
 
-const headerPatch = {
-  "Tus-Resumable": "1.0.0",
-  "Upload-Offset": 0,
-  "Content-Type": "application/offset+octet-stream",
-  Accept: "application/vnd.vimeo.*+json;version=3.4",
-};
+// const headerPatch = {
+//   "Tus-Resumable": "1.0.0",
+//   "Upload-Offset": 0,
+//   "Content-Type": "application/offset+octet-stream",
+//   Accept: "application/vnd.vimeo.*+json;version=3.4",
+// };
 
 const headerPost = {
   Accept: "application/vnd.vimeo.*+json;version=3.4",

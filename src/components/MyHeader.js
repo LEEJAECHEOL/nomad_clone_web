@@ -13,7 +13,11 @@ const MyHeader = () => {
             <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1">
                 <Link to="/">
-                  <img className="logo" src="./images/m.svg" alt="logo" />
+                  <img
+                    className="logo"
+                    src="http://localhost:3000/images/m.svg"
+                    alt="logo"
+                  />
                 </Link>
               </Menu.Item>
               <Menu.Item key="2">
