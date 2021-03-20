@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PageHero } from "../../components/style";
-import { Form, Input, Select } from "antd";
+import { Button, Form, Input, Select } from "antd";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { WriteEditor, WriteForm } from "./style";
+import { useDispatch, useSelector } from "react-redux";
+import { communityPostRequestAction } from "../../reducers/community";
 
-export default function Write() {
-  const [componentSize, setComponentSize] = useState("default");
+const Write = ({ history }) => {
+  const [content, setContet] = useState("");
 
-  const onFormLayoutChange = ({ size }) => {
-    setComponentSize(size);
+  const dispatch = useDispatch();
+
+  const onSubmit = (values) => {
+    const data = { ...values, content };
+    dispatch(communityPostRequestAction(data));
+    console.log(data);
   };
+
+  const { communityPostDone, communityPostLoading } = useSelector(
+    (state) => state.community
+  );
+
+  useEffect(() => {
+    if (communityPostDone) {
+      history.push("/community");
+    }
+  }, [communityPostDone, history]);
 
   return (
     <>
@@ -18,27 +34,14 @@ export default function Write() {
       </PageHero>
 
       {/* Form */}
-      <WriteForm
-        labelCol={{
-          span: 4,
-        }}
-        wrapperCol={{
-          span: 14,
-        }}
-        layout="horizontal"
-        initialValues={{
-          size: componentSize,
-        }}
-        onValuesChange={onFormLayoutChange}
-        size={componentSize}
-      >
+      <WriteForm onFinish={onSubmit}>
         {/* 인풋박스 */}
-        <Form.Item>
-          <Input placeholder="제목 쓰기" name="title" />
+        <Form.Item name="title">
+          <Input placeholder="제목 쓰기" />
         </Form.Item>
 
         {/* 셀렉터 */}
-        <Form.Item>
+        <Form.Item name="category">
           <Select name="category" placeholder="카테고리 고르기">
             <Select.Option value="#to-do-list">#to-do-list</Select.Option>
             <Select.Option value="#javascript">#javascript</Select.Option>
@@ -57,13 +60,13 @@ export default function Write() {
 
         <WriteEditor
           editor={ClassicEditor}
-          data="<p>입력해주세요.</p>"
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor);
           }}
           onChange={(event, editor) => {
             const data = editor.getData();
+            setContet(data);
             console.log({ event, editor, data });
           }}
           onBlur={(event, editor) => {
@@ -73,7 +76,11 @@ export default function Write() {
             console.log("Focus.", editor);
           }}
         />
+        <Button type="primary" htmlType="submit" loading={communityPostLoading}>
+          Submit
+        </Button>
       </WriteForm>
     </>
   );
-}
+};
+export default Write;

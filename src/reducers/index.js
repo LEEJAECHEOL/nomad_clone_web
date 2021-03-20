@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 
 import user from "./user";
+import community from "./community";
 
 const rootReducer = combineReducers({
   index: (state = {}, action) => {
@@ -10,5 +11,6 @@ const rootReducer = combineReducers({
     }
   },
   user,
+  community,
 });
 export default rootReducer;

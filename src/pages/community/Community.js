@@ -1,18 +1,29 @@
 import { Menu } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CommunityItem from "../../components/CommunityItem";
 import { PageHero } from "../../components/style";
+import { communityGetRequestAction } from "../../reducers/community";
 import {
   CommunityBoard,
   CommunityCategory,
   CommunityContainer,
   CommunityWriteButton,
   CommunityWrite,
-  CommunityBoardItem,
   CommunityBoardContainer,
 } from "./style";
 
 const Community = () => {
+  const [category, setCategory] = useState("");
+  const { communityList } = useSelector((state) => state.community);
+  console.log(communityList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(communityGetRequestAction(category));
+  }, []);
+
   return (
     <>
       <PageHero>
@@ -33,66 +44,6 @@ const Community = () => {
             <Menu.Item>
               <Link>
                 <span>#</span>to-do-list
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>javascript
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>bla-bla
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>html_css
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>python
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>dev_resource
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>jobs
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>side_projects
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>announcement
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>uber_eats
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>react
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>hello
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>instaclone
               </Link>
             </Menu.Item>
           </Menu>
@@ -161,57 +112,13 @@ const Community = () => {
             </div>
           </div>
           <CommunityBoardContainer>
-            <Link to="/community-detail">
-              <CommunityBoardItem size="large">
-                <div className="Board-Fav">
-                  <button>
-                    <svg
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="fas"
-                      data-icon="angle-up"
-                      class="svg-inline--fa fa-angle-up fa-w-10 fa-lg opacity-50"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
-                      ></path>
-                    </svg>
-                    <span>15</span>
-                  </button>
-                </div>
-                <div className="Board-Body">
-                  <div className="Board-Body-Title">
-                    유튜브 클론 챌린지 7기 졸업작품 및 후기입니다.
-                  </div>
-                  <div className="Board-Body-Info">
-                    <div className="Info-Tag">
-                      in &nbsp;
-                      <span>#to-do-list</span>
-                    </div>
-                    <div className="Info-Name">
-                      by &nbsp;
-                      <span>username</span>
-                    </div>
-                    <div className="Info-Date">
-                      &#8226; &nbsp;
-                      <span>createdate</span>
-                    </div>
-                    <div className="Info-Reply">
-                      &#8226; &nbsp;
-                      <span>💬</span>
-                      <b>1</b>
-                    </div>
-                  </div>
-                </div>
-                <div className="Board-UserImg">
-                  <img src="./images/userImage.jpg" alt="" />
-                </div>
-              </CommunityBoardItem>
-            </Link>
+            {communityList !== null
+              ? communityList.map((list) => (
+                  <>
+                    <CommunityItem list={list} />
+                  </>
+                ))
+              : null}
           </CommunityBoardContainer>
         </CommunityBoard>
         {/* 글쓰기 버튼 */}
