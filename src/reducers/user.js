@@ -23,14 +23,12 @@ export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
 
 // 액션
 export const loginRequestAction = (data) => {
-  console.log("loginRequestAction is run");
   return {
     type: LOG_IN_REQUEST,
     data,
   };
 };
 export const logoutRequestAction = (data) => {
-  console.log("logoutRequestAction is run");
   return {
     type: LOG_OUT_REQUEST,
     data,
@@ -41,14 +39,12 @@ const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case LOG_IN_REQUEST:
-        console.log("reducer LOG_IN_REQUEST is run");
         draft.logInLoading = true;
         draft.logInDone = false;
         draft.logInError = null;
         break;
 
       case LOG_IN_SUCCESS:
-        console.log("reducer LOG_IN_SUCCESS is run");
         draft.logInLoading = false;
         draft.logInDone = true;
         draft.principal = action.data;
@@ -60,16 +56,15 @@ const reducer = (state = initialState, action) => {
         break;
 
       case LOG_OUT_REQUEST:
-        console.log("reducer LOG_IN_SUCCESS is run");
         draft.logOutLoading = true;
         draft.logOutDone = false;
         draft.logOutError = null;
         break;
 
       case LOG_OUT_SUCCESS:
-        console.log("reducer LOG_IN_SUCCESS is run");
         draft.logOutLoading = false;
         draft.logOutDone = true;
+        draft.logInDone = false;
         draft.principal = null;
         break;
 

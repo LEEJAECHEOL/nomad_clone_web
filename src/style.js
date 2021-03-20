@@ -54,5 +54,4 @@ export const Global = createGlobalStyle`
   .footer_copyright > div > div span {visibility:hidden; width:1px;position:absolute;}
   .footer_copyright > div {margin-left:auto; display:flex; align-items:center;}
   .footer_copyright > div > div {margin-left:15px; color:#828894;}
-  ::selection {color: inherit;background: inherit;}
 `;

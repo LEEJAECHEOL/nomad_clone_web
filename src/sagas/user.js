@@ -8,15 +8,9 @@ import {
   LOG_OUT_SUCCESS,
 } from "../reducers/user";
 
-const config = {
-  headers: {
-    "Content-Type": "application/json; charset=utf-8",
-  },
-};
-
 // logInAPI, logIn, watchLogIn 세트이다. 복사해서 쓰자.
 function logInAPI(data) {
-  return axios.post("/oauth/jwt/google", JSON.stringify(data), config);
+  return axios.post("/oauth/jwt/google", JSON.stringify(data));
 }
 function* logIn(action) {
   try {
@@ -24,7 +18,6 @@ function* logIn(action) {
     const data = result.data.data;
     localStorage.setItem("nomadToken", data.token);
     delete data.token;
-    console.log(data);
     yield put({
       type: LOG_IN_SUCCESS,
       data: data,

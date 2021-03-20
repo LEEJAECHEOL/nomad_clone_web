@@ -22,8 +22,8 @@ export const COMMUNITY_GET_FAILURE = "COMMUNITY_GET_FAILURE";
 // 커뮤니티
 
 // 액션
+
 export const communityPostRequestAction = (data) => {
-  console.log("communityPostRequestAction is run");
   return {
     type: COMMUNITY_POST_REQUEST,
     data,
@@ -31,7 +31,6 @@ export const communityPostRequestAction = (data) => {
 };
 
 export const communityGetRequestAction = (data) => {
-  console.log("communityPostRequestAction is run");
   return {
     type: COMMUNITY_GET_REQUEST,
     data,
@@ -42,14 +41,12 @@ const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case COMMUNITY_POST_REQUEST:
-        console.log("reducer COMMUNITY_POST_REQUEST is run");
         draft.communityPostLoading = true;
         draft.communityPostDone = false;
         draft.communityPostError = null;
         break;
 
       case COMMUNITY_POST_SUCCESS:
-        console.log("reducer COMMUNITY_POST_SUCCESS is run");
         draft.communityPostLoading = false;
         draft.communityPostDone = true;
         break;

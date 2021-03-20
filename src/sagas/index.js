@@ -4,6 +4,7 @@ import userSaga from "./user";
 import communitySaga from "./community";
 
 axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
 
 export default function* rootSaga() {
   yield all([fork(userSaga), fork(communitySaga)]);

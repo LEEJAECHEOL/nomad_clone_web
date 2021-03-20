@@ -56,11 +56,14 @@ const App = () => {
           </Col>
           <Col xs={1} sm={1} md={2} lg={2} xl={3}></Col>
         </Row>
-        <Route
-          path="/admin/courses/:id"
-          exact={true}
-          component={CoursesDetail}
-        />
+
+        <Switch>
+          <Route
+            path="/admin/courses/:id"
+            exact={true}
+            component={CoursesDetail}
+          />
+        </Switch>
       </Content>
       <MyFooter />
     </>
