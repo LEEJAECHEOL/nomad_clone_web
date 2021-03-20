@@ -1,10 +1,9 @@
-import { all, call, delay, fork, put, takeLatest } from "redux-saga/effects";
+import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 import {
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
-  LOG_OUT_FAILURE,
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
 } from "../reducers/user";
@@ -12,7 +11,6 @@ import {
 const config = {
   headers: {
     "Content-Type": "application/json; charset=utf-8",
-    Authorization: "Bearer " + localStorage.getItem("nomadToken"),
   },
 };
 
@@ -39,23 +37,11 @@ function* logIn(action) {
   }
 }
 
-function logOutAPI() {
-  return axios.post("/api/logout");
-}
-
 function* logOut() {
-  try {
-    // const result = yield call(logOutAPI);
-
-    yield put({
-      type: LOG_OUT_SUCCESS,
-    });
-  } catch (err) {
-    yield put({
-      type: LOG_OUT_FAILURE,
-      error: err.response.data,
-    });
-  }
+  localStorage.removeItem("nomadToken");
+  yield put({
+    type: LOG_OUT_SUCCESS,
+  });
 }
 
 function* watchLogIn() {
@@ -66,5 +52,5 @@ function* watchLogOut() {
 }
 
 export default function* userSaga() {
-  yield all([fork(watchLogIn)]);
+  yield all([fork(watchLogIn), fork(watchLogOut)]);
 }

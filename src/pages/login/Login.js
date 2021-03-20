@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { LoginContainer, LoginForm } from "./style";
 import { GoogleLogin } from "react-google-login";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequestAction } from "../../reducers/user";
 
@@ -16,7 +15,7 @@ const Login = ({ history }) => {
     if (logInDone) {
       history.push("/");
     }
-  }, [logInDone]);
+  }, [logInDone, history]);
 
   // 로그인 실패 시
   useEffect(() => {

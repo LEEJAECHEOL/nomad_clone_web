@@ -5,6 +5,9 @@ export const initialState = {
   logInLoading: false, // 로그인 시도중 -> 로딩창 띄움
   logInDone: false,
   logInError: null,
+  logOutLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  logOutDone: false,
+  logOutError: null,
 
   principal: null,
 };
@@ -23,6 +26,13 @@ export const loginRequestAction = (data) => {
   console.log("loginRequestAction is run");
   return {
     type: LOG_IN_REQUEST,
+    data,
+  };
+};
+export const logoutRequestAction = (data) => {
+  console.log("logoutRequestAction is run");
+  return {
+    type: LOG_OUT_REQUEST,
     data,
   };
 };
@@ -50,12 +60,14 @@ const reducer = (state = initialState, action) => {
         break;
 
       case LOG_OUT_REQUEST:
+        console.log("reducer LOG_IN_SUCCESS is run");
         draft.logOutLoading = true;
         draft.logOutDone = false;
         draft.logOutError = null;
         break;
 
       case LOG_OUT_SUCCESS:
+        console.log("reducer LOG_IN_SUCCESS is run");
         draft.logOutLoading = false;
         draft.logOutDone = true;
         draft.principal = null;

@@ -1,14 +1,15 @@
 import { Col, Menu, Row } from "antd";
 import { Header } from "antd/lib/layout/layout";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutRequestAction } from "../reducers/user";
 
 const MyHeader = () => {
   const { principal } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const logout = () => {
-    // dispatch(loginRequestAction());
+    dispatch(logoutRequestAction());
   };
   return (
     <>
@@ -51,9 +52,6 @@ const MyHeader = () => {
                 <>
                   <Menu.Item className="header_right" key="6">
                     <Link to="/login">Login</Link>
-                  </Menu.Item>
-                  <Menu.Item key="7">
-                    <Link to="/join">Join</Link>
                   </Menu.Item>
                 </>
               )}
