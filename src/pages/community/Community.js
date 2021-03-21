@@ -17,7 +17,7 @@ import {
 const Community = () => {
   const [category, setCategory] = useState("");
   const { communityList } = useSelector((state) => state.community);
-  console.log(communityList);
+  console.log("정보는? ", communityList);
   const dispatch = useDispatch();
 
   useEffect(() => {

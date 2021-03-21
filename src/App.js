@@ -20,7 +20,7 @@ import DashBoard from "./pages/user/DashBoard";
 import EditProfile from "./pages/user/EditProfile";
 import UploadTest from "./pages/test/UploadTest";
 import CoursesDetail from "./pages/admin/courses/CoursesDetail";
-
+import AdminFaq from "./pages/admin/faq/AdminFaq";
 const App = () => {
   return (
     <>
@@ -38,7 +38,7 @@ const App = () => {
               <Route path="/challenges" exact={true} component={Challenges} />
               <Route path="/community" exact={true} component={Community} />
               <Route
-                path="/community-detail"
+                path="/community/:id"
                 exact={true}
                 component={CommunityDetail}
               />
@@ -52,6 +52,7 @@ const App = () => {
                 component={EditProfile}
               />
               <Route path="/upload" exact={true} component={UploadTest} />
+              <Route path="/adminFaq" exact={true} component={AdminFaq} />
             </Switch>
           </Col>
           <Col xs={1} sm={1} md={2} lg={2} xl={3}></Col>
