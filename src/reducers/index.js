@@ -5,6 +5,7 @@ import user from "./user";
 import community from "./community";
 import faq from "./faq";
 import adminCourses from "./admin/courses/courses";
+import adminVideo from "./admin/video/";
 
 const rootReducer = (history) =>
   combineReducers({
@@ -19,5 +20,6 @@ const rootReducer = (history) =>
     community,
     faq,
     adminCourses,
+    adminVideo,
   });
 export default rootReducer;

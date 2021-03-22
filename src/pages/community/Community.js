@@ -21,7 +21,6 @@ const Community = () => {
 
   useEffect(() => {
     dispatch(communityGetRequestAction(category));
-    console.log("몇번실행되?");
   }, []);
 
   const { communityList } = useSelector((state) => state.community);
