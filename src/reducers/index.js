@@ -3,6 +3,7 @@ import { connectRouter } from "connected-react-router";
 
 import user from "./user";
 import community from "./community";
+import faq from "./faq";
 import adminCourses from "./admin/courses/courses";
 
 const rootReducer = (history) =>
@@ -16,6 +17,7 @@ const rootReducer = (history) =>
     },
     user,
     community,
+    faq,
     adminCourses,
   });
 export default rootReducer;

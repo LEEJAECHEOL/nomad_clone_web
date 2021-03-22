@@ -1,11 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { CommunityBoardItem } from "../pages/community/style";
+import { communityPostRequestAction } from "../reducers/community";
 
 const CommunityItem = ({ list }) => {
   return (
     <>
-      <Link to="/community/community-detail">
+      <Link to="/community/1">
         <CommunityBoardItem size="large">
           <div className="Board-Fav">
             <button>
@@ -24,7 +26,7 @@ const CommunityItem = ({ list }) => {
                   d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
                 ></path>
               </svg>
-              <span>15</span>
+              <span>{list.count}</span>
             </button>
           </div>
           <div className="Board-Body">
@@ -36,11 +38,11 @@ const CommunityItem = ({ list }) => {
               </div>
               <div className="Info-Name">
                 by &nbsp;
-                <span>username</span>
+                <span>{list.user.name}</span>
               </div>
               <div className="Info-Date">
                 &#8226; &nbsp;
-                <span>createdate</span>
+                <span>{list.createDate}</span>
               </div>
               <div className="Info-Reply">
                 &#8226; &nbsp;
