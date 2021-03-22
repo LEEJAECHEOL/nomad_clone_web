@@ -13,6 +13,7 @@ const Write = ({ history }) => {
 
   const onSubmit = (values) => {
     const data = { ...values, content };
+    console.log("post데이터는?", data);
     dispatch(communityPostRequestAction(data));
   };
 
@@ -34,18 +35,18 @@ const Write = ({ history }) => {
         {/* 셀렉터 */}
         <Form.Item name="category">
           <Select name="category" placeholder="카테고리 고르기">
-            <Select.Option value="#to-do-list">#to-do-list</Select.Option>
-            <Select.Option value="#javascript">#javascript</Select.Option>
-            <Select.Option value="#bla-bla">#bla-bla</Select.Option>
-            <Select.Option value="#html_css">#html_css</Select.Option>
-            <Select.Option value="#python">#python</Select.Option>
-            <Select.Option value="#dev_resources">#dev_resources</Select.Option>
-            <Select.Option value="#jobs">#jobs</Select.Option>
-            <Select.Option value="#side_project">#side_project</Select.Option>
-            <Select.Option value="#react">#react</Select.Option>
-            <Select.Option value="#uber_eats">#uber_eats</Select.Option>
-            <Select.Option value="#hello">#hello</Select.Option>
-            <Select.Option value="#instaclone">#instaclone</Select.Option>
+            <Select.Option value="1">#to-do-list</Select.Option>
+            <Select.Option value="2">#javascript</Select.Option>
+            <Select.Option value="3">#bla-bla</Select.Option>
+            <Select.Option value="4">#html_css</Select.Option>
+            <Select.Option value="5">#python</Select.Option>
+            <Select.Option value="6">#dev_resources</Select.Option>
+            <Select.Option value="7">#jobs</Select.Option>
+            <Select.Option value="8">#side_project</Select.Option>
+            <Select.Option value="9">#react</Select.Option>
+            <Select.Option value="10">#uber_eats</Select.Option>
+            <Select.Option value="11">#hello</Select.Option>
+            <Select.Option value="12">#instaclone</Select.Option>
           </Select>
         </Form.Item>
 
