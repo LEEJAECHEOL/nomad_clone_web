@@ -106,13 +106,6 @@ const CoursesDetail = memo(() => {
           <MyCard2 bordered={false}>
             <Form.Item name="simpleImage">
               <CircleUpload />
-              {/* <ImageUpload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                listType="picture-card"
-                onPreview="none"
-              >
-                {fileList.length >= 8 ? null : uploadButton}
-              </ImageUpload> */}
             </Form.Item>
           </MyCard2>
           <MyRow>
@@ -136,12 +129,6 @@ const CoursesDetail = memo(() => {
                   <div>분</div>
                 </div>
                 <div>강의 분량</div>
-              </MyCard3>
-            </Col>
-            <Col flex="1 1 200px">
-              <MyCard3>
-                <div>dasdas</div>
-                <div>레벨</div>
               </MyCard3>
             </Col>
           </MyRow>
@@ -187,7 +174,7 @@ const CoursesDetail = memo(() => {
                           fieldKey={[field.fieldKey, "reverse"]}
                           valuePropName="checked"
                         >
-                          <Checkbox>reverse</Checkbox>
+                          <Checkbox checked={false}>reverse</Checkbox>
                         </Form.Item>
                       </Col>
                       <MinusCircleOutlined onClick={() => remove(field.name)} />

@@ -22,7 +22,7 @@ const Community = () => {
 
   useEffect(() => {
     dispatch(communityGetRequestAction(category));
-  }, [dispatch, category]);
+  }, []);
 
   return (
     <>
