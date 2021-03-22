@@ -1,11 +1,11 @@
 import { Button, Checkbox, Col, Form, Input, Row, Select, Upload } from "antd";
-import React, { memo, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import {
   MinusCircleOutlined,
   PlusOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import InputColor from "../../../components/InputColor";
+import InputColor from "../../../components/adminCourses/InputColor";
 import TextArea from "antd/lib/input/TextArea";
 import {
   DivContainer,
@@ -20,6 +20,10 @@ import {
   MyRow,
   SimpleInfoRow,
 } from "./style";
+import RectangleUpload from "../../../components/adminCourses/RectangleUpload";
+import CircleUpload from "../../../components/adminCourses/CircleUpload";
+import { useDispatch } from "react-redux";
+import { coursesPostRequestAction } from "../../../reducers/admin/courses/courses";
 
 const { Option } = Select;
 
@@ -31,51 +35,40 @@ const normFile = (e) => {
   return e && e.fileList;
 };
 const CoursesDetail = memo(() => {
-  // =================================================================
   const [background, setBackground] = useState("#fff"); // 배경색
   const [textColor, setTextColor] = useState("#000"); // 배경 바뀐 글자 색
 
-  // =================================================================
-  const [fileList, setfileList] = useState([]);
+  const dispatch = useDispatch();
 
-  // =================================================================
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
+  const onSubmit = useCallback(
+    (values) => {
+      values.backgroundColor = background;
+      values.textColor = textColor;
+      console.log(values);
+      dispatch(coursesPostRequestAction(values));
+    },
+    [background, textColor, dispatch]
   );
 
-  const onSubmit = (values) => {
-    values.backgroundColor = background;
-    values.textColor = textColor;
-    console.log(values);
-    console.log(JSON.stringify(values));
-  };
   return (
     <DivContainer>
       <Form onFinish={onSubmit}>
         <ColorLayout background={background}>
+          <BasicCard title="PreView Image " bordered={false}>
+            <ImageSpace direction="vertical" size="large">
+              <Form.Item name="preViewImage">
+                <RectangleUpload />
+              </Form.Item>
+            </ImageSpace>
+          </BasicCard>
           <BasicCard title="Select Background Color" bordered={false}>
             <InputColor color={background} setColor={setBackground} />
           </BasicCard>
 
           <BasicCard title="Main Image " bordered={false}>
             <ImageSpace direction="vertical" size="large">
-              <Form.Item
-                name="mainImage"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-              >
-                <Upload
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  listType="picture"
-                  maxCount={1}
-                >
-                  <Button type="button" icon={<UploadOutlined />}>
-                    Upload (Max: 1)
-                  </Button>
-                </Upload>
+              <Form.Item name="mainImage">
+                <RectangleUpload />
               </Form.Item>
             </ImageSpace>
           </BasicCard>
@@ -85,7 +78,7 @@ const CoursesDetail = memo(() => {
           <BasicCard title="Input Title!!" bordered={false}>
             <Form.Item
               name="title"
-              rules={[{ required: true, message: "Please Input Title!!" }]}
+              // rules={[{ required: true, message: "Please Input Title!!" }]}
             >
               <ColorInput
                 placeholder="Input Title!!"
@@ -98,7 +91,7 @@ const CoursesDetail = memo(() => {
           <BasicCard title="Input Sub Title!!" bordered={false}>
             <Form.Item
               name="subTitle"
-              rules={[{ required: true, message: "Please Input SubTitle!!" }]}
+              // rules={[{ required: true, message: "Please Input SubTitle!!" }]}
             >
               <ColorInput
                 placeholder="Input Sub Title!!"
@@ -111,7 +104,7 @@ const CoursesDetail = memo(() => {
           <BasicCard title="Select Level!!" bordered={false}>
             <Form.Item
               name="level"
-              rules={[{ required: true, message: "Please select Level!!" }]}
+              // rules={[{ required: true, message: "Please select Level!!" }]}
             >
               <Select placeholder="선택" style={{ width: 120 }}>
                 <Option value="초급">초급</Option>
@@ -123,18 +116,15 @@ const CoursesDetail = memo(() => {
         </ColorLayout>
         <ColorLayout beforedisplay="block" paddingbottom={50}>
           <MyCard2 bordered={false}>
-            <Form.Item
-              name="simpleImage"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-            >
-              <ImageUpload
+            <Form.Item name="simpleImage">
+              <CircleUpload />
+              {/* <ImageUpload
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
                 onPreview="none"
               >
                 {fileList.length >= 8 ? null : uploadButton}
-              </ImageUpload>
+              </ImageUpload> */}
             </Form.Item>
           </MyCard2>
           <MyRow>
@@ -177,21 +167,8 @@ const CoursesDetail = memo(() => {
                     <SimpleInfoRow key={field.key}>
                       <Col flex="2 1 200px">
                         <ImageSpace direction="vertical" size="large">
-                          <Form.Item
-                            {...field}
-                            name={[field.name, "image"]}
-                            fieldKey={[field.fieldKey, "image"]}
-                            getValueFromEvent={normFile}
-                          >
-                            <Upload
-                              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                              listType="picture"
-                              maxCount={1}
-                            >
-                              <Button icon={<UploadOutlined />}>
-                                Upload (Max: 1)
-                              </Button>
-                            </Upload>
+                          <Form.Item {...field} name={[field.name, "image"]}>
+                            <RectangleUpload />
                           </Form.Item>
                         </ImageSpace>
                       </Col>
@@ -394,7 +371,7 @@ const CoursesDetail = memo(() => {
           <BasicCard title="Price" bordered={false}>
             <Form.Item
               name="price"
-              rules={[{ required: true, message: "Please Input Title!!" }]}
+              // rules={[{ required: true, message: "Please Input Title!!" }]}
             >
               <Input
                 placeholder="Input Price"
