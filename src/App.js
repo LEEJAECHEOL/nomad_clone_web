@@ -59,11 +59,7 @@ const App = () => {
         </Row>
 
         <Switch>
-          <Route
-            path="/admin/courses/:id"
-            exact={true}
-            component={CoursesDetail}
-          />
+          <Route path="/admin/courses" exact={true} component={CoursesDetail} />
         </Switch>
       </Content>
       <MyFooter />

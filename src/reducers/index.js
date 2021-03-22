@@ -4,6 +4,7 @@ import { connectRouter } from "connected-react-router";
 import user from "./user";
 import community from "./community";
 import faq from "./faq";
+import adminCourses from "./admin/courses/courses";
 
 const rootReducer = (history) =>
   combineReducers({
@@ -17,5 +18,6 @@ const rootReducer = (history) =>
     user,
     community,
     faq,
+    adminCourses,
   });
 export default rootReducer;

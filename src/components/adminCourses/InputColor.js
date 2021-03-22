@@ -27,7 +27,7 @@ const ColorInputCover = styled.div`
   bottom: 0px;
   left: 0px;
 `;
-const InputColor = ({ value = {}, onChange, color, setColor }) => {
+const InputColor = ({ onChange, color, setColor }) => {
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
 
   const triggerChange = useCallback(
