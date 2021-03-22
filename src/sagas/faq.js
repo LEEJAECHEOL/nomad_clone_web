@@ -9,6 +9,9 @@ import {
   FAQ_GET_FAILURE,
   FAQ_GET_REQUEST,
   FAQ_GET_SUCCESS,
+  FAQ_ONE_GET_FAILURE,
+  FAQ_ONE_GET_REQUEST,
+  FAQ_ONE_GET_SUCCESS,
 } from "../reducers/faq";
 
 function faqPostAPI(data) {
@@ -58,6 +61,28 @@ function* faqGet(action) {
   }
 }
 
+function faqOneGetAPI(data) {
+  return axios.get(`/faq/${data}`);
+}
+
+function* faqOneGet(action) {
+  try {
+    const result = yield call(faqOneGetAPI, action.data);
+    const data = result.data.data;
+    console.log(result);
+    console.log(data);
+    yield put({
+      type: FAQ_ONE_GET_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: FAQ_ONE_GET_FAILURE,
+      error: "로그인에 실패하였습니다.",
+    });
+  }
+}
+
 function* watchFaqPost() {
   yield takeLatest(FAQ_POST_REQUEST, faqPost);
 }
@@ -65,6 +90,9 @@ function* watchFaqPost() {
 function* watchFaqGet() {
   yield takeLatest(FAQ_GET_REQUEST, faqGet);
 }
+function* watchFaqOneGet() {
+  yield takeLatest(FAQ_ONE_GET_REQUEST, faqOneGet);
+}
 export default function* userSaga() {
-  yield all([fork(watchFaqPost), fork(watchFaqGet)]);
+  yield all([fork(watchFaqPost), fork(watchFaqGet), fork(watchFaqOneGet)]);
 }

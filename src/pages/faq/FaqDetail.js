@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "antd/dist/antd.css";
 import { Menu } from "antd";
 import {
@@ -8,13 +8,24 @@ import {
   FaqCategory,
   FaqBoardItem,
 } from "./style";
+import { useDispatch, useSelector } from "react-redux";
+import { faqOneGetRequestAction } from "../../reducers/faq";
 
 const { SubMenu } = Menu;
 
 // submenu keys of first level
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
-export default function FaqDetail() {
+const FaqDetail = ({ match }) => {
+  const data = match.params.id;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log("test");
+    dispatch(faqOneGetRequestAction(data));
+  }, []);
+
+  const { faqOne } = useSelector((state) => state.faq);
+  console.log("이게 디테일 데이터", faqOne);
   const [openKeys, setOpenKeys] = React.useState(["sub1"]);
 
   const onOpenChange = (keys) => {
@@ -82,13 +93,10 @@ export default function FaqDetail() {
               <div className="faq-detail-title">
                 <h3>무료인가요?</h3>
               </div>
-              <p>노마드 코더 전체 강의의 70% 이상이 무료입니다.</p>
-              <p>풀스택 및 일부 필수 강의의 경우 유료 결제하셔야 합니다.</p>
-              <p>
-                "Free Preview"를 클릭하시면 무료 맛보기 강의를 보실 수 있습니다.
-              </p>
+
+              <p>{faqOne.content}</p>
             </FaqBoardItem>
-            <FaqBoardItem>
+            {/* <FaqBoardItem>
               <div className="faq-detail-title">
                 <h3>강의별로 결제 합니다.</h3>
               </div>
@@ -142,10 +150,12 @@ export default function FaqDetail() {
                 영수증(카드전표)는 Dashboard &gt; My Payment History &gt;
                 Receipt 를 클릭하셔서 확인이 가능합니다.
               </p>
-            </FaqBoardItem>
+            </FaqBoardItem> */}
           </FaqBoardContainer>
         </FaqDetailBoard>
       </FaqDetailContainer>
     </>
   );
-}
+};
+
+export default FaqDetail;

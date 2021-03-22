@@ -9,6 +9,7 @@ export const initialState = {
   communityGetDone: false,
   communityGetError: null,
   communityList: null,
+  communityItem: null,
 };
 
 // 타입
@@ -19,6 +20,10 @@ export const COMMUNITY_POST_FAILURE = "COMMUNITY_POST_FAILURE";
 export const COMMUNITY_GET_REQUEST = "COMMUNITY_GET_REQUEST";
 export const COMMUNITY_GET_SUCCESS = "COMMUNITY_GET_SUCCESS";
 export const COMMUNITY_GET_FAILURE = "COMMUNITY_GET_FAILURE";
+
+export const COMMUNITY_ONE_GET_REQUEST = "COMMUNITY_ONE_GET_REQUEST";
+export const COMMUNITY_ONE_GET_SUCCESS = "COMMUNITY_ONE_GET_SUCCESS";
+export const COMMUNITY_ONE_GET_FAILURE = "COMMUNITY_ONE_GET_FAILURE";
 // 커뮤니티
 
 // 액션
@@ -33,6 +38,13 @@ export const communityPostRequestAction = (data) => {
 export const communityGetRequestAction = (data) => {
   return {
     type: COMMUNITY_GET_REQUEST,
+    data,
+  };
+};
+
+export const communityOneGetRequestAction = (data) => {
+  return {
+    type: COMMUNITY_ONE_GET_REQUEST,
     data,
   };
 };
@@ -72,6 +84,24 @@ const reducer = (state = initialState, action) => {
       case COMMUNITY_GET_FAILURE:
         draft.communityGetLoading = false;
         draft.communityGetError = action.error;
+        break;
+
+      // 1개 찾기
+      case COMMUNITY_ONE_GET_REQUEST:
+        draft.communityOneGetLoading = true;
+        draft.communityOneGetDone = false;
+        draft.communityOneGetError = null;
+        break;
+
+      case COMMUNITY_ONE_GET_SUCCESS:
+        draft.communityOneGetLoading = false;
+        draft.communityOneGetDone = true;
+        draft.communityOne = action.data;
+        break;
+
+      case COMMUNITY_ONE_GET_FAILURE:
+        draft.communityOneGetLoading = false;
+        draft.communityOneGetError = action.error;
         break;
 
       default:

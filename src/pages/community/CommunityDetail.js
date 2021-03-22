@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
@@ -10,8 +10,22 @@ import {
   CommunityBoardContainer,
   DetailContent,
 } from "./style";
+import { useDispatch, useSelector } from "react-redux";
+import { communityOneGetRequestAction } from "../../reducers/community";
 
-const CommunityDetail = () => {
+const CommunityDetail = ({ match }) => {
+  const data = match.params.id;
+  console.log("요놈이 데이타임", match);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("test");
+    dispatch(communityOneGetRequestAction(data));
+  }, []);
+
+  const { communityOne } = useSelector((state) => state.community);
+  console.log("이게 디테일 데이터", communityOne);
+
   return (
     <>
       <CommunityDetailContainer justify="center">
@@ -43,17 +57,23 @@ const CommunityDetail = () => {
                         d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
                       ></path>
                     </svg>
-                    <span>15</span>
+                    <span>
+                      {communityOne !== null ? communityOne.count : 0}
+                    </span>
                   </button>
                 </div>
                 <div className="Board-Body">
                   <div className="Board-Body-Title">
-                    유튜브 클론 챌린지 7기 졸업작품 및 후기입니다.
+                    {communityOne !== null ? communityOne.title : "Title"}
                   </div>
                   <div className="Board-Body-Info">
                     <div className="Info-Tag">
                       in &nbsp;
-                      <span>#to-do-list</span>
+                      <span>
+                        {communityOne !== null
+                          ? communityOne.category.title
+                          : "Category"}
+                      </span>
                     </div>
                     <div className="Info-Name">
                       by &nbsp;
@@ -71,10 +91,7 @@ const CommunityDetail = () => {
               </div>
               <DetailContent>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Suscipit quam quae nisi ut? Eaque ut corporis corrupti vero
-                  rerum? Nulla architecto quis molestias eligendi dignissimos
-                  fuga commodi ducimus, voluptates saepe.
+                  {communityOne !== null ? communityOne.content : "Content"}
                 </p>
               </DetailContent>
             </CommunityDetailItem>
