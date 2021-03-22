@@ -9,6 +9,9 @@ import {
   COMMUNITY_GET_FAILURE,
   COMMUNITY_GET_REQUEST,
   COMMUNITY_GET_SUCCESS,
+  COMMUNITY_ONE_GET_FAILURE,
+  COMMUNITY_ONE_GET_REQUEST,
+  COMMUNITY_ONE_GET_SUCCESS,
 } from "../reducers/community";
 
 function communityPostAPI(data) {
@@ -58,6 +61,29 @@ function* communityGet(action) {
   }
 }
 
+function communityOneGetAPI(data) {
+  console.log("여기실행되네?", data);
+  return axios.get(`/community/${data}`);
+}
+
+function* communityOneGet(action) {
+  try {
+    const result = yield call(communityOneGetAPI, action.data);
+    const data = result.data.data;
+    console.log(result);
+    console.log(data);
+    yield put({
+      type: COMMUNITY_ONE_GET_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: COMMUNITY_ONE_GET_FAILURE,
+      error: "로그인에 실패하였습니다.",
+    });
+  }
+}
+
 function* watchCommunityPost() {
   yield takeLatest(COMMUNITY_POST_REQUEST, communityPost);
 }
@@ -65,6 +91,15 @@ function* watchCommunityPost() {
 function* watchCommunityGet() {
   yield takeLatest(COMMUNITY_GET_REQUEST, communityGet);
 }
+
+function* watchCommunityOneGet() {
+  yield takeLatest(COMMUNITY_ONE_GET_REQUEST, communityOneGet);
+}
+
 export default function* userSaga() {
-  yield all([fork(watchCommunityPost), fork(watchCommunityGet)]);
+  yield all([
+    fork(watchCommunityPost),
+    fork(watchCommunityGet),
+    fork(watchCommunityOneGet),
+  ]);
 }

@@ -5,7 +5,7 @@ import { CommunityBoardItem } from "../pages/community/style";
 const CommunityItem = ({ list }) => {
   return (
     <>
-      <Link to="/community/1">
+      <Link to={`/communityDetail/${list.id}`}>
         <CommunityBoardItem size="large">
           <div className="Board-Fav">
             <button>
@@ -32,11 +32,11 @@ const CommunityItem = ({ list }) => {
             <div className="Board-Body-Info">
               <div className="Info-Tag">
                 in &nbsp;
-                <span>#{list.category}</span>
+                <span>#{list.category.title}</span>
               </div>
               <div className="Info-Name">
                 by &nbsp;
-                <span>{list.user.name}</span>
+                <span> {list.user !== null ? list.user.name : null}</span>
               </div>
               <div className="Info-Date">
                 &#8226; &nbsp;
@@ -45,7 +45,7 @@ const CommunityItem = ({ list }) => {
               <div className="Info-Reply">
                 &#8226; &nbsp;
                 <span>💬</span>
-                <b>1</b>
+                <b>{list.replys.length}</b>
               </div>
             </div>
           </div>

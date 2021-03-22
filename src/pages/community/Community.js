@@ -16,14 +16,16 @@ import {
 
 const Community = () => {
   const [category, setCategory] = useState("");
-  const { communityList } = useSelector((state) => state.community);
-  console.log("정보는? ", communityList);
+  // 셀렉트기능. 리듀서 상태값 가져옴.
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(communityGetRequestAction(category));
-  }, [dispatch, category]);
+    console.log("몇번실행되?");
+  }, []);
 
+  const { communityList } = useSelector((state) => state.community);
+  console.log("정보는? ", communityList);
   return (
     <>
       <PageHero>

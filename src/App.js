@@ -38,12 +38,12 @@ const App = () => {
               <Route path="/challenges" exact={true} component={Challenges} />
               <Route path="/community" exact={true} component={Community} />
               <Route
-                path="/community/:id"
+                path="/communityDetail/:id"
                 exact={true}
                 component={CommunityDetail}
               />
               <Route path="/faq" exact={true} component={FAQ} />
-              <Route path="/faq-detail" exact={true} component={FaqDetail} />
+              <Route path="/faq/:id" exact={true} component={FaqDetail} />
               <Route path="/write" exact={true} component={Write} />
               <Route path="/dashboard" exact={true} component={DashBoard} />
               <Route
