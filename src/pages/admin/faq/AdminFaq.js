@@ -17,7 +17,7 @@ const AdminFaq = ({ history }) => {
     dispatch(faqPostRequestAction(data));
   };
 
-  const { faqPostDone, faqPostLoading } = useSelector((state) => state.faq);
+  const { faqPostLoading } = useSelector((state) => state.faq);
 
   return (
     <>

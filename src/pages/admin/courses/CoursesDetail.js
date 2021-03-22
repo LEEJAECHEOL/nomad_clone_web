@@ -1,10 +1,6 @@
-import { Button, Checkbox, Col, Form, Input, Row, Select, Upload } from "antd";
+import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
 import React, { memo, useCallback, useState } from "react";
-import {
-  MinusCircleOutlined,
-  PlusOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import InputColor from "../../../components/adminCourses/InputColor";
 import TextArea from "antd/lib/input/TextArea";
 import {
@@ -16,7 +12,6 @@ import {
   BasicCard,
   MyCard2,
   MyCard3,
-  ImageUpload,
   MyRow,
   SimpleInfoRow,
 } from "./style";
@@ -27,13 +22,6 @@ import { coursesPostRequestAction } from "../../../reducers/admin/courses/course
 
 const { Option } = Select;
 
-const normFile = (e) => {
-  console.log("Upload event:", e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
 const CoursesDetail = memo(() => {
   const [background, setBackground] = useState("#fff"); // 배경색
   const [textColor, setTextColor] = useState("#000"); // 배경 바뀐 글자 색

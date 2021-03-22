@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PageHero } from "../../components/style";
 import { Button, Form, Input, Select } from "antd";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -16,9 +16,7 @@ const Write = ({ history }) => {
     dispatch(communityPostRequestAction(data));
   };
 
-  const { communityPostDone, communityPostLoading } = useSelector(
-    (state) => state.community
-  );
+  const { communityPostLoading } = useSelector((state) => state.community);
 
   return (
     <>
