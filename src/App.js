@@ -21,6 +21,8 @@ import EditProfile from "./pages/user/EditProfile";
 import UploadTest from "./pages/test/UploadTest";
 import CoursesDetail from "./pages/admin/courses/CoursesDetail";
 import AdminFaq from "./pages/admin/faq/AdminFaq";
+import FolderList from "./pages/admin/video/FolderList";
+import FolderDetail from "./pages/admin/video/FolderDetail";
 const App = () => {
   return (
     <>
@@ -53,6 +55,12 @@ const App = () => {
               />
               <Route path="/upload" exact={true} component={UploadTest} />
               <Route path="/adminFaq" exact={true} component={AdminFaq} />
+              <Route path="/admin/video" exact={true} component={FolderList} />
+              <Route
+                path="/admin/video/:id"
+                exact={true}
+                component={FolderDetail}
+              />
             </Switch>
           </Col>
           <Col xs={1} sm={1} md={2} lg={2} xl={3}></Col>
