@@ -96,7 +96,7 @@ const reducer = (state = initialState, action) => {
       case FAQ_ONE_GET_SUCCESS:
         draft.faqOneGetLoading = false;
         draft.faqOneGetDone = true;
-        draft.faqOne = action.data;
+        draft.faqItem = action.data;
         break;
 
       case FAQ_ONE_GET_FAILURE:

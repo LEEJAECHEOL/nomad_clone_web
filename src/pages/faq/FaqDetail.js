@@ -24,8 +24,7 @@ const FaqDetail = ({ match }) => {
     dispatch(faqOneGetRequestAction(data));
   }, []);
 
-  const { faqOne } = useSelector((state) => state.faq);
-  console.log("이게 디테일 데이터", faqOne);
+  const { faqItem } = useSelector((state) => state.faq);
   const [openKeys, setOpenKeys] = React.useState(["sub1"]);
 
   const onOpenChange = (keys) => {
@@ -36,6 +35,7 @@ const FaqDetail = ({ match }) => {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
+  console.log("이게 디테일 데이터", faqItem);
 
   return (
     <>
@@ -94,7 +94,7 @@ const FaqDetail = ({ match }) => {
                 <h3>무료인가요?</h3>
               </div>
 
-              <p>{faqOne.content}</p>
+              <p>{faqItem.content}</p>
             </FaqBoardItem>
             {/* <FaqBoardItem>
               <div className="faq-detail-title">
