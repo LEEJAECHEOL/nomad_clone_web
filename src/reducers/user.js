@@ -8,7 +8,6 @@ export const initialState = {
   logOutLoading: false, // 로그인 시도중 -> 로딩창 띄움
   logOutDone: false,
   logOutError: null,
-
   principal: null,
 };
 

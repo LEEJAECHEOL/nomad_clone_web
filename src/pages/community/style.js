@@ -161,6 +161,23 @@ export const CommunityDetailBack = styled(CommunityCategory)`
   }
 `;
 
+export const CommunityReplyBoxContainer = styled.div`
+  width: 100%;
+  margin-top: 100px;
+`;
+
+export const CommunityReplyCounter = styled.div`
+  padding: 32px 0;
+  span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4b5563;
+    b {
+      margin-right: 5px;
+    }
+  }
+`;
+
 export const CommunityDetailItem = styled(Card)`
   width: 100%;
   padding: 20px;

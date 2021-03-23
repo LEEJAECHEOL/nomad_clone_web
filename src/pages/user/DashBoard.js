@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   BadgeBox,
@@ -9,6 +9,8 @@ import {
   ProfileButtonBox,
 } from "./style";
 import { Tabs } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { dashBoadrGetRequestAction } from "../../reducers/dashboard";
 
 const { TabPane } = Tabs;
 
@@ -16,7 +18,17 @@ function callback(key) {
   console.log(key);
 }
 
-const Dashboard = () => {
+const Dashboard = ({ match }) => {
+  const data = match.params.id;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("유즈이펙트 발동?");
+    dispatch(dashBoadrGetRequestAction(data));
+  }, []);
+  const { dashBoardItem } = useSelector((state) => state.dashboard);
+
+  console.log("유저 디테일 데이터", dashBoardItem);
   return (
     <>
       <DashBoardContainer>
@@ -37,17 +49,22 @@ const Dashboard = () => {
                 <div className="UserInfoName">
                   <div className="Name">
                     <p>Name</p>
-                    <h3>DongTaeWan</h3>
+                    <h3>
+                      {dashBoardItem !== null ? dashBoardItem.name : "몰라"}
+                    </h3>
                   </div>
                   <div className="UserName">
                     <p>Username</p>
-                    <h3>dongtae07</h3>
+                    <h3>
+                      {dashBoardItem !== null ? dashBoardItem.username : "몰라"}
+                    </h3>
                   </div>
                 </div>
               </div>
               <ProfileButtonBox>
-                <Link>Edit profile</Link>
-                <Link className="btn-blue">Edit profile</Link>
+                <Link to={`/editProfile/${data}`} className="btn-blue">
+                  Edit profile
+                </Link>
               </ProfileButtonBox>
             </div>
             <LevelBox>

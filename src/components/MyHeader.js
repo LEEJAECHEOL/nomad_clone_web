@@ -11,6 +11,7 @@ const MyHeader = () => {
   const logout = () => {
     dispatch(logoutRequestAction());
   };
+  console.log(principal);
   return (
     <>
       <Header>
@@ -42,7 +43,9 @@ const MyHeader = () => {
               {principal ? (
                 <>
                   <Menu.Item className="header_right" key="6">
-                    <Link to="/dashboard">{principal.name}</Link>
+                    <Link to={`/dashboard/${principal.id}`}>
+                      {principal.name}
+                    </Link>
                   </Menu.Item>
                   <Menu.Item key="7" onClick={logout}>
                     Logout

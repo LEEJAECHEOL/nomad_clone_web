@@ -33,8 +33,8 @@ const Write = ({ history }) => {
         </Form.Item>
 
         {/* 셀렉터 */}
-        <Form.Item name="category">
-          <Select name="category" placeholder="카테고리 고르기">
+        <Form.Item name="categoryId">
+          <Select name="categoryId" placeholder="카테고리 고르기">
             <Select.Option value="1">#to-do-list</Select.Option>
             <Select.Option value="2">#javascript</Select.Option>
             <Select.Option value="3">#bla-bla</Select.Option>

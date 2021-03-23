@@ -39,8 +39,8 @@ function* communityPost(action) {
   }
 }
 
-function communityGetAPI(data) {
-  return axios.get(`/community/${data}`);
+function communityGetAPI() {
+  return axios.get(`/community`);
 }
 
 function* communityGet(action) {
@@ -96,7 +96,7 @@ function* watchCommunityOneGet() {
   yield takeLatest(COMMUNITY_ONE_GET_REQUEST, communityOneGet);
 }
 
-export default function* userSaga() {
+export default function* communitySaga() {
   yield all([
     fork(watchCommunityPost),
     fork(watchCommunityGet),

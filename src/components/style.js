@@ -126,3 +126,35 @@ export const PageHero = styled.div`
     color: #6b7280;
   }
 `;
+
+export const CommunityReplyCard = styled.div`
+  padding: 12px 12px 20px;
+  margin-bottom: 20px;
+
+  display: flex;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  .ReplyItemLeft {
+    margin-right: 10px;
+  }
+  .ReplyItemRight {
+    width: 100%;
+  }
+  .ReplyItemRightHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .ReplyItemRightUserInfo {
+      span {
+        margin-right: 10px;
+        color: #4b5563;
+      }
+      img {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+    }
+  }
+`;
