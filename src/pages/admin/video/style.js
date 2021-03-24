@@ -24,11 +24,48 @@ export const ModalForm = styled(Form)`
   > div:last-child button:first-child {
     margin-right: 5px;
   }
+  .form_hidden {
+    height: 1px;
+    margin-bottom: 0;
+  }
 `;
-export const CurriculumCard = styled(Card)`
+export const CurriculumListCard = styled(Card)`
   text-align: center;
   margin-top: 20px;
   .ant-card-head-title {
     font-size: 2rem;
+  }
+`;
+export const CurriculumCard = styled(Card)`
+  margin-top: 20px;
+  .ant-card-head-title {
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px;
+  }
+  .ant-card-body {
+    padding: 20px;
+    padding-top: 0;
+  }
+  .ant-card-body > button {
+    float: right;
+  }
+  .ant-spin-container li strong {
+    font-size: 1.3rem;
+  }
+  .ant-spin-container li span:hover {
+    cursor: pointer;
+  }
+  .ant-spin-container li svg {
+    margin: 0 10px 0 5px;
+  }
+`;
+export const CautionsCard = styled(Card)`
+  p {
+    padding: 0;
+    margin: 0;
+    color: #aaa;
   }
 `;

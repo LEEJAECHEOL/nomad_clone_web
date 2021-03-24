@@ -1,5 +1,5 @@
 import { FolderOutlined } from "@ant-design/icons";
-import { Button, Card, List } from "antd";
+import { Button, List } from "antd";
 import React, { memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ const FolderListItem = memo(({ folder }) => {
       vimeoFolderId: folder.vimeoFolderId,
     };
     dispatch(videoFolderDeleteRequestAction(data));
-  }, []);
+  }, [dispatch, folder.id, folder.vimeoFolderId]);
 
   return (
     <>
