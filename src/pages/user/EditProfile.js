@@ -1,7 +1,7 @@
-import { Input, Form, Button, Select } from "antd";
-import Checkbox from "antd/lib/checkbox/Checkbox";
-import { Option } from "antd/lib/mentions";
-import React from "react";
+import { Input, Form, Button } from "antd";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { dashBoadrGetRequestAction } from "../../reducers/dashboard";
 import {
   AccountInfromation,
   AccountInfromationCol,
@@ -12,7 +12,29 @@ import {
   DeleteAccountCol,
 } from "./style";
 
-export default function EditProfile() {
+export default function EditProfile({ match }) {
+  const initial = { username: "", name: "", email: "" };
+
+  const userId = match.params.id;
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+
+  const { dashBoardItem } = useSelector((state) => state.dashboard);
+
+  useEffect(() => {
+    console.log("유즈이펙트 발동?");
+    dispatch(dashBoadrGetRequestAction(userId));
+    form.setFieldsValue({ username: dashBoardItem.username });
+    form.setFieldsValue({ name: dashBoardItem.name });
+    form.setFieldsValue({ email: dashBoardItem.email });
+  }, []);
+
+  const onSubmit = (values) => {
+    const data = { ...values };
+    console.log("post데이터는?", data);
+    // dispatch(communityPostRequestAction(data));
+  };
+
   return (
     <>
       <EditProfileContainer>
@@ -24,12 +46,16 @@ export default function EditProfile() {
 
           {/* 언카운트 정보박스 오른쪽 */}
           <AccountInfromationColInput span={16}>
-            <Form className="ant-form-vertical">
+            <Form
+              className="ant-form-vertical"
+              form={form}
+              initialValues={initial}
+            >
               <AccountInputBox>
-                <Form.Item label="Username">
-                  <Input />
+                <Form.Item label="Username" name="username">
+                  <Input readOnly />
                 </Form.Item>
-                <Form.Item label="Name">
+                <Form.Item label="Name" name="name">
                   <Input />
                 </Form.Item>
               </AccountInputBox>
@@ -41,15 +67,20 @@ export default function EditProfile() {
             </Form>
           </AccountInfromationColInput>
         </AccountInfromation>
+
         {/* 메일박스 */}
         <AccountInfromation>
           <AccountInfromationCol span={8}>
             <h2>Email</h2>
           </AccountInfromationCol>
           <AccountInfromationColInput span={16}>
-            <Form className="ant-form-vertical">
+            <Form
+              className="ant-form-vertical"
+              form={form}
+              initialValues={initial}
+            >
               <EmailInputBox>
-                <Form.Item label="Email">
+                <Form.Item label="Email" name="email">
                   <Input />
                 </Form.Item>
                 <Form.Item className="AccountUpdate">
@@ -69,7 +100,12 @@ export default function EditProfile() {
           <AccountInfromationColInput span={16}>
             <Form className="ant-form-vertical">
               <EmailInputBox>
-                <Form.Item label="Avatar"></Form.Item>
+                <Form.Item label="Avatar">
+                  <img
+                    src={dashBoardItem !== null ? dashBoardItem.imageUrl : ""}
+                    alt=""
+                  />
+                </Form.Item>
                 <Form.Item className="AccountUpdate">
                   <Button type="primary" htmlType="submit">
                     Chage Image

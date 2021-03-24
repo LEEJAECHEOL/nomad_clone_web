@@ -11,23 +11,35 @@ import {
   CommunityReplyBoxContainer,
   DetailContent,
   CommunityReplyCounter,
+  ReplyInputForm,
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { communityOneGetRequestAction } from "../../reducers/community";
 import CommunityReplyItem from "../../components/CommunityReplyItem";
+import ReactHtmlParser from "react-html-parser";
+import { Button, Form } from "antd";
+import { Input } from "antd";
+import { replyPostRequestAction } from "../../reducers/reply";
 
 const CommunityDetail = ({ match }) => {
-  const data = match.params.id;
-
+  const comId = match.params.id;
+  console.log("매치는?", match);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("유즈이펙트 발동?");
-    dispatch(communityOneGetRequestAction(data));
+    dispatch(communityOneGetRequestAction(comId));
   }, []);
 
-  const { communityItem } = useSelector((state) => state.community);
+  // 댓글 서브밋
+  const onSubmit = (values) => {
+    const data = { ...values, comId };
+    console.log("댓글", data);
+    dispatch(replyPostRequestAction(data));
+  };
 
+  const { communityItem } = useSelector((state) => state.community);
+  const { replyPostLoading } = useSelector((state) => state.reply);
   console.log("이게 디테일 데이터", communityItem);
 
   return (
@@ -81,24 +93,52 @@ const CommunityDetail = ({ match }) => {
                     </div>
                     <div className="Info-Name">
                       by &nbsp;
-                      <span>username</span>
+                      <span>
+                        {communityItem !== null
+                          ? communityItem.user.name
+                          : "Title"}
+                      </span>
                     </div>
                     <div className="Info-Date">
                       &#8226; &nbsp;
-                      <span>createdate</span>
+                      <span>
+                        {communityItem !== null ? communityItem.createDate : ""}
+                      </span>
                     </div>
                   </div>
                 </div>
                 <div className="Board-UserImg">
-                  <img src="./images/userImage.jpg" alt="" />
+                  <img
+                    src={
+                      communityItem !== null ? communityItem.user.imageUrl : ""
+                    }
+                    alt=""
+                  />
                 </div>
               </div>
               <DetailContent>
                 <p>
-                  {communityItem !== null ? communityItem.content : "Content"}
+                  {communityItem !== null
+                    ? ReactHtmlParser(communityItem.content)
+                    : "Content"}
                 </p>
               </DetailContent>
             </CommunityDetailItem>
+            {/* 여기 댓글 작성 폼 */}
+            <ReplyInputForm onFinish={onSubmit}>
+              <Form.Item name="content">
+                <Input.TextArea />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={replyPostLoading}
+                >
+                  Submit
+                </Button>
+              </Form.Item>
+            </ReplyInputForm>
             {/* 여기 영역에  댓글박스*/}
             <CommunityReplyBoxContainer>
               <CommunityReplyCounter>

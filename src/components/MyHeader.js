@@ -40,6 +40,12 @@ const MyHeader = () => {
               <Menu.Item key="5">
                 <Link to="/faq">FAQ</Link>
               </Menu.Item>
+              <Menu.Item key="6">
+                <Link to="/adminFaqList">AFL</Link>
+              </Menu.Item>
+              <Menu.Item key="7">
+                <Link to="/adminFaqSave">AFS</Link>
+              </Menu.Item>
               {principal ? (
                 <>
                   <Menu.Item className="header_right" key="6">

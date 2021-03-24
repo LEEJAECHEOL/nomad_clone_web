@@ -10,6 +10,7 @@ import {
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { faqOneGetRequestAction } from "../../reducers/faq";
+import ReactHtmlParser from "react-html-parser";
 
 const { SubMenu } = Menu;
 
@@ -102,7 +103,7 @@ const FaqDetail = ({ match }) => {
                 <h3>{faqItem !== null ? faqItem.title : "Title"}</h3>
               </div>
 
-              <p>{faqItem !== null ? faqItem.content : "Content"}</p>
+              {faqItem !== null ? ReactHtmlParser(faqItem.content) : "Content"}
             </FaqBoardItem>
             {/* <FaqBoardItem>
               <div className="faq-detail-title">
