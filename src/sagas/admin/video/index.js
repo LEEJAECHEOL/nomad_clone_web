@@ -11,6 +11,9 @@ import {
   VIDEO_FOLDER_DELETE_SUCCESS,
   VIDEO_FOLDER_DELETE_REQUEST,
   VIDEO_FOLDER_DELETE_FAILURE,
+  VIDEO_POST_REQUEST,
+  VIDEO_POST_SUCCESS,
+  VIDEO_POST_FAILURE,
 } from "../../../reducers/admin/video/";
 
 function vimeoCreateFolder(data) {
@@ -38,8 +41,6 @@ function vimeoDeleteFolder(data) {
     headers: headerDelete,
   });
 }
-function vimeoUpload(data) {}
-function vimeoMoveFolder(data) {}
 
 function videoFolderPostAPI(data) {
   const config = {
@@ -58,6 +59,7 @@ function* videoFolderPost(action) {
     data.vimeoFolderId = folderId;
 
     const result = yield call(videoFolderPostAPI, data);
+
     yield put({
       type: VIDEO_FOLDER_POST_SUCCESS,
       data: result.data.data,
@@ -117,6 +119,30 @@ function* videoFolderDelete(action) {
   }
 }
 
+function videoPostAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.post("/admin/video", JSON.stringify(data), config);
+}
+function* videoPost(action) {
+  try {
+    const result = yield call(videoPostAPI, action.data);
+    console.log(result);
+    // yield put({
+    //   type: VIDEO_POST_SUCCESS,
+    //   data: result.data.data,
+    // });
+  } catch (err) {
+    // yield put({
+    //   type: VIDEO_POST_FAILURE,
+    //   error: "폴더 등록에 실패하였습니다.",
+    // });
+  }
+}
+
 function* watchVideoFolderAllGet() {
   yield takeLatest(VIDEO_FOLDER_ALL_GET_REQUEST, videoFolderAllGet);
 }
@@ -129,10 +155,15 @@ function* watchVideoFolderDelete() {
   yield takeLatest(VIDEO_FOLDER_DELETE_REQUEST, videoFolderDelete);
 }
 
+function* watchVideoPost() {
+  yield takeLatest(VIDEO_POST_REQUEST, videoPost);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchVideoFolderPost),
     fork(watchVideoFolderAllGet),
     fork(watchVideoFolderDelete),
+    fork(watchVideoPost),
   ]);
 }

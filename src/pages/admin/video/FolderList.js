@@ -1,15 +1,12 @@
-import { FolderOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Input, List, Modal } from "antd";
+import { Button, Form, Input, Modal } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 import {
   videoFolderPostRequestAction,
   videoFolderAllGetRequestAction,
 } from "../../../reducers/admin/video";
 import FolderListItem from "../../../components/FolderListItem";
-import { CurriculumCard, ModalForm, VideoList } from "./style";
+import { CurriculumListCard, ModalForm, VideoList } from "./style";
 
 const FolderList = () => {
   const dispatch = useDispatch();
@@ -28,11 +25,11 @@ const FolderList = () => {
   const handleCancel = useCallback(() => {
     setIsModalVisible(false);
     form.setFieldsValue({ name: "" });
-  }, []);
+  }, [form]);
 
-  const onFinish = () => {
+  const onFinish = useCallback(() => {
     dispatch(videoFolderPostRequestAction(form.getFieldValue()));
-  };
+  }, [dispatch, form]);
 
   useEffect(() => {
     dispatch(videoFolderAllGetRequestAction());
@@ -42,15 +39,11 @@ const FolderList = () => {
     if (videoFolderPostDone) {
       handleCancel();
     }
-  }, [videoFolderPostDone]);
-
-  const onClickDelete = (data) => {
-    console.log(data);
-  };
+  }, [videoFolderPostDone, handleCancel]);
 
   return (
     <>
-      <CurriculumCard title="Curriculum List" bordered={false}>
+      <CurriculumListCard title="Curriculum List" bordered={false}>
         <VideoList>
           {videoFolderList !== null
             ? videoFolderList.map((folder) => (
@@ -94,7 +87,7 @@ const FolderList = () => {
             </Form.Item>
           </ModalForm>
         </Modal>
-      </CurriculumCard>
+      </CurriculumListCard>
     </>
   );
 };
