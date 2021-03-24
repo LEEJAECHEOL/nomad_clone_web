@@ -21,6 +21,7 @@ export default function EditProfile() {
           <AccountInfromationCol span={8}>
             <h2>Account Infromation</h2>
           </AccountInfromationCol>
+
           {/* 언카운트 정보박스 오른쪽 */}
           <AccountInfromationColInput span={16}>
             <Form className="ant-form-vertical">
@@ -31,21 +32,7 @@ export default function EditProfile() {
                 <Form.Item label="Name">
                   <Input />
                 </Form.Item>
-                <Form.Item label="Github Username">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Language">
-                  <Select placeholder="Language">
-                    <Option value="male">Korean</Option>
-                    <Option value="female">English</Option>
-                  </Select>
-                </Form.Item>
               </AccountInputBox>
-              <Form.Item name="remember" valuePropName="checked">
-                <Checkbox>
-                  I agree to the Email Marketing Policy (optional)
-                </Checkbox>
-              </Form.Item>
               <Form.Item className="AccountUpdate">
                 <Button type="primary" htmlType="submit">
                   Submit
@@ -85,7 +72,7 @@ export default function EditProfile() {
                 <Form.Item label="Avatar"></Form.Item>
                 <Form.Item className="AccountUpdate">
                   <Button type="primary" htmlType="submit">
-                    Chage email
+                    Chage Image
                   </Button>
                 </Form.Item>
               </EmailInputBox>
@@ -105,14 +92,9 @@ export default function EditProfile() {
                   After you delete your account no one will be able to recover
                   it.
                 </p>
-                <Form.Item name="remember" valuePropName="checked">
-                  <Checkbox>
-                    I agree to the Email Marketing Policy (optional)
-                  </Checkbox>
-                </Form.Item>
                 <Form.Item className="AccountUpdate">
                   <Button type="primary" htmlType="submit">
-                    Chage email
+                    Delete
                   </Button>
                 </Form.Item>
               </EmailInputBox>

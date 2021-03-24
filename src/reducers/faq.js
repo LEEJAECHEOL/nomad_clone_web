@@ -5,9 +5,15 @@ export const initialState = {
   faqPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqPostDone: false,
   faqPostError: null,
+  faqUpdateLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  faqUpdateDone: false,
+  faqUpdateError: null,
   faqGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqGetDone: false,
   faqGetError: null,
+  faqOneGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  faqOneGetDone: false,
+  faqOneGetError: null,
   faqList: null,
   faqItem: null,
 };
@@ -16,6 +22,10 @@ export const initialState = {
 export const FAQ_POST_REQUEST = "FAQ_POST_REQUEST";
 export const FAQ_POST_SUCCESS = "FAQ_POST_SUCCESS";
 export const FAQ_POST_FAILURE = "FAQ_POST_FAILURE";
+
+export const FAQ_UPDATE_REQUEST = "FAQ_UPDATE_REQUEST";
+export const FAQ_UPDATE_SUCCESS = "FAQ_UPDATE_SUCCESS";
+export const FAQ_UPDATE_FAILURE = "FAQ_UPDATE_FAILURE";
 
 export const FAQ_GET_REQUEST = "FAQ_GET_REQUEST";
 export const FAQ_GET_SUCCESS = "FAQ_GET_SUCCESS";
@@ -32,6 +42,14 @@ export const faqPostRequestAction = (data) => {
   return {
     type: FAQ_POST_REQUEST,
     data,
+  };
+};
+
+export const faqUpdateRequestAction = (faqId, data) => {
+  return {
+    type: FAQ_UPDATE_REQUEST,
+    data,
+    faqId,
   };
 };
 
@@ -52,6 +70,7 @@ export const faqOneGetRequestAction = (data) => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      // post
       case FAQ_POST_REQUEST:
         draft.faqPostLoading = true;
         draft.faqPostDone = false;
@@ -66,6 +85,23 @@ const reducer = (state = initialState, action) => {
       case FAQ_POST_FAILURE:
         draft.faqPostLoading = false;
         draft.faqPostError = action.error;
+        break;
+
+      // update
+      case FAQ_UPDATE_REQUEST:
+        draft.faqUpdateLoading = true;
+        draft.faqUpdateDone = false;
+        draft.faqUpdateError = null;
+        break;
+
+      case FAQ_UPDATE_SUCCESS:
+        draft.faqUpdateLoading = false;
+        draft.faqUpdateDone = true;
+        break;
+
+      case FAQ_UPDATE_FAILURE:
+        draft.faqUpdateLoading = false;
+        draft.faqUpdateError = action.error;
         break;
 
       // get
@@ -96,7 +132,7 @@ const reducer = (state = initialState, action) => {
       case FAQ_ONE_GET_SUCCESS:
         draft.faqOneGetLoading = false;
         draft.faqOneGetDone = true;
-        draft.faqOne = action.data;
+        draft.faqItem = action.data;
         break;
 
       case FAQ_ONE_GET_FAILURE:

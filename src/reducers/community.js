@@ -96,7 +96,7 @@ const reducer = (state = initialState, action) => {
       case COMMUNITY_ONE_GET_SUCCESS:
         draft.communityOneGetLoading = false;
         draft.communityOneGetDone = true;
-        draft.communityOne = action.data;
+        draft.communityItem = action.data;
         break;
 
       case COMMUNITY_ONE_GET_FAILURE:

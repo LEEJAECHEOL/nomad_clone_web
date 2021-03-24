@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
@@ -8,23 +8,27 @@ import {
   CommunityWrite,
   CommunityDetailItem,
   CommunityBoardContainer,
+  CommunityReplyBoxContainer,
   DetailContent,
+  CommunityReplyCounter,
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { communityOneGetRequestAction } from "../../reducers/community";
+import CommunityReplyItem from "../../components/CommunityReplyItem";
 
 const CommunityDetail = ({ match }) => {
   const data = match.params.id;
-  console.log("요놈이 데이타임", match);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("test");
+    console.log("유즈이펙트 발동?");
     dispatch(communityOneGetRequestAction(data));
   }, []);
 
-  const { communityOne } = useSelector((state) => state.community);
-  console.log("이게 디테일 데이터", communityOne);
+  const { communityItem } = useSelector((state) => state.community);
+
+  console.log("이게 디테일 데이터", communityItem);
 
   return (
     <>
@@ -58,20 +62,20 @@ const CommunityDetail = ({ match }) => {
                       ></path>
                     </svg>
                     <span>
-                      {communityOne !== null ? communityOne.count : 0}
+                      {communityItem !== null ? communityItem.count : 0}
                     </span>
                   </button>
                 </div>
                 <div className="Board-Body">
                   <div className="Board-Body-Title">
-                    {communityOne !== null ? communityOne.title : "Title"}
+                    {communityItem !== null ? communityItem.title : "Title"}
                   </div>
                   <div className="Board-Body-Info">
                     <div className="Info-Tag">
                       in &nbsp;
                       <span>
-                        {communityOne !== null
-                          ? communityOne.category.title
+                        {communityItem !== null
+                          ? communityItem.category.title
                           : "Category"}
                       </span>
                     </div>
@@ -91,10 +95,31 @@ const CommunityDetail = ({ match }) => {
               </div>
               <DetailContent>
                 <p>
-                  {communityOne !== null ? communityOne.content : "Content"}
+                  {communityItem !== null ? communityItem.content : "Content"}
                 </p>
               </DetailContent>
             </CommunityDetailItem>
+            {/* 여기 영역에  댓글박스*/}
+            <CommunityReplyBoxContainer>
+              <CommunityReplyCounter>
+                <span>
+                  <b>
+                    {communityItem !== null
+                      ? communityItem.replys.length
+                      : "zz"}
+                  </b>
+                  comments
+                </span>
+              </CommunityReplyCounter>
+              {communityItem !== null
+                ? communityItem.replys.map((list) => (
+                    <>
+                      <CommunityReplyItem list={list} />
+                    </>
+                  ))
+                : null}
+              {/* <CommunityReplyItem /> */}
+            </CommunityReplyBoxContainer>
           </CommunityBoardContainer>
         </CommunityBoard>
         {/* 글쓰기 버튼 */}

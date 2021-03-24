@@ -17,15 +17,21 @@ const { SubMenu } = Menu;
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
 const FaqDetail = ({ match }) => {
+  // 아이디값
   const data = match.params.id;
+
+  // 디스패쳐
   const dispatch = useDispatch();
+
+  // 아이템
+  const { faqItem } = useSelector((state) => state.faq);
+
+  // 유즈이펙트 실행됨?
   useEffect(() => {
-    console.log("test");
+    console.log("여기 실행되나요?");
     dispatch(faqOneGetRequestAction(data));
   }, []);
 
-  const { faqOne } = useSelector((state) => state.faq);
-  console.log("이게 디테일 데이터", faqOne);
   const [openKeys, setOpenKeys] = React.useState(["sub1"]);
 
   const onOpenChange = (keys) => {
@@ -36,6 +42,8 @@ const FaqDetail = ({ match }) => {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
+
+  console.log("이게 디테일 데이터", faqItem);
 
   return (
     <>
@@ -91,10 +99,10 @@ const FaqDetail = ({ match }) => {
           <FaqBoardContainer>
             <FaqBoardItem>
               <div className="faq-detail-title">
-                <h3>무료인가요?</h3>
+                <h3>{faqItem !== null ? faqItem.title : "Title"}</h3>
               </div>
 
-              <p>{faqOne.content}</p>
+              <p>{faqItem !== null ? faqItem.content : "Content"}</p>
             </FaqBoardItem>
             {/* <FaqBoardItem>
               <div className="faq-detail-title">

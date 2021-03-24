@@ -20,9 +20,11 @@ import DashBoard from "./pages/user/DashBoard";
 import EditProfile from "./pages/user/EditProfile";
 import UploadTest from "./pages/test/UploadTest";
 import CoursesDetail from "./pages/admin/courses/CoursesDetail";
-import AdminFaq from "./pages/admin/faq/AdminFaq";
+import AdminFaqSave from "./pages/admin/faq/AdminFaqSave";
+import AdminFaqList from "./pages/admin/faq/AdminFaqList";
 import FolderList from "./pages/admin/video/FolderList";
 import FolderDetail from "./pages/admin/video/FolderDetail";
+import AdminFaqUpdate from "./pages/admin/faq/AdminFaqUpdate";
 const App = () => {
   return (
     <>
@@ -47,14 +49,28 @@ const App = () => {
               <Route path="/faq" exact={true} component={FAQ} />
               <Route path="/faq/:id" exact={true} component={FaqDetail} />
               <Route path="/write" exact={true} component={Write} />
-              <Route path="/dashboard" exact={true} component={DashBoard} />
+              <Route path="/dashboard/:id" exact={true} component={DashBoard} />
               <Route
-                path="/edit-profile"
+                path="/editProfile/:id"
                 exact={true}
                 component={EditProfile}
               />
               <Route path="/upload" exact={true} component={UploadTest} />
-              <Route path="/adminFaq" exact={true} component={AdminFaq} />
+              <Route
+                path="/adminFaqSave"
+                exact={true}
+                component={AdminFaqSave}
+              />
+              <Route
+                path="/adminFaqList"
+                exact={true}
+                component={AdminFaqList}
+              />
+              <Route
+                path="/adminFaqUpdate/:id"
+                exact={true}
+                component={AdminFaqUpdate}
+              />
               <Route path="/admin/video" exact={true} component={FolderList} />
               <Route
                 path="/admin/video/:id"

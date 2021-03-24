@@ -4,6 +4,7 @@ import { connectRouter } from "connected-react-router";
 import user from "./user";
 import community from "./community";
 import faq from "./faq";
+import dashboard from "./dashboard";
 import adminCourses from "./admin/courses/courses";
 import adminVideo from "./admin/video/";
 
@@ -19,6 +20,7 @@ const rootReducer = (history) =>
     user,
     community,
     faq,
+    dashboard,
     adminCourses,
     adminVideo,
   });

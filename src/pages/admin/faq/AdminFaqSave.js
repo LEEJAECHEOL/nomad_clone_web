@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { faqPostRequestAction } from "../../../reducers/faq";
 
 const AdminFaq = ({ history }) => {
-  const [content, setContet] = useState("");
+  const [content, setContent] = useState("");
 
   const dispatch = useDispatch();
 
@@ -24,22 +24,16 @@ const AdminFaq = ({ history }) => {
       <AdminFaqContainer>
         <WriteForm onFinish={onSubmit}>
           {/* 셀렉터 */}
-          <Form.Item name="category">
-            <Select name="category" placeholder="카테고리 고르기">
-              <Select.Option value="노마드 아카데미">
-                노마드아카데미
-              </Select.Option>
-              <Select.Option value="노마드 챌린지">노마드 챌린지</Select.Option>
-              <Select.Option value="졸업작품 및 후기">
-                졸업작품 및 후기
-              </Select.Option>
-              <Select.Option value="노마드 커뮤니티">
-                노마드 커뮤니티
-              </Select.Option>
+          <Form.Item name="categoryId">
+            <Select name="categoryId" placeholder="카테고리 고르기">
+              <Select.Option value="1">노마드아카데미</Select.Option>
+              <Select.Option value="2">노마드 챌린지</Select.Option>
+              <Select.Option value="3">졸업작품 및 후기</Select.Option>
+              <Select.Option value="4">노마드 커뮤니티</Select.Option>
             </Select>
           </Form.Item>
 
-          <Form.Item name="gubun">
+          <Form.Item name="title">
             <Input placeholder="제목" />
           </Form.Item>
 
@@ -47,7 +41,7 @@ const AdminFaq = ({ history }) => {
             editor={ClassicEditor}
             onChange={(event, editor) => {
               const data = editor.getData();
-              setContet(data);
+              setContent(data);
             }}
           />
           <Button type="primary" htmlType="submit" loading={faqPostLoading}>
