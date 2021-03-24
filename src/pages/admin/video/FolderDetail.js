@@ -1,15 +1,16 @@
 import { Button, Form, Input, Modal } from "antd";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CautionsCard, CurriculumCard, ModalForm } from "./style";
 import SortList from "../../../components/SortList";
 import {
   videoContentsListSaveAction,
-  videoPostRequestAction,
+  videoDetailGetRequestAction,
+  videoPutRequestAction,
 } from "../../../reducers/admin/video";
 
 const FolderDetail = ({ match }) => {
-  const forderId = match.params.id;
+  const id = match.params.id;
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -26,24 +27,28 @@ const FolderDetail = ({ match }) => {
   const onFinish = useCallback(() => {
     dispatch(videoContentsListSaveAction(form.getFieldValue("title")));
     handleCancel();
-  }, [dispatch, handleCancel, form]);
+  }, [handleCancel, dispatch, form]);
 
-  const { videoContent } = useSelector((state) => state.adminVideo);
+  useEffect(() => {
+    dispatch(videoDetailGetRequestAction(id));
+  }, []);
+
+  const { videoContent, videoPutLoading } = useSelector(
+    (state) => state.adminVideo
+  );
   const onSubmit = useCallback(() => {
     if (videoContent.contents.length === 0) {
       alert("목차를 생성해주세요!");
       return;
     }
-    dispatch(videoPostRequestAction(videoContent));
+    dispatch(videoPutRequestAction(videoContent));
   }, [dispatch, videoContent]);
-
-  console.log(videoContent);
   return (
     <>
       <CurriculumCard
         title={
           <>
-            <span>Curriculum</span>
+            <span>Curriculum - {videoContent.name}</span>
             <Button type="primary" onClick={showModal}>
               목차 작성하기!!
             </Button>
@@ -53,7 +58,12 @@ const FolderDetail = ({ match }) => {
       >
         <SortList />
 
-        <Button type="primary" htmlType="button" onClick={onSubmit}>
+        <Button
+          type="primary"
+          htmlType="button"
+          onClick={onSubmit}
+          loading={videoPutLoading}
+        >
           저장
         </Button>
         <Modal

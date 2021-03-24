@@ -1,5 +1,5 @@
 import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import InputColor from "../../../components/adminCourses/InputColor";
 import TextArea from "antd/lib/input/TextArea";
@@ -17,8 +17,9 @@ import {
 } from "./style";
 import RectangleUpload from "../../../components/adminCourses/RectangleUpload";
 import CircleUpload from "../../../components/adminCourses/CircleUpload";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { coursesPostRequestAction } from "../../../reducers/admin/courses/courses";
+import { videoAllGetRequestAction } from "../../../reducers/admin/video";
 
 const { Option } = Select;
 
@@ -27,16 +28,20 @@ const CoursesDetail = memo(() => {
   const [textColor, setTextColor] = useState("#000"); // 배경 바뀐 글자 색
 
   const dispatch = useDispatch();
+  const { videoList } = useSelector((state) => state.adminVideo);
 
   const onSubmit = useCallback(
     (values) => {
       values.backgroundColor = background;
       values.textColor = textColor;
-      console.log(values);
+      // console.log(values);
       dispatch(coursesPostRequestAction(values));
     },
     [background, textColor, dispatch]
   );
+  useEffect(() => {
+    dispatch(videoAllGetRequestAction());
+  }, []);
 
   return (
     <DivContainer>
@@ -339,7 +344,20 @@ const CoursesDetail = memo(() => {
         </ColorLayout>
         <ColorLayout>
           <BasicCard title="Select Course Curriculum" bordered={false}>
-            <Button type="primary">Select Curriculum</Button>
+            <Form.Item name="videoId" hasFeedback>
+              <Select
+                placeholder="Select a Curriculum"
+                style={{ width: "50%" }}
+              >
+                {videoList !== null
+                  ? videoList.map((v) => (
+                      <>
+                        <Option value={v.id}>{v.name}</Option>
+                      </>
+                    ))
+                  : null}
+              </Select>
+            </Form.Item>
           </BasicCard>
         </ColorLayout>
         <ColorLayout background={background}>
@@ -357,9 +375,9 @@ const CoursesDetail = memo(() => {
             </Form.Item>
           </BasicCard>
         </ColorLayout>
-        <Form.Item>
+        <Form.Item style={{ textAlign: "center" }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            Course 등록하기
           </Button>
         </Form.Item>
       </Form>
