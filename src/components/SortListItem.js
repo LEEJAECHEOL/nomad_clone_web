@@ -33,7 +33,7 @@ const SortListItem = memo(({ collection, index }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [uploading, setUploading] = useState(false);
-
+  console.log(videoContent);
   const showModal = useCallback(() => {
     setIsModalVisible(true);
   }, []);
@@ -79,9 +79,10 @@ const SortListItem = memo(({ collection, index }) => {
   ));
 
   const handleRemove = useCallback(async () => {
+    // vimeo 영상 저장 삭제
     const vimeoId = form.getFieldValue("vimeoId");
 
-    const response = await axios({
+    await axios({
       method: "delete",
       url: `https://api.vimeo.com/videos/${vimeoId}`,
       headers: {
@@ -92,8 +93,24 @@ const SortListItem = memo(({ collection, index }) => {
     });
     form.setFieldsValue({ vimeoId: "" });
   }, [form]);
+  const handleMove = useCallback(async (vimeoId) => {
+    // 영상 폴더 이동
+    console.log(vimeoId);
+    const forderId = videoContent.vimeoFolderId;
+    console.log(forderId);
+    await axios({
+      method: "put",
+      url: `https://api.vimeo.com/me/projects/${forderId}/videos/${vimeoId}`,
+      headers: {
+        Accept: "application/vnd.vimeo.*+json;version=3.4",
+        Authorization: `bearer ${process.env.REACT_APP_VIMEO_ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, []);
 
   const handleRequest = useCallback(
+    // vimeo 영상 저장
     async (eventObject) => {
       setUploading(true);
       const file = eventObject.file;
@@ -143,13 +160,13 @@ const SortListItem = memo(({ collection, index }) => {
         },
         onSuccess: function () {
           eventObject.onSuccess("Uploaded!!");
+          handleMove(vimeoId);
           setUploading(false);
         },
       });
-
       upload.start();
     },
-    [form]
+    [form, handleMove]
   );
 
   const removeList = useCallback(() => {

@@ -11,7 +11,6 @@ const MyHeader = () => {
   const logout = () => {
     dispatch(logoutRequestAction());
   };
-  console.log(principal);
   return (
     <>
       <Header>
