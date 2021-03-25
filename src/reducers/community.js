@@ -12,6 +12,9 @@ export const initialState = {
 
   communityList: null,
   communityItem: null,
+  replyPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  replyPostDone: false,
+  replyPostError: null,
 };
 
 // 타입
@@ -26,7 +29,19 @@ export const COMMUNITY_GET_FAILURE = "COMMUNITY_GET_FAILURE";
 export const COMMUNITY_ONE_GET_REQUEST = "COMMUNITY_ONE_GET_REQUEST";
 export const COMMUNITY_ONE_GET_SUCCESS = "COMMUNITY_ONE_GET_SUCCESS";
 export const COMMUNITY_ONE_GET_FAILURE = "COMMUNITY_ONE_GET_FAILURE";
+
+export const REPLY_POST_REQUEST = "reply_POST_REQUEST";
+export const REPLY_POST_SUCCESS = "reply_POST_SUCCESS";
+export const REPLY_POST_FAILURE = "reply_POST_FAILURE";
 // 커뮤니티
+
+// 리플리액션
+export const replyPostRequestAction = (data) => {
+  return {
+    type: REPLY_POST_REQUEST,
+    data,
+  };
+};
 
 // 액션
 
@@ -104,6 +119,24 @@ const reducer = (state = initialState, action) => {
       case COMMUNITY_ONE_GET_FAILURE:
         draft.communityOneGetLoading = false;
         draft.communityOneGetError = action.error;
+        break;
+
+      // 리플리
+      case REPLY_POST_REQUEST:
+        draft.replyPostLoading = true;
+        draft.replyPostDone = false;
+        draft.replyPostError = null;
+        break;
+
+      case REPLY_POST_SUCCESS:
+        draft.replyPostLoading = false;
+        draft.replyPostDone = true;
+        draft.communityItem.replys.unshift(action.data);
+        break;
+
+      case REPLY_POST_FAILURE:
+        draft.replyPostLoading = false;
+        draft.replyPostError = action.error;
         break;
 
       default:

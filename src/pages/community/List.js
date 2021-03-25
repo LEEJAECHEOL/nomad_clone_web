@@ -1,4 +1,4 @@
-import { Button, Card, Menu, Skeleton } from "antd";
+import { Button, Menu, Skeleton } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -28,7 +28,6 @@ const Community = () => {
   const { communityList, communityGetLoading } = useSelector(
     (state) => state.community
   );
-  console.log("정보는? ", communityList);
   return (
     <>
       <PageHero>
@@ -74,20 +73,20 @@ const Community = () => {
           <CommunityBoardContainer>
             {communityGetLoading ? (
               <>
-                <SkeltonCard>
+                <SkeltonCard key="skel-1">
                   <Skeleton active avatar paragraph={{ rows: 1 }} />
                 </SkeltonCard>
-                <SkeltonCard>
+                <SkeltonCard key="skel-2">
                   <Skeleton active avatar paragraph={{ rows: 1 }} />
                 </SkeltonCard>
-                <SkeltonCard>
+                <SkeltonCard key="skel-3">
                   <Skeleton active avatar paragraph={{ rows: 1 }} />
                 </SkeltonCard>
               </>
             ) : communityList !== null ? (
               communityList.map((list) => (
                 <>
-                  <CommunityItem list={list} />
+                  <CommunityItem key={"list-" + list.id} list={list} />
                 </>
               ))
             ) : null}

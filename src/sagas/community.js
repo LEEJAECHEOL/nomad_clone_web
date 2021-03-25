@@ -12,6 +12,9 @@ import {
   COMMUNITY_ONE_GET_FAILURE,
   COMMUNITY_ONE_GET_REQUEST,
   COMMUNITY_ONE_GET_SUCCESS,
+  REPLY_POST_FAILURE,
+  REPLY_POST_REQUEST,
+  REPLY_POST_SUCCESS,
 } from "../reducers/community";
 
 function communityPostAPI(data) {
@@ -84,6 +87,36 @@ function* communityOneGet(action) {
   }
 }
 
+function replyPostAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  console.log(config);
+  return axios.post("/cReply", JSON.stringify(data), config);
+}
+
+function* replyPost(action) {
+  try {
+    const result = yield call(replyPostAPI, action.data);
+
+    yield put({
+      type: REPLY_POST_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: REPLY_POST_FAILURE,
+      error: "댓글작성에 실패하였습니다.",
+    });
+  }
+}
+
+function* watchReplyPost() {
+  yield takeLatest(REPLY_POST_REQUEST, replyPost);
+}
+
 function* watchCommunityPost() {
   yield takeLatest(COMMUNITY_POST_REQUEST, communityPost);
 }
@@ -101,5 +134,6 @@ export default function* communitySaga() {
     fork(watchCommunityPost),
     fork(watchCommunityGet),
     fork(watchCommunityOneGet),
+    fork(watchReplyPost),
   ]);
 }

@@ -39,11 +39,14 @@ const MyHeader = () => {
               <Menu.Item key="5">
                 <Link to="/faq">FAQ</Link>
               </Menu.Item>
-              <Menu.Item key="6">
+              <Menu.Item key="10">
                 <Link to="/adminFaqList">AFL</Link>
               </Menu.Item>
-              <Menu.Item key="7">
+              <Menu.Item key="11">
                 <Link to="/adminFaqSave">AFS</Link>
+              </Menu.Item>
+              <Menu.Item key="12">
+                <Link to="/admin/courses">Ac</Link>
               </Menu.Item>
               {principal ? (
                 <>

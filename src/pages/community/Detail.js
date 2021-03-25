@@ -14,34 +14,32 @@ import {
   ReplyInputForm,
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { communityOneGetRequestAction } from "../../reducers/community";
+import {
+  communityOneGetRequestAction,
+  replyPostRequestAction,
+} from "../../reducers/community";
 import CommunityReplyItem from "../../components/CommunityReplyItem";
 import ReactHtmlParser from "react-html-parser";
 import { Button, Form } from "antd";
 import { Input } from "antd";
-import { replyPostRequestAction } from "../../reducers/reply";
 import { timeForToday } from "../../util/Script";
 
 const CommunityDetail = ({ match }) => {
   const comId = match.params.id;
-  console.log("매치는?", match);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("유즈이펙트 발동?");
     dispatch(communityOneGetRequestAction(comId));
   }, []);
 
   // 댓글 서브밋
   const onSubmit = (values) => {
     const data = { ...values, comId };
-    console.log("댓글", data);
     dispatch(replyPostRequestAction(data));
   };
 
   const { communityItem } = useSelector((state) => state.community);
-  const { replyPostLoading } = useSelector((state) => state.reply);
-  console.log("이게 디테일 데이터", communityItem);
+  const { replyPostLoading } = useSelector((state) => state.community);
 
   return (
     <>
@@ -143,7 +141,10 @@ const CommunityDetail = ({ match }) => {
               {communityItem !== null
                 ? communityItem.replys.map((list) => (
                     <>
-                      <CommunityReplyItem list={list} />
+                      <CommunityReplyItem
+                        key={"comment-" + list.id}
+                        list={list}
+                      />
                     </>
                   ))
                 : null}
