@@ -5,12 +5,15 @@ export const initialState = {
   faqPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqPostDone: false,
   faqPostError: null,
+
   faqUpdateLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqUpdateDone: false,
   faqUpdateError: null,
+
   faqGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqGetDone: false,
   faqGetError: null,
+
   faqOneGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqOneGetDone: false,
   faqOneGetError: null,
@@ -45,11 +48,10 @@ export const faqPostRequestAction = (data) => {
   };
 };
 
-export const faqUpdateRequestAction = (faqId, data) => {
+export const faqUpdateRequestAction = (data) => {
   return {
     type: FAQ_UPDATE_REQUEST,
     data,
-    faqId,
   };
 };
 

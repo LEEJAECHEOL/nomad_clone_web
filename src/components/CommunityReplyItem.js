@@ -2,6 +2,7 @@ import React from "react";
 import { CommunityReplyCard } from "./style";
 
 const CommunityReplyItem = ({ list }) => {
+  console.log("댓글데이터", list);
   return (
     <>
       <CommunityReplyCard>
@@ -12,9 +13,9 @@ const CommunityReplyItem = ({ list }) => {
           <div className="ReplyItemRightHeader">
             <div className="ReplyItemRightUserInfo">
               <span>
-                <img src="http://localhost:3000/images/userImage.jpg" alt="" />
+                <img src={list.user.imageUrl} alt="" />
               </span>
-              <span>유저아이디</span>
+              <span>{list.user.name}</span>
               <span>{list.createDate}</span>
             </div>
             <button>X</button>

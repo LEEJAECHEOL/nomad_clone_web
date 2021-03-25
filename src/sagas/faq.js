@@ -18,14 +18,18 @@ import {
 } from "../reducers/faq";
 
 // 업데이트 [이부분 모르겠음.[]
-function faqUpdateAPI(faqId, data) {
+function faqUpdateAPI(data) {
   const config = {
     headers: {
+      "Content-Type": "application/json; charset=utf-8",
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
   console.log(config);
-  console.log("업데이트 실행되니?", faqId, data);
+  const faqId = data[Object.keys(data)[3]];
+  console.log("업데이트 실행되니?11", faqId);
+  delete data.faqCategory;
+  console.log("제거된 데이터", data);
   return axios.put(`/faq/${faqId}`, JSON.stringify(data), config);
 }
 

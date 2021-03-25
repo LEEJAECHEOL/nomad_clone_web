@@ -22,13 +22,7 @@ export const DashBoardBox = styled.div`
       .UserInfo {
         display: flex;
         .UserInfo-Img {
-          svg {
-            width: 116px;
-            height: 116px;
-            background: #f3f4f6;
-            border-radius: 50%;
-            color: rgba(209, 213, 219, 1);
-          }
+          border-radius: 50%;
         }
       }
       .UserInfoName {

@@ -1,6 +1,6 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Button, Card, Col, Row } from "antd";
-import Form from "antd/lib/form/Form";
+import { Form } from "antd";
 import styled from "styled-components";
 
 export const CommunityContainer = styled(Row)``;
@@ -163,7 +163,6 @@ export const CommunityDetailBack = styled(CommunityCategory)`
 
 export const CommunityReplyBoxContainer = styled.div`
   width: 100%;
-  margin-top: 100px;
 `;
 
 export const CommunityReplyCounter = styled.div`
@@ -264,4 +263,12 @@ export const CommunityDetailItem = styled(Card)`
 
 export const DetailContent = styled.div`
   padding: 40px 0 0;
+`;
+
+export const ReplyInputForm = styled(Form)`
+  padding: 40px 0;
+  margin-top: 30px;
+  textarea {
+    min-height: 150px;
+  }
 `;
