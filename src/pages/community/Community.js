@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CommunityItem from "../../components/CommunityItem";
 import { PageHero } from "../../components/style";
+import { categoryGetRequestAction } from "../../reducers/category";
 import { communityGetRequestAction } from "../../reducers/community";
 import {
   CommunityBoard,
@@ -15,16 +16,18 @@ import {
 } from "./style";
 
 const Community = () => {
-  const [category, setCategory] = useState("");
   // 셀렉트기능. 리듀서 상태값 가져옴.
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(communityGetRequestAction(category));
+    dispatch(communityGetRequestAction());
+    dispatch(categoryGetRequestAction());
   }, []);
 
   const { communityList } = useSelector((state) => state.community);
+  const { categoryList } = useSelector((state) => state.category);
   console.log("정보는? ", communityList);
+  console.log("카테고리 정보는? ", categoryList);
   return (
     <>
       <PageHero>
@@ -37,16 +40,15 @@ const Community = () => {
         <CommunityCategory span={5}>
           <h3>카테고리</h3>
           <Menu mode="vertical">
-            <Menu.Item>
-              <Link>
-                <span>#</span>all
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>to-do-list
-              </Link>
-            </Menu.Item>
+            {categoryList !== null
+              ? categoryList.map((list) => (
+                  <>
+                    <Menu.Item>
+                      <button>{list.title}</button>
+                    </Menu.Item>
+                  </>
+                ))
+              : null}
           </Menu>
         </CommunityCategory>
         {/* 중앙 Board */}

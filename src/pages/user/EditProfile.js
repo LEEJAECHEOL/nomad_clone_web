@@ -1,7 +1,7 @@
 import { Input, Form, Button } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dashBoadrGetRequestAction } from "../../reducers/dashboard";
+import { dashBoardGetRequestAction } from "../../reducers/dashboard";
 import {
   AccountInfromation,
   AccountInfromationCol,
@@ -23,7 +23,7 @@ export default function EditProfile({ match }) {
 
   useEffect(() => {
     console.log("유즈이펙트 발동?");
-    dispatch(dashBoadrGetRequestAction(userId));
+    dispatch(dashBoardGetRequestAction(userId));
     form.setFieldsValue({ username: dashBoardItem.username });
     form.setFieldsValue({ name: dashBoardItem.name });
     form.setFieldsValue({ email: dashBoardItem.email });

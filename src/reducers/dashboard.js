@@ -16,7 +16,7 @@ export const DASHBOARD_GET_FAILURE = "DASHBOARD_GET_FAILURE";
 
 // 액션
 
-export const dashBoadrGetRequestAction = (data) => {
+export const dashBoardGetRequestAction = (data) => {
   return {
     type: DASHBOARD_GET_REQUEST,
     data,
