@@ -10,7 +10,7 @@ import {
 } from "./style";
 import { Tabs } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { dashBoadrGetRequestAction } from "../../reducers/dashboard";
+import { dashBoardGetRequestAction } from "../../reducers/dashboard";
 
 const { TabPane } = Tabs;
 
@@ -24,7 +24,7 @@ const Dashboard = ({ match }) => {
 
   useEffect(() => {
     console.log("유즈이펙트 발동?");
-    dispatch(dashBoadrGetRequestAction(data));
+    dispatch(dashBoardGetRequestAction(data));
   }, []);
   const { dashBoardItem } = useSelector((state) => state.dashboard);
 

@@ -14,12 +14,14 @@ import {
   ReplyInputForm,
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { communityOneGetRequestAction } from "../../reducers/community";
+import {
+  communityOneGetRequestAction,
+  replyPostRequestAction,
+} from "../../reducers/community";
 import CommunityReplyItem from "../../components/CommunityReplyItem";
 import ReactHtmlParser from "react-html-parser";
 import { Button, Form } from "antd";
 import { Input } from "antd";
-import { replyPostRequestAction } from "../../reducers/reply";
 
 const CommunityDetail = ({ match }) => {
   const comId = match.params.id;
@@ -39,7 +41,7 @@ const CommunityDetail = ({ match }) => {
   };
 
   const { communityItem } = useSelector((state) => state.community);
-  const { replyPostLoading } = useSelector((state) => state.reply);
+  const { replyPostLoading } = useSelector((state) => state.community);
   console.log("이게 디테일 데이터", communityItem);
 
   return (

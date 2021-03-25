@@ -10,7 +10,15 @@ export const CourseBox = styled.div`
   cursor: pointer;
   /* overflow: hidden; */
   border-radius: 10px;
-  img {
+
+  .courseImageWrapper {
+    width: 100%;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  /* img {
     width: 100%;
     border-radius: 10px;
   }
@@ -35,7 +43,7 @@ export const CourseBox = styled.div`
       transform: scale(1.05);
       transition: all 0.5s;
     }
-  }
+  } */
 `;
 
 // Challenge-Item

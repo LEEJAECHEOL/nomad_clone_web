@@ -49,7 +49,7 @@ const CoursesDetail = memo(() => {
         <ColorLayout background={background}>
           <BasicCard title="PreView Image " bordered={false}>
             <ImageSpace direction="vertical" size="large">
-              <Form.Item name="preViewImage">
+              <Form.Item name="previewImage">
                 <RectangleUpload />
               </Form.Item>
             </ImageSpace>
