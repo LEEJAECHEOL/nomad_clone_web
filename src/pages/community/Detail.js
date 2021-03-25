@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
 import {
   CommunityBoard,
   CommunityDetailBack,
@@ -20,6 +20,7 @@ import ReactHtmlParser from "react-html-parser";
 import { Button, Form } from "antd";
 import { Input } from "antd";
 import { replyPostRequestAction } from "../../reducers/reply";
+import { timeForToday } from "../../util/Script";
 
 const CommunityDetail = ({ match }) => {
   const comId = match.params.id;
@@ -58,21 +59,7 @@ const CommunityDetail = ({ match }) => {
               <div className="Detail-top">
                 <div className="Board-Fav">
                   <button>
-                    <svg
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="fas"
-                      data-icon="angle-up"
-                      class="svg-inline--fa fa-angle-up fa-w-10 fa-lg opacity-50"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
-                      ></path>
-                    </svg>
+                    <UpOutlined />
                     <span>
                       {communityItem !== null ? communityItem.count : 0}
                     </span>
@@ -102,7 +89,9 @@ const CommunityDetail = ({ match }) => {
                     <div className="Info-Date">
                       &#8226; &nbsp;
                       <span>
-                        {communityItem !== null ? communityItem.createDate : ""}
+                        {communityItem !== null
+                          ? timeForToday(communityItem.createDate)
+                          : ""}
                       </span>
                     </div>
                   </div>

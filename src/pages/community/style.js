@@ -20,23 +20,15 @@ export const CommunityBoard = styled(Col)`
     justify-content: space-between;
     height: 24px;
     div {
-      width: 200px;
       height: 100%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       b {
         color: #6b7280;
         font-weight: 500;
       }
-      span {
-        display: flex;
-        font-size: 14px;
+      button {
         color: #9ca3af;
-        cursor: pointer;
-        svg {
-          width: 9px;
-          margin-right: 3px;
-        }
       }
     }
   }
@@ -76,10 +68,13 @@ export const CommunityBoardItem = styled(Card)`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     .Board-Fav {
       width: 45px;
       height: 45px;
       button {
+        cursor: pointer;
+        padding-top: 5px;
         width: 45px;
         height: 45px;
         display: flex;
@@ -88,6 +83,10 @@ export const CommunityBoardItem = styled(Card)`
         background: transparent;
         border: 2px solid rgba(55, 65, 81, 0.2);
         border-radius: 10px;
+        svg {
+          color: gray;
+          font-size: 10px;
+        }
       }
     }
     .Board-Body {
@@ -99,6 +98,7 @@ export const CommunityBoardItem = styled(Card)`
         font-size: 20px;
         font-weight: bold;
         margin-bottom: 6px;
+        color: black;
       }
       .Board-Body-Info {
         display: flex;
@@ -144,12 +144,19 @@ export const CommunityBoardItem = styled(Card)`
 `;
 
 export const WriteForm = styled(Form)`
-  margin: 0 auto;
-  padding: 0 100px;
+  display: flex;
+  flex-direction: column;
+  button {
+    margin-left: auto;
+    width: 90px;
+    margin-top: 5px;
+  }
 `;
 
 export const WriteEditor = styled(CKEditor)`
-  height: 500px;
+  .ck-editor__editable {
+    min-height: 200px;
+  }
 `;
 
 export const CommunityDetailContainer = styled(CommunityContainer)`
@@ -197,6 +204,7 @@ export const CommunityDetailItem = styled(Card)`
         width: 45px;
         height: 45px;
         button {
+          padding-top: 5px;
           width: 45px;
           height: 45px;
           display: flex;
@@ -205,6 +213,9 @@ export const CommunityDetailItem = styled(Card)`
           background: transparent;
           border: 2px solid rgba(55, 65, 81, 0.2);
           border-radius: 10px;
+          svg {
+            font-size: 10px;
+          }
         }
       }
       .Board-Body {
@@ -266,9 +277,36 @@ export const DetailContent = styled.div`
 `;
 
 export const ReplyInputForm = styled(Form)`
-  padding: 40px 0;
-  margin-top: 30px;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
   textarea {
-    min-height: 150px;
+    min-height: 120px;
+  }
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+  .ant-form-item:last-child {
+    text-align: right;
+  }
+`;
+
+export const SkeltonCard = styled(Card)`
+  margin-bottom: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  .ant-card-body {
+    padding: 20px;
+  }
+  .ant-skeleton {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .ant-skeleton-content {
+    margin-right: 20px;
+  }
+  .ant-skeleton-paragraph {
+    margin-top: 10px;
   }
 `;
