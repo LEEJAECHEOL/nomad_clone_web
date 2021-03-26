@@ -71,6 +71,7 @@ const App = () => {
                 exact={true}
                 component={AdminFaqUpdate}
               />
+
               <Route path="/admin/video" exact={true} component={FolderList} />
               <Route
                 path="/admin/video/:id"
