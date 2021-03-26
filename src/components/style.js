@@ -8,34 +8,42 @@ export const CourseBox = styled.div`
   position: relative;
   margin: 0 20px;
   cursor: pointer;
-  /* overflow: hidden; */
-  border-radius: 10px;
-
+  .courseLevel {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    padding: 2px 12px;
+    font-size: 14px;
+    background: #d1fae5;
+    color: #065f46;
+    border-radius: 20px;
+    z-index: 100;
+  }
   .courseImageWrapper {
     width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
     img {
       display: block;
       width: 100%;
+      border-radius: 10px;
+    }
+    div {
+      position: absolute;
+      left: 50%;
+      bottom: -40px;
+      width: 90%;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px 8px;
+      transform: translateX(-50%);
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
   }
-  /* img {
-    width: 100%;
-    border-radius: 10px;
-  }
-  div {
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-    padding: 20px 8px;
-    position: absolute;
-    left: 50%;
-    bottom: -40px;
-    transform: translate(-50%, 0);
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
+
   :hover {
     transform: translateY(-5px);
     transition: all 0.5s;
@@ -43,7 +51,7 @@ export const CourseBox = styled.div`
       transform: scale(1.05);
       transition: all 0.5s;
     }
-  } */
+  }
 `;
 
 // Challenge-Item

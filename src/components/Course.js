@@ -1,16 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { CourseBox } from "./style";
-const Course = () => {
+const Course = ({ list }) => {
   return (
-    <CourseBox>
-      <div className="courseImageWrapper">
-        <img src="./images/ytThumbnail_rtMv4Du.jpg" alt="preViewImage" />
-        <div>
-          <h3>[풀스택] 유튜브 클론코딩</h3>
-          <p>유튜브 백엔드 + 프런트엔드 + 배포</p>
-        </div>
-      </div>
-    </CourseBox>
+    <>
+      {/* <Link to={`/courseDetail/${list.id}`}>
+        <CourseBox>
+          <span className="courseLevel">{list.level}</span>
+          <div className="courseImageWrapper">
+            <img src={list.previewImage.url} alt="preViewImage" />
+            <div>
+              <h3>{list.title}</h3>
+              <p>{list.subTitle}</p>
+            </div>
+          </div>
+        </CourseBox>
+      </Link> */}
+    </>
   );
 };
 export default Course;

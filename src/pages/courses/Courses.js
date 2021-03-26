@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Course from "../../components/Course";
 import { PageHero } from "../../components/style";
+import { coursesGetRequestAction } from "../../reducers/courses";
 import { CoursesBox, CoursesFilter } from "./style";
 
 const Courses = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(coursesGetRequestAction());
+  }, []);
+
+  const { coursesList } = useSelector((state) => state.courses);
+  console.log("코스데이터는?", coursesList);
   return (
     <>
       <PageHero>
@@ -71,14 +81,13 @@ const Courses = () => {
         </div>
       </CoursesFilter>
       <CoursesBox>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
+        {/* {coursesList !== null
+          ? coursesList.map((list) => (
+              <>
+                <Course list={list} />
+              </>
+            ))
+          : null} */}
       </CoursesBox>
     </>
   );
