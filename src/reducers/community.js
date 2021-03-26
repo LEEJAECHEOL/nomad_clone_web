@@ -2,12 +2,14 @@ import produce from "immer";
 
 // 상태
 export const initialState = {
-  communityPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  communityPostLoading: false,
   communityPostDone: false,
   communityPostError: null,
-  communityGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
+
+  communityGetLoading: false,
   communityGetDone: false,
   communityGetError: null,
+
   communityList: null,
   communityItem: null,
   replyPostLoading: false, // 로그인 시도중 -> 로딩창 띄움

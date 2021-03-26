@@ -34,8 +34,8 @@ const CoursesDetail = memo(() => {
     (values) => {
       values.backgroundColor = background;
       values.textColor = textColor;
-      // console.log(values);
-      dispatch(coursesPostRequestAction(values));
+      console.log(values);
+      // dispatch(coursesPostRequestAction(values));
     },
     [background, textColor, dispatch]
   );
@@ -47,7 +47,7 @@ const CoursesDetail = memo(() => {
     <DivContainer>
       <Form onFinish={onSubmit}>
         <ColorLayout background={background}>
-          <BasicCard title="PreView Image " bordered={false}>
+          <BasicCard title="Preview Image " bordered={false}>
             <ImageSpace direction="vertical" size="large">
               <Form.Item name="previewImage">
                 <RectangleUpload />

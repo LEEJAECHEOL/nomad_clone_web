@@ -35,18 +35,18 @@ const Write = ({ history }) => {
         {/* 셀렉터 */}
         <Form.Item name="categoryId">
           <Select name="categoryId" placeholder="카테고리 고르기">
-            <Select.Option value="1">#to-do-list</Select.Option>
-            <Select.Option value="2">#javascript</Select.Option>
-            <Select.Option value="3">#bla-bla</Select.Option>
-            <Select.Option value="4">#html_css</Select.Option>
-            <Select.Option value="5">#python</Select.Option>
-            <Select.Option value="6">#dev_resources</Select.Option>
-            <Select.Option value="7">#jobs</Select.Option>
-            <Select.Option value="8">#side_project</Select.Option>
-            <Select.Option value="9">#react</Select.Option>
-            <Select.Option value="10">#uber_eats</Select.Option>
-            <Select.Option value="11">#hello</Select.Option>
-            <Select.Option value="12">#instaclone</Select.Option>
+            <Select.Option value={1}>#to-do-list</Select.Option>
+            <Select.Option value={2}>#javascript</Select.Option>
+            <Select.Option value={3}>#bla-bla</Select.Option>
+            <Select.Option value={4}>#html_css</Select.Option>
+            <Select.Option value={5}>#python</Select.Option>
+            <Select.Option value={6}>#dev_resources</Select.Option>
+            <Select.Option value={7}>#jobs</Select.Option>
+            <Select.Option value={8}>#side_project</Select.Option>
+            <Select.Option value={9}>#react</Select.Option>
+            <Select.Option value={10}>#uber_eats</Select.Option>
+            <Select.Option value={11}>#hello</Select.Option>
+            <Select.Option value={12}>#instaclone</Select.Option>
           </Select>
         </Form.Item>
 
