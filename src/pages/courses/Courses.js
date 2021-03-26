@@ -81,13 +81,13 @@ const Courses = () => {
         </div>
       </CoursesFilter>
       <CoursesBox>
-        {/* {coursesList !== null
+        {coursesList !== null
           ? coursesList.map((list) => (
               <>
                 <Course list={list} />
               </>
             ))
-          : null} */}
+          : null}
       </CoursesBox>
     </>
   );
