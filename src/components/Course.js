@@ -4,7 +4,7 @@ import { CourseBox } from "./style";
 const Course = ({ list }) => {
   return (
     <>
-      {/* <Link to={`/courseDetail/${list.id}`}>
+      <Link to={`/courses/${list.id}`}>
         <CourseBox>
           <span className="courseLevel">{list.level}</span>
           <div className="courseImageWrapper">
@@ -15,7 +15,7 @@ const Course = ({ list }) => {
             </div>
           </div>
         </CourseBox>
-      </Link> */}
+      </Link>
     </>
   );
 };

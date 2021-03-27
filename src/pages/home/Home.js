@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   HeroButton,
   HomeChallenges,
@@ -10,8 +10,19 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import Course from "../../components/Course";
 import { Link } from "react-router-dom";
 import Challenge from "../../components/Challenge";
+import { useDispatch, useSelector } from "react-redux";
+import { homeCoursesGetRequestAction } from "../../reducers/courses";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(homeCoursesGetRequestAction());
+  }, []);
+  const { coursesList } = useSelector((state) => state.courses);
+
+  console.log("리미트6 코스데이터는?", coursesList);
+
   return (
     <>
       <HomeHero>
@@ -31,12 +42,13 @@ const Home = () => {
       </HomeHero>
 
       <HomeCourses>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
-        <Course></Course>
+        {coursesList !== null
+          ? coursesList.map((list) => (
+              <>
+                <Course list={list} />
+              </>
+            ))
+          : null}
       </HomeCourses>
 
       <HomeToCourses>

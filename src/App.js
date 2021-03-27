@@ -20,6 +20,7 @@ import DashBoard from "./pages/user/DashBoard";
 import EditProfile from "./pages/user/EditProfile";
 import UploadTest from "./pages/test/UploadTest";
 import CoursesDetail from "./pages/admin/courses/CoursesDetail";
+import ClientCoursesDetail from "./pages/courses/ClientCoursesDetail";
 import AdminFaqSave from "./pages/admin/faq/AdminFaqSave";
 import AdminFaqList from "./pages/admin/faq/AdminFaqList";
 import FolderList from "./pages/admin/video/FolderList";

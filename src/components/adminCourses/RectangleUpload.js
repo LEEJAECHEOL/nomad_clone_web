@@ -14,7 +14,7 @@ const RectangleUpload = ({ value, onChange }) => {
   );
   const handleRemoveImage = useCallback(async () => {
     try {
-      await axios.delete("http://localhost:8080/upload/" + value.id, {
+      await axios.delete("/upload/" + value.id, {
         header: { "Content-Type": "multipart/form-data" },
       });
       triggerChange([null]);
@@ -27,13 +27,9 @@ const RectangleUpload = ({ value, onChange }) => {
       const formData = new FormData();
       formData.append("file", file);
       try {
-        const result = await axios.post(
-          "http://localhost:8080/upload",
-          formData,
-          {
-            header: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        const result = await axios.post("/upload", formData, {
+          header: { "Content-Type": "multipart/form-data" },
+        });
         triggerChange(result.data);
         onSuccess("Ok");
       } catch {
