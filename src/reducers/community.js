@@ -18,6 +18,14 @@ export const initialState = {
   communityCategoryGetDone: false,
   communityCategoryGetError: null,
 
+  communityPopularGetLoading: false,
+  communityPopularGetDone: false,
+  communityPopularGetError: null,
+
+  communityNewGetLoading: false,
+  communityNewGetDone: false,
+  communityNewGetError: null,
+
   communityList: null,
   communityItem: null,
 
@@ -43,12 +51,20 @@ export const COMMUNITY_CATEGORY_GET_REQUEST = "COMMUNITY_CATEGORY_GET_REQUEST";
 export const COMMUNITY_CATEGORY_GET_SUCCESS = "COMMUNITY_CATEGORY_GET_SUCCESS";
 export const COMMUNITY_CATEGORY_GET_FAILURE = "COMMUNITY_CATEGORY_GET_FAILURE";
 
+export const COMMUNITY_POPULAR_GET_REQUEST = "COMMUNITY_POPULAR_GET_REQUEST";
+export const COMMUNITY_POPULAR_GET_SUCCESS = "COMMUNITY_POPULAR_GET_SUCCESS";
+export const COMMUNITY_POPULAR_GET_FAILURE = "COMMUNITY_POPULAR_GET_FAILURE";
+
+export const COMMUNITY_NEW_GET_REQUEST = "COMMUNITY_NEW_GET_REQUEST";
+export const COMMUNITY_NEW_GET_SUCCESS = "COMMUNITY_NEW_GET_SUCCESS";
+export const COMMUNITY_NEW_GET_FAILURE = "COMMUNITY_NEW_GET_FAILURE";
+
 export const REPLY_POST_REQUEST = "reply_POST_REQUEST";
 export const REPLY_POST_SUCCESS = "reply_POST_SUCCESS";
 export const REPLY_POST_FAILURE = "reply_POST_FAILURE";
 // 커뮤니티
 
-// 리플리액션
+// 댓글작성
 export const replyPostRequestAction = (data) => {
   return {
     type: REPLY_POST_REQUEST,
@@ -56,7 +72,7 @@ export const replyPostRequestAction = (data) => {
   };
 };
 
-// 액션
+// 게시글작성
 export const communityPostRequestAction = (data) => {
   return {
     type: COMMUNITY_POST_REQUEST,
@@ -64,6 +80,7 @@ export const communityPostRequestAction = (data) => {
   };
 };
 
+// 게시글모두가져오기
 export const communityGetRequestAction = (data) => {
   return {
     type: COMMUNITY_GET_REQUEST,
@@ -71,6 +88,7 @@ export const communityGetRequestAction = (data) => {
   };
 };
 
+// 게시글 상세보기
 export const communityOneGetRequestAction = (data) => {
   return {
     type: COMMUNITY_ONE_GET_REQUEST,
@@ -78,9 +96,26 @@ export const communityOneGetRequestAction = (data) => {
   };
 };
 
+// 카테고리별 게시글 가져오기
 export const communityCategoryGetRequestAction = (data) => {
   return {
     type: COMMUNITY_CATEGORY_GET_REQUEST,
+    data,
+  };
+};
+
+// 인기순으로 게시글 가져오기
+export const communityPopularGetRequestAction = (data) => {
+  return {
+    type: COMMUNITY_POPULAR_GET_REQUEST,
+    data,
+  };
+};
+
+// 최근작성순으로 게시글 가져오기
+export const communityNewGetRequestAction = (data) => {
+  return {
+    type: COMMUNITY_NEW_GET_REQUEST,
     data,
   };
 };
@@ -148,14 +183,50 @@ const reducer = (state = initialState, action) => {
         break;
 
       case COMMUNITY_CATEGORY_GET_SUCCESS:
-        draft.communityGetLoading = false;
-        draft.communityGetDone = true;
+        draft.communityCategoryGetLoading = false;
+        draft.communityCategoryGetDone = true;
         draft.communityList = action.data;
         break;
 
       case COMMUNITY_CATEGORY_GET_FAILURE:
-        draft.communityGetLoading = false;
-        draft.communityGetError = action.error;
+        draft.communityCategoryGetLoading = false;
+        draft.communityCategoryGetError = action.error;
+        break;
+
+      // 인기순으로 찾기
+      case COMMUNITY_POPULAR_GET_REQUEST:
+        draft.communityPopularGetLoading = true;
+        draft.communityPopularGetDone = false;
+        draft.communityPopularGetError = null;
+        break;
+
+      case COMMUNITY_POPULAR_GET_SUCCESS:
+        draft.communityPopularGetLoading = false;
+        draft.communityPopularGetDone = true;
+        draft.communityList = action.data;
+        break;
+
+      case COMMUNITY_POPULAR_GET_FAILURE:
+        draft.communityPopularGetLoading = false;
+        draft.communityPopularGetError = action.error;
+        break;
+
+      // 인기순으로 찾기
+      case COMMUNITY_NEW_GET_REQUEST:
+        draft.communityNewGetLoading = true;
+        draft.communityNewGetDone = false;
+        draft.communityNewGetError = null;
+        break;
+
+      case COMMUNITY_NEW_GET_SUCCESS:
+        draft.communityNewGetLoading = false;
+        draft.communityNewGetDone = true;
+        draft.communityList = action.data;
+        break;
+
+      case COMMUNITY_NEW_GET_FAILURE:
+        draft.communityNewGetLoading = false;
+        draft.communityNewGetError = action.error;
         break;
 
       // 리플리
