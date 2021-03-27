@@ -10,8 +10,17 @@ export const initialState = {
   communityGetDone: false,
   communityGetError: null,
 
+  communityOneGetLoading: false,
+  communityOneGetDone: false,
+  communityOneGetError: null,
+
+  communityCategoryGetLoading: false,
+  communityCategoryGetDone: false,
+  communityCategoryGetError: null,
+
   communityList: null,
   communityItem: null,
+
   replyPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
   replyPostDone: false,
   replyPostError: null,
@@ -30,6 +39,10 @@ export const COMMUNITY_ONE_GET_REQUEST = "COMMUNITY_ONE_GET_REQUEST";
 export const COMMUNITY_ONE_GET_SUCCESS = "COMMUNITY_ONE_GET_SUCCESS";
 export const COMMUNITY_ONE_GET_FAILURE = "COMMUNITY_ONE_GET_FAILURE";
 
+export const COMMUNITY_CATEGORY_GET_REQUEST = "COMMUNITY_CATEGORY_GET_REQUEST";
+export const COMMUNITY_CATEGORY_GET_SUCCESS = "COMMUNITY_CATEGORY_GET_SUCCESS";
+export const COMMUNITY_CATEGORY_GET_FAILURE = "COMMUNITY_CATEGORY_GET_FAILURE";
+
 export const REPLY_POST_REQUEST = "reply_POST_REQUEST";
 export const REPLY_POST_SUCCESS = "reply_POST_SUCCESS";
 export const REPLY_POST_FAILURE = "reply_POST_FAILURE";
@@ -44,7 +57,6 @@ export const replyPostRequestAction = (data) => {
 };
 
 // 액션
-
 export const communityPostRequestAction = (data) => {
   return {
     type: COMMUNITY_POST_REQUEST,
@@ -62,6 +74,13 @@ export const communityGetRequestAction = (data) => {
 export const communityOneGetRequestAction = (data) => {
   return {
     type: COMMUNITY_ONE_GET_REQUEST,
+    data,
+  };
+};
+
+export const communityCategoryGetRequestAction = (data) => {
+  return {
+    type: COMMUNITY_CATEGORY_GET_REQUEST,
     data,
   };
 };
@@ -117,8 +136,26 @@ const reducer = (state = initialState, action) => {
         break;
 
       case COMMUNITY_ONE_GET_FAILURE:
-        draft.communityOneGetLoading = false;
-        draft.communityOneGetError = action.error;
+        draft.communityGetLoading = false;
+        draft.communityGetError = action.error;
+        break;
+
+      // 카테고리아이디로 찾기
+      case COMMUNITY_CATEGORY_GET_REQUEST:
+        draft.communityCategoryGetLoading = true;
+        draft.communityCategoryGetDone = false;
+        draft.communityCategoryGetError = null;
+        break;
+
+      case COMMUNITY_CATEGORY_GET_SUCCESS:
+        draft.communityGetLoading = false;
+        draft.communityGetDone = true;
+        draft.communityList = action.data;
+        break;
+
+      case COMMUNITY_CATEGORY_GET_FAILURE:
+        draft.communityGetLoading = false;
+        draft.communityGetError = action.error;
         break;
 
       // 리플리

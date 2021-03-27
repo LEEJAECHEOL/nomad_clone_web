@@ -22,7 +22,7 @@ const MyHeader = () => {
                 <Link to="/">
                   <img
                     className="logo"
-                    src="http://localhost:3000/images/m.svg"
+                    src="http://localhost:3100/images/m.svg"
                     alt="logo"
                   />
                 </Link>
@@ -39,15 +39,19 @@ const MyHeader = () => {
               <Menu.Item key="5">
                 <Link to="/faq">FAQ</Link>
               </Menu.Item>
-              <Menu.Item key="10">
-                <Link to="/adminFaqList">AFL</Link>
-              </Menu.Item>
               <Menu.Item key="11">
                 <Link to="/adminFaqSave">AFS</Link>
               </Menu.Item>
               <Menu.Item key="12">
                 <Link to="/admin/courses">Ac</Link>
               </Menu.Item>
+              <Menu.Item key="13">
+                <Link to="/admin/communityCategory">CCS</Link>
+              </Menu.Item>
+              <Menu.Item key="13">
+                <Link to="/admin/faqCategory">AFC</Link>
+              </Menu.Item>
+
               {principal ? (
                 <>
                   <Menu.Item className="header_right" key="6">

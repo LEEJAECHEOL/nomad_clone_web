@@ -1,10 +1,13 @@
 import { Button, Menu, Skeleton } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CommunityItem from "../../components/CommunityItem";
 import { PageHero } from "../../components/style";
-import { communityGetRequestAction } from "../../reducers/community";
+import {
+  communityCategoryGetRequestAction,
+  communityGetRequestAction,
+} from "../../reducers/community";
 import {
   CommunityBoard,
   CommunityCategory,
@@ -20,19 +23,30 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import AppLayout from "../../components/AppLayout";
+import { categoryGetRequestAction } from "../../reducers/category";
 
 const Community = () => {
-  const [category, setCategory] = useState("");
   // 셀렉트기능. 리듀서 상태값 가져옴.
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(communityGetRequestAction(category));
+    dispatch(communityGetRequestAction());
+    dispatch(categoryGetRequestAction());
   }, []);
 
   const { communityList, communityGetLoading } = useSelector(
     (state) => state.community
   );
+  const { categoryList } = useSelector((state) => state.category);
+
+  const onClickCategory = useCallback(({ key }) => {
+    if (key === "all") {
+      dispatch(communityGetRequestAction());
+      return;
+    }
+    console.log(key);
+    dispatch(communityCategoryGetRequestAction(key));
+  }, []);
   return (
     <>
       <AppLayout>
@@ -46,16 +60,18 @@ const Community = () => {
           <CommunityCategory span={5}>
             <h3>카테고리</h3>
             <Menu mode="vertical">
-              <Menu.Item>
-                <Link>
-                  <span>#</span>all
-                </Link>
+              <Menu.Item key={"all"} onClick={onClickCategory}>
+                all
               </Menu.Item>
-              <Menu.Item>
-                <Link>
-                  <span>#</span>to-do-list
-                </Link>
-              </Menu.Item>
+              {categoryList !== null
+                ? categoryList.map((list) => (
+                    <>
+                      <Menu.Item key={list.id} onClick={onClickCategory}>
+                        {list.title}
+                      </Menu.Item>
+                    </>
+                  ))
+                : null}
             </Menu>
           </CommunityCategory>
           {/* 중앙 Board */}
@@ -67,7 +83,7 @@ const Community = () => {
                   Popular
                 </Button>
                 <Button size="small" type="text" icon={<ThunderboltOutlined />}>
-                  Popular
+                  New
                 </Button>
               </div>
               <div>
@@ -77,25 +93,13 @@ const Community = () => {
               </div>
             </div>
             <CommunityBoardContainer>
-              {communityGetLoading ? (
-                <>
-                  <SkeltonCard key="skel-1">
-                    <Skeleton active avatar paragraph={{ rows: 1 }} />
-                  </SkeltonCard>
-                  <SkeltonCard key="skel-2">
-                    <Skeleton active avatar paragraph={{ rows: 1 }} />
-                  </SkeltonCard>
-                  <SkeltonCard key="skel-3">
-                    <Skeleton active avatar paragraph={{ rows: 1 }} />
-                  </SkeltonCard>
-                </>
-              ) : communityList !== null ? (
-                communityList.map((list) => (
-                  <>
-                    <CommunityItem key={"list-" + list.id} list={list} />
-                  </>
-                ))
-              ) : null}
+              {communityList !== null
+                ? communityList.map((list) => (
+                    <>
+                      <CommunityItem key={"list-" + list.id} list={list} />
+                    </>
+                  ))
+                : null}
             </CommunityBoardContainer>
           </CommunityBoard>
           {/* 글쓰기 버튼 */}

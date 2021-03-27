@@ -159,23 +159,38 @@ export const CourseInfomation = styled.div`
 
 export const SimpleInfo = styled.div`
   padding: 30px 0;
+  width: 90%;
+  margin: 0 auto;
   .simpleInfoBox {
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
     img {
-      width: 192px;
+      flex: 1;
+      max-width: 192px;
       height: 192px;
     }
     div {
+      flex: 2;
+      min-width: 390px;
       padding: 24px;
+      background: #fff;
     }
     .simpleInfoBoxR {
-    display: flex;
-    img {
-      width: 192px;
-      height: 192px;
-    }
-    div {
-      padding: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      img {
+        max-width: 192px;
+        height: 192px;
+      }
+      div {
+        min-width: 390px;
+        padding: 24px;
+        background: #fff;
+      }
     }
   }
 `;
