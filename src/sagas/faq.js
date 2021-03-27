@@ -102,8 +102,8 @@ function* faqPost(action) {
 }
 
 // 겟요청
-function faqGetAPI(data) {
-  return axios.get(`/faq/${data}`);
+function faqGetAPI() {
+  return axios.get(`/faq/category`);
 }
 
 function* faqGet(action) {

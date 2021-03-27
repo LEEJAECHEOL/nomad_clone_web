@@ -83,13 +83,13 @@ const CoursesDetail = ({ match }) => {
                     ) : (
                       <>
                         <div className="simpleInfoBox">
+                          <div>
+                            <h3>{list !== null ? list.title : ""}</h3>
+                          </div>
                           <img
                             src={list !== null ? list.image.url : ""}
                             alt=""
                           />
-                          <div>
-                            <h3>{list !== null ? list.title : ""}</h3>
-                          </div>
                         </div>
                       </>
                     )}
