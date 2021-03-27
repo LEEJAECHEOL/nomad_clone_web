@@ -4,7 +4,6 @@ import MyFooter from "./MyFooter";
 import MyHeader from "./MyHeader";
 
 import { Global } from "../style";
-import { Col, Row } from "antd";
 const AppNoColLayout = ({ children }) => {
   return (
     <>

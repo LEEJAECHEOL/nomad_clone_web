@@ -55,7 +55,7 @@ export default function EditProfile({ match }) {
               >
                 <AccountInputBox>
                   <Form.Item label="Username" name="username">
-                    <Input readOnly />
+                    <Input disabled />
                   </Form.Item>
                   <Form.Item label="Name" name="name">
                     <Input />
@@ -83,7 +83,7 @@ export default function EditProfile({ match }) {
               >
                 <EmailInputBox>
                   <Form.Item label="Email" name="email">
-                    <Input />
+                    <Input disabled />
                   </Form.Item>
                   <Form.Item className="AccountUpdate">
                     <Button type="primary" htmlType="submit">

@@ -21,16 +21,28 @@ import AdminFaqList from "./pages/admin/faq/AdminFaqList";
 import FolderList from "./pages/admin/video/FolderList";
 import FolderDetail from "./pages/admin/video/FolderDetail";
 import AdminFaqUpdate from "./pages/admin/faq/AdminFaqUpdate";
+import VideoList from "./pages/video/Detail";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loadMyInfoRequestAction } from "./reducers/user";
+import { useDispatch, useSelector } from "react-redux";
+import { loadMyInfoRequestAction, logoutRequestAction } from "./reducers/user";
 const App = () => {
   const dispatch = useDispatch();
+  const { loadMyInfoDone, loadMyInfoError } = useSelector(
+    (state) => state.user
+  );
   // 새로고침 시 유저 인포 다시 가져오기
   useEffect(() => {
-    dispatch(loadMyInfoRequestAction());
+    if (localStorage.getItem("nomadToken")) {
+      dispatch(loadMyInfoRequestAction());
+    }
   }, []);
 
+  useEffect(() => {
+    if (loadMyInfoError) {
+      alert(loadMyInfoError.message);
+      dispatch(logoutRequestAction());
+    }
+  }, [loadMyInfoError]);
   return (
     <>
       <Switch>
@@ -60,7 +72,7 @@ const App = () => {
           exact={true}
           component={AdminFaqUpdate}
         />
-
+        <Route path="/video/:id" exact={true} component={VideoList} />
         <Route path="/admin/video" exact={true} component={FolderList} />
         <Route path="/admin/video/:id" exact={true} component={FolderDetail} />
         <Route path="/admin/courses" exact={true} component={CoursesWrite} />

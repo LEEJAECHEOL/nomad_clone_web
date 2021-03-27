@@ -10,7 +10,7 @@ import {
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
 } from "../reducers/user";
-
+import { push } from "connected-react-router";
 // logInAPI, logIn, watchLogIn 세트이다. 복사해서 쓰자.
 function logInAPI(data) {
   return axios.post("/oauth/jwt/google", JSON.stringify(data));
@@ -39,6 +39,7 @@ function* logOut() {
   yield put({
     type: LOG_OUT_SUCCESS,
   });
+  yield put(push("/login"));
 }
 
 function loadMyInfoAPI() {
@@ -53,17 +54,14 @@ function* loadMyInfo() {
   try {
     const result = yield call(loadMyInfoAPI);
     const data = result.data.data;
-    console.log("is run?");
-    console.log(result);
     yield put({
       type: LOAD_MY_INFO_SUCCESS,
       data: data,
     });
-  } catch (err) {
-    console.log("is run?");
+  } catch (error) {
     yield put({
       type: LOAD_MY_INFO_FAILURE,
-      error: "로그인에 실패하였습니다.",
+      error: error.response.data,
     });
   }
 }
