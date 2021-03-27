@@ -19,8 +19,8 @@ import CommunityDetail from "./pages/community/Detail";
 import DashBoard from "./pages/user/DashBoard";
 import EditProfile from "./pages/user/EditProfile";
 import UploadTest from "./pages/test/UploadTest";
-import CoursesDetail from "./pages/admin/courses/CoursesDetail";
-import ClientCoursesDetail from "./pages/courses/ClientCoursesDetail";
+import CoursesWrite from "./pages/admin/courses/CoursesWrite";
+import CoursesDetail from "./pages/courses/CoursesDetail";
 import AdminFaqSave from "./pages/admin/faq/AdminFaqSave";
 import AdminFaqList from "./pages/admin/faq/AdminFaqList";
 import FolderList from "./pages/admin/video/FolderList";
@@ -43,6 +43,8 @@ const App = () => {
         <Route path="/login" exact={true} component={Login} />
         <Route path="/join" exact={true} component={Join} />
         <Route path="/courses" exact={true} component={Courses} />
+        <Route path="/courses/:id" exact={true} component={CoursesDetail} />
+
         <Route path="/challenges" exact={true} component={Challenges} />
         <Route path="/community" exact={true} component={Community} />
         <Route
@@ -66,7 +68,7 @@ const App = () => {
 
         <Route path="/admin/video" exact={true} component={FolderList} />
         <Route path="/admin/video/:id" exact={true} component={FolderDetail} />
-        <Route path="/admin/courses" exact={true} component={CoursesDetail} />
+        <Route path="/admin/courses" exact={true} component={CoursesWrite} />
       </Switch>
     </>
   );
