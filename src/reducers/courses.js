@@ -13,6 +13,7 @@ export const initialState = {
   coursesOneGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
   coursesOneGetDone: false,
   coursesOneGetError: null,
+
   coursesList: null,
   coursesItem: null,
 };
@@ -103,7 +104,7 @@ const reducer = (state = initialState, action) => {
       case COURSES_ONE_GET_SUCCESS:
         draft.coursesOneGetLoading = false;
         draft.coursesOneGetDone = true;
-        draft.coursesOneItem = action.data;
+        draft.coursesItem = action.data;
         break;
 
       case COURSES_ONE_GET_FAILURE:

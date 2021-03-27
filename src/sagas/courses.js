@@ -58,6 +58,7 @@ function* homeCoursesGet(action) {
 }
 
 function coursesOneGetAPI(data) {
+  console.log("코스1개", data);
   return axios.get(`/courses/${data}`);
 }
 

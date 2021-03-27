@@ -42,7 +42,7 @@ export const HeroButton = styled(Button)`
 // Home - Courses
 export const HomeCourses = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(378px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   row-gap: 70px;
   margin-bottom: 100px;
 `;
