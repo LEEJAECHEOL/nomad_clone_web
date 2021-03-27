@@ -41,12 +41,10 @@ export const HeroButton = styled(Button)`
 
 // Home - Courses
 export const HomeCourses = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  row-gap: 100px;
-  margin-bottom: 70px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  row-gap: 70px;
+  margin-bottom: 100px;
 `;
 
 // Home - Courses - Button

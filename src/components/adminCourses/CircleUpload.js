@@ -23,7 +23,7 @@ const CircleUpload = memo(({ value = [], onChange }) => {
         }
       }
       try {
-        await axios.delete("http://localhost:8080/upload/" + id, {
+        await axios.delete("/upload/" + id, {
           header: { "Content-Type": "multipart/form-data" },
         });
         setFileList(fileList.filter((item) => item.uid !== file.uid));
@@ -39,13 +39,9 @@ const CircleUpload = memo(({ value = [], onChange }) => {
       const formData = new FormData();
       formData.append("file", file);
       try {
-        const result = await axios.post(
-          "http://localhost:8080/upload",
-          formData,
-          {
-            header: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        const result = await axios.post("/upload", formData, {
+          header: { "Content-Type": "multipart/form-data" },
+        });
         const saveResult = result.data;
         saveResult.uid = file.uid;
         setFileList((prev) => {
