@@ -24,6 +24,8 @@ import AdminFaqUpdate from "./pages/admin/faq/AdminFaqUpdate";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loadMyInfoRequestAction } from "./reducers/user";
+import CategorySave from "./pages/admin/community/CategorySave";
+import FaqCategorySave from "./pages/admin/faq/FaqCategorySave";
 const App = () => {
   const dispatch = useDispatch();
   // 새로고침 시 유저 인포 다시 가져오기
@@ -38,7 +40,7 @@ const App = () => {
         <Route path="/login" exact={true} component={Login} />
         <Route path="/join" exact={true} component={Join} />
         <Route path="/courses" exact={true} component={Courses} />
-        <Route path="/courses/:id" exact={true} component={CoursesDetail} />
+        <Route path="/courses/:ind" exact={true} component={CoursesDetail} />
 
         <Route path="/challenges" exact={true} component={Challenges} />
         <Route path="/community" exact={true} component={Community} />
@@ -64,6 +66,16 @@ const App = () => {
         <Route path="/admin/video" exact={true} component={FolderList} />
         <Route path="/admin/video/:id" exact={true} component={FolderDetail} />
         <Route path="/admin/courses" exact={true} component={CoursesWrite} />
+        <Route
+          path="/admin/communityCategory"
+          exact={true}
+          component={CategorySave}
+        />
+        <Route
+          path="/admin/faqCategory"
+          exact={true}
+          component={FaqCategorySave}
+        />
       </Switch>
     </>
   );

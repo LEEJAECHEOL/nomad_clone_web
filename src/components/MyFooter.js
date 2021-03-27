@@ -49,7 +49,7 @@ const MyFooter = () => {
           </div>
           <div className="footer_mark">
             <img
-              src="http://localhost:3000/images/m-gray.svg"
+              src="http://localhost:3100/images/m-gray.svg"
               alt="footer_logo"
             />
             <span>Clone Startups. Learn to Code.</span>

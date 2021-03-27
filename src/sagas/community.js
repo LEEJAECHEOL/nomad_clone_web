@@ -9,6 +9,9 @@ import {
   COMMUNITY_GET_FAILURE,
   COMMUNITY_GET_REQUEST,
   COMMUNITY_GET_SUCCESS,
+  COMMUNITY_CATEGORY_GET_FAILURE,
+  COMMUNITY_CATEGORY_GET_REQUEST,
+  COMMUNITY_CATEGORY_GET_SUCCESS,
   COMMUNITY_ONE_GET_FAILURE,
   COMMUNITY_ONE_GET_REQUEST,
   COMMUNITY_ONE_GET_SUCCESS,
@@ -43,6 +46,7 @@ function* communityPost(action) {
 }
 
 function communityGetAPI() {
+  console.log("여기 몇번실행?");
   return axios.get(`/community`);
 }
 
@@ -64,8 +68,30 @@ function* communityGet(action) {
   }
 }
 
+function communityCategoryGetAPI(data) {
+  console.log("카테고리아이디는?", data);
+  return axios.get(`/community/category/${data}`);
+}
+
+function* communityCategoryGet(action) {
+  try {
+    const result = yield call(communityCategoryGetAPI, action.data);
+    const data = result.data.data;
+    console.log(result);
+    console.log(data);
+    yield put({
+      type: COMMUNITY_CATEGORY_GET_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: COMMUNITY_CATEGORY_GET_FAILURE,
+      error: "로그인에 실패하였습니다.",
+    });
+  }
+}
+
 function communityOneGetAPI(data) {
-  console.log("여기실행되네?", data);
   return axios.get(`/community/${data}`);
 }
 
@@ -129,11 +155,16 @@ function* watchCommunityOneGet() {
   yield takeLatest(COMMUNITY_ONE_GET_REQUEST, communityOneGet);
 }
 
+function* watchCommunityCategoryGet() {
+  yield takeLatest(COMMUNITY_CATEGORY_GET_REQUEST, communityCategoryGet);
+}
+
 export default function* communitySaga() {
   yield all([
     fork(watchCommunityPost),
     fork(watchCommunityGet),
     fork(watchCommunityOneGet),
     fork(watchReplyPost),
+    fork(watchCommunityCategoryGet),
   ]);
 }
