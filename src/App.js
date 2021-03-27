@@ -1,4 +1,3 @@
-import { Content } from "antd/lib/layout/layout";
 import { Route, Switch } from "react-router-dom";
 
 import Home from "./pages/home/Home";
@@ -8,11 +7,7 @@ import Courses from "./pages/courses/Courses";
 import Challenges from "./pages/challenges/Challenges";
 import Community from "./pages/community/List";
 import FAQ from "./pages/faq/FAQ";
-import MyFooter from "./components/MyFooter";
-import MyHeader from "./components/MyHeader";
 
-import { Global } from "./style";
-import { Col, Row } from "antd";
 import Write from "./pages/community/Write";
 import FaqDetail from "./pages/faq/FaqDetail";
 import CommunityDetail from "./pages/community/Detail";
