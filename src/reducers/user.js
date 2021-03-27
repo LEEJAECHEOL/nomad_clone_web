@@ -2,10 +2,13 @@ import produce from "immer";
 
 // 상태
 export const initialState = {
-  logInLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  logInLoading: false,
   logInDone: false,
   logInError: null,
-  logOutLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  loadMyInfoLoading: false,
+  loadMyInfoDone: false,
+  loadMyInfoError: null,
+  logOutLoading: false,
   logOutDone: false,
   logOutError: null,
   principal: null,
@@ -20,6 +23,10 @@ export const LOG_OUT_REQUEST = "LOG_OUT_REQUEST";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
 
+export const LOAD_MY_INFO_REQUEST = "LOAD_MY_INFO_REQUEST";
+export const LOAD_MY_INFO_SUCCESS = "LOAD_MY_INFO_SUCCESS";
+export const LOAD_MY_INFO_FAILURE = "LOAD_MY_INFO_FAILURE";
+
 // 액션
 export const loginRequestAction = (data) => {
   return {
@@ -31,6 +38,11 @@ export const logoutRequestAction = (data) => {
   return {
     type: LOG_OUT_REQUEST,
     data,
+  };
+};
+export const loadMyInfoRequestAction = () => {
+  return {
+    type: LOAD_MY_INFO_REQUEST,
   };
 };
 
@@ -70,6 +82,24 @@ const reducer = (state = initialState, action) => {
       case LOG_OUT_FAILURE:
         draft.logOutLoading = false;
         draft.logOutError = action.error;
+        break;
+
+      case LOAD_MY_INFO_REQUEST:
+        console.log("is run?");
+        draft.loadMyInfoLoading = true;
+        draft.loadMyInfoDone = false;
+        draft.loadMyInfoError = null;
+        break;
+
+      case LOAD_MY_INFO_SUCCESS:
+        draft.loadMyInfoLoading = false;
+        draft.loadMyInfoDone = true;
+        draft.principal = action.data;
+        break;
+
+      case LOAD_MY_INFO_FAILURE:
+        draft.loadMyInfoLoading = false;
+        draft.loadMyInfoError = action.error;
         break;
       default:
         return state;

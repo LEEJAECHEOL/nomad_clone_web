@@ -14,7 +14,12 @@ import {
   CommunityBoardContainer,
   SkeltonCard,
 } from "./style";
-import { LineChartOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  LineChartOutlined,
+  SearchOutlined,
+  ThunderboltOutlined,
+} from "@ant-design/icons";
+import AppLayout from "../../components/AppLayout";
 
 const Community = () => {
   const [category, setCategory] = useState("");
@@ -30,75 +35,77 @@ const Community = () => {
   );
   return (
     <>
-      <PageHero>
-        <h1>Community</h1>
-        <p>개발자 99% 커뮤니티에서 수다 떨어요!</p>
-      </PageHero>
+      <AppLayout>
+        <PageHero>
+          <h1>Community</h1>
+          <p>개발자 99% 커뮤니티에서 수다 떨어요!</p>
+        </PageHero>
 
-      <CommunityContainer justify="center">
-        {/* 카테고리 */}
-        <CommunityCategory span={5}>
-          <h3>카테고리</h3>
-          <Menu mode="vertical">
-            <Menu.Item>
-              <Link>
-                <span>#</span>all
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link>
-                <span>#</span>to-do-list
-              </Link>
-            </Menu.Item>
-          </Menu>
-        </CommunityCategory>
-        {/* 중앙 Board */}
-        <CommunityBoard span={14}>
-          <div className="Community-Filter">
-            <div>
-              <b>Sort by: </b>
-              <Button size="small" type="text" icon={<LineChartOutlined />}>
-                Popular
-              </Button>
-              <Button size="small" type="text" icon={<LineChartOutlined />}>
-                Popular
-              </Button>
+        <CommunityContainer justify="center">
+          {/* 카테고리 */}
+          <CommunityCategory span={5}>
+            <h3>카테고리</h3>
+            <Menu mode="vertical">
+              <Menu.Item>
+                <Link>
+                  <span>#</span>all
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link>
+                  <span>#</span>to-do-list
+                </Link>
+              </Menu.Item>
+            </Menu>
+          </CommunityCategory>
+          {/* 중앙 Board */}
+          <CommunityBoard span={14}>
+            <div className="Community-Filter">
+              <div>
+                <b>Sort by: </b>
+                <Button size="small" type="text" icon={<LineChartOutlined />}>
+                  Popular
+                </Button>
+                <Button size="small" type="text" icon={<ThunderboltOutlined />}>
+                  Popular
+                </Button>
+              </div>
+              <div>
+                <Button size="small" type="text" icon={<SearchOutlined />}>
+                  Search
+                </Button>
+              </div>
             </div>
-            <div>
-              <Button size="small" type="text" icon={<SearchOutlined />}>
-                Search
-              </Button>
-            </div>
-          </div>
-          <CommunityBoardContainer>
-            {communityGetLoading ? (
-              <>
-                <SkeltonCard key="skel-1">
-                  <Skeleton active avatar paragraph={{ rows: 1 }} />
-                </SkeltonCard>
-                <SkeltonCard key="skel-2">
-                  <Skeleton active avatar paragraph={{ rows: 1 }} />
-                </SkeltonCard>
-                <SkeltonCard key="skel-3">
-                  <Skeleton active avatar paragraph={{ rows: 1 }} />
-                </SkeltonCard>
-              </>
-            ) : communityList !== null ? (
-              communityList.map((list) => (
+            <CommunityBoardContainer>
+              {communityGetLoading ? (
                 <>
-                  <CommunityItem key={"list-" + list.id} list={list} />
+                  <SkeltonCard key="skel-1">
+                    <Skeleton active avatar paragraph={{ rows: 1 }} />
+                  </SkeltonCard>
+                  <SkeltonCard key="skel-2">
+                    <Skeleton active avatar paragraph={{ rows: 1 }} />
+                  </SkeltonCard>
+                  <SkeltonCard key="skel-3">
+                    <Skeleton active avatar paragraph={{ rows: 1 }} />
+                  </SkeltonCard>
                 </>
-              ))
-            ) : null}
-          </CommunityBoardContainer>
-        </CommunityBoard>
-        {/* 글쓰기 버튼 */}
-        <CommunityWrite span={5}>
-          <CommunityWriteButton type="primary" size={"small"}>
-            <Link to="/write">글쓰기</Link>
-          </CommunityWriteButton>
-        </CommunityWrite>
-      </CommunityContainer>
+              ) : communityList !== null ? (
+                communityList.map((list) => (
+                  <>
+                    <CommunityItem key={"list-" + list.id} list={list} />
+                  </>
+                ))
+              ) : null}
+            </CommunityBoardContainer>
+          </CommunityBoard>
+          {/* 글쓰기 버튼 */}
+          <CommunityWrite span={5}>
+            <CommunityWriteButton type="primary" size={"small"}>
+              <Link to="/write">글쓰기</Link>
+            </CommunityWriteButton>
+          </CommunityWrite>
+        </CommunityContainer>
+      </AppLayout>
     </>
   );
 };

@@ -1,6 +1,9 @@
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 import {
+  LOAD_MY_INFO_FAILURE,
+  LOAD_MY_INFO_REQUEST,
+  LOAD_MY_INFO_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -23,6 +26,7 @@ function* logIn(action) {
       data: data,
     });
   } catch (err) {
+    console.log("err" + err);
     yield put({
       type: LOG_IN_FAILURE,
       error: "로그인에 실패하였습니다.",
@@ -37,6 +41,35 @@ function* logOut() {
   });
 }
 
+function loadMyInfoAPI() {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.get("/user/load", config);
+}
+function* loadMyInfo() {
+  try {
+    const result = yield call(loadMyInfoAPI);
+    const data = result.data.data;
+    console.log("is run?");
+    console.log(result);
+    yield put({
+      type: LOAD_MY_INFO_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    console.log("is run?");
+    yield put({
+      type: LOAD_MY_INFO_FAILURE,
+      error: "로그인에 실패하였습니다.",
+    });
+  }
+}
+function* watchLoadMyInfo() {
+  yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
+}
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
@@ -45,5 +78,5 @@ function* watchLogOut() {
 }
 
 export default function* userSaga() {
-  yield all([fork(watchLogIn), fork(watchLogOut)]);
+  yield all([fork(watchLogIn), fork(watchLogOut), fork(watchLoadMyInfo)]);
 }

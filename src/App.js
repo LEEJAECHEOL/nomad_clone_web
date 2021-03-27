@@ -26,76 +26,48 @@ import AdminFaqList from "./pages/admin/faq/AdminFaqList";
 import FolderList from "./pages/admin/video/FolderList";
 import FolderDetail from "./pages/admin/video/FolderDetail";
 import AdminFaqUpdate from "./pages/admin/faq/AdminFaqUpdate";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loadMyInfoRequestAction } from "./reducers/user";
 const App = () => {
+  const dispatch = useDispatch();
+  // 새로고침 시 유저 인포 다시 가져오기
+  useEffect(() => {
+    dispatch(loadMyInfoRequestAction());
+  }, []);
+
   return (
     <>
-      <Global />
-      <MyHeader />
-      <Content>
-        <Row>
-          <Col xs={1} sm={1} md={2} lg={2} xl={3}></Col>
-          <Col xs={22} sm={22} md={20} lg={20} xl={18}>
-            <Switch>
-              <Route path="/" exact={true} component={Home} />
-              <Route path="/login" exact={true} component={Login} />
-              <Route path="/join" exact={true} component={Join} />
-              <Route path="/courses" exact={true} component={Courses} />
-              <Route path="/challenges" exact={true} component={Challenges} />
-              <Route path="/community" exact={true} component={Community} />
-              <Route
-                path="/communityDetail/:id"
-                exact={true}
-                component={CommunityDetail}
-              />
-              <Route path="/faq" exact={true} component={FAQ} />
-              <Route path="/faq/:id" exact={true} component={FaqDetail} />
-              <Route path="/write" exact={true} component={Write} />
-              <Route path="/dashboard/:id" exact={true} component={DashBoard} />
-              <Route
-                path="/editProfile/:id"
-                exact={true}
-                component={EditProfile}
-              />
-              <Route path="/upload" exact={true} component={UploadTest} />
-              <Route
-                path="/adminFaqSave"
-                exact={true}
-                component={AdminFaqSave}
-              />
-              <Route
-                path="/adminFaqList"
-                exact={true}
-                component={AdminFaqList}
-              />
-              <Route
-                path="/adminFaqUpdate/:id"
-                exact={true}
-                component={AdminFaqUpdate}
-              />
+      <Switch>
+        <Route path="/" exact={true} component={Home} />
+        <Route path="/login" exact={true} component={Login} />
+        <Route path="/join" exact={true} component={Join} />
+        <Route path="/courses" exact={true} component={Courses} />
+        <Route path="/challenges" exact={true} component={Challenges} />
+        <Route path="/community" exact={true} component={Community} />
+        <Route
+          path="/communityDetail/:id"
+          exact={true}
+          component={CommunityDetail}
+        />
+        <Route path="/faq" exact={true} component={FAQ} />
+        <Route path="/faq/:id" exact={true} component={FaqDetail} />
+        <Route path="/write" exact={true} component={Write} />
+        <Route path="/dashboard/:id" exact={true} component={DashBoard} />
+        <Route path="/editProfile/:id" exact={true} component={EditProfile} />
+        <Route path="/upload" exact={true} component={UploadTest} />
+        <Route path="/adminFaqSave" exact={true} component={AdminFaqSave} />
+        <Route path="/adminFaqList" exact={true} component={AdminFaqList} />
+        <Route
+          path="/adminFaqUpdate/:id"
+          exact={true}
+          component={AdminFaqUpdate}
+        />
 
-              <Route path="/admin/video" exact={true} component={FolderList} />
-              <Route
-                path="/admin/video/:id"
-                exact={true}
-                component={FolderDetail}
-              />
-            </Switch>
-          </Col>
-          <Col xs={1} sm={1} md={2} lg={2} xl={3}></Col>
-        </Row>
-
-        <Switch>
-          <Route path="/admin/courses" exact={true} component={CoursesDetail} />
-        </Switch>
-        <Switch>
-          <Route
-            path="/courses/:id"
-            exact={true}
-            component={ClientCoursesDetail}
-          />
-        </Switch>
-      </Content>
-      <MyFooter />
+        <Route path="/admin/video" exact={true} component={FolderList} />
+        <Route path="/admin/video/:id" exact={true} component={FolderDetail} />
+        <Route path="/admin/courses" exact={true} component={CoursesDetail} />
+      </Switch>
     </>
   );
 };
