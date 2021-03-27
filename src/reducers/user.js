@@ -34,10 +34,9 @@ export const loginRequestAction = (data) => {
     data,
   };
 };
-export const logoutRequestAction = (data) => {
+export const logoutRequestAction = () => {
   return {
     type: LOG_OUT_REQUEST,
-    data,
   };
 };
 export const loadMyInfoRequestAction = () => {
@@ -85,7 +84,6 @@ const reducer = (state = initialState, action) => {
         break;
 
       case LOAD_MY_INFO_REQUEST:
-        console.log("is run?");
         draft.loadMyInfoLoading = true;
         draft.loadMyInfoDone = false;
         draft.loadMyInfoError = null;
