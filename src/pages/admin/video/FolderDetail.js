@@ -8,6 +8,7 @@ import {
   videoDetailGetRequestAction,
   videoPutRequestAction,
 } from "../../../reducers/admin/video";
+import AppLayout from "../../../components/AppLayout";
 
 const FolderDetail = ({ match }) => {
   const id = match.params.id;
@@ -43,66 +44,69 @@ const FolderDetail = ({ match }) => {
     }
     dispatch(videoPutRequestAction(videoContent));
   }, [dispatch, videoContent]);
+
   return (
     <>
-      <CurriculumCard
-        title={
-          <>
-            <span>Curriculum - {videoContent.name}</span>
-            <Button type="primary" onClick={showModal}>
-              목차 작성하기!!
-            </Button>
-          </>
-        }
-        bordered={false}
-      >
-        <SortList />
-
-        <Button
-          type="primary"
-          htmlType="button"
-          onClick={onSubmit}
-          loading={videoPutLoading}
-        >
-          저장
-        </Button>
-        <Modal
-          title="Regist Curriculum Contents"
-          footer={null}
-          closable={false}
-          maskClosable={false}
-          visible={isModalVisible}
-        >
-          <ModalForm onFinish={onFinish} form={form}>
-            <Form.Item
-              label="제목"
-              name="title"
-              rules={[{ required: true, message: "제목을 입력해주세요." }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item>
-              <Button htmlType="button" onClick={handleCancel}>
-                취소
+      <AppLayout>
+        <CurriculumCard
+          title={
+            <>
+              <span>Curriculum - {videoContent.name}</span>
+              <Button type="primary" onClick={showModal}>
+                목차 작성하기!!
               </Button>
-              <Button type="primary" htmlType="submit">
-                저장
-              </Button>
-            </Form.Item>
-          </ModalForm>
-        </Modal>
-      </CurriculumCard>
+            </>
+          }
+          bordered={false}
+        >
+          <SortList />
 
-      <CautionsCard bordered={false}>
-        <p>
-          1. Curriculum을 다 작성하신 후에 저장을 눌려주세요!!(안누르면
-          저장안됩니다.!)
-        </p>
-        <p>
-          2. 잘못 입력하신 경우 삭제하시고 재등록해주세요! (드래그를 통해 순서가
-          변경 가능합니다.)
-        </p>
-      </CautionsCard>
+          <Button
+            type="primary"
+            htmlType="button"
+            onClick={onSubmit}
+            loading={videoPutLoading}
+          >
+            저장
+          </Button>
+          <Modal
+            title="Regist Curriculum Contents"
+            footer={null}
+            closable={false}
+            maskClosable={false}
+            visible={isModalVisible}
+          >
+            <ModalForm onFinish={onFinish} form={form}>
+              <Form.Item
+                label="제목"
+                name="title"
+                rules={[{ required: true, message: "제목을 입력해주세요." }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item>
+                <Button htmlType="button" onClick={handleCancel}>
+                  취소
+                </Button>
+                <Button type="primary" htmlType="submit">
+                  저장
+                </Button>
+              </Form.Item>
+            </ModalForm>
+          </Modal>
+        </CurriculumCard>
+
+        <CautionsCard bordered={false}>
+          <p>
+            1. Curriculum을 다 작성하신 후에 저장을 눌려주세요!!(안누르면
+            저장안됩니다.!)
+          </p>
+          <p>
+            2. 잘못 입력하신 경우 삭제하시고 재등록해주세요! (드래그를 통해
+            순서가 변경 가능합니다.)
+          </p>
+        </CautionsCard>
+      </AppLayout>
     </>
   );
 };

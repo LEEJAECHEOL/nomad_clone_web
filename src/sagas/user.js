@@ -59,6 +59,7 @@ function* loadMyInfo() {
       data: data,
     });
   } catch (error) {
+    console.dir(error);
     yield put({
       type: LOAD_MY_INFO_FAILURE,
       error: error.response.data,

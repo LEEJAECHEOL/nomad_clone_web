@@ -25,7 +25,6 @@ import VideoList from "./pages/video/Detail";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadMyInfoRequestAction, logoutRequestAction } from "./reducers/user";
-import { loadMyInfoRequestAction } from "./reducers/user";
 import CategorySave from "./pages/admin/community/CategorySave";
 import FaqCategorySave from "./pages/admin/faq/FaqCategorySave";
 const App = () => {

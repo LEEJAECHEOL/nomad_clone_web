@@ -24,14 +24,15 @@ const SortList = memo(() => {
   return (
     <>
       <SortableContainer onSortEnd={onSortEnd} useDragHandle>
-        {videoContent.contents.map((title, index) => (
+        {videoContent.contents.map((list, index) => (
           <React.Fragment key={index}>
-            <SortListTitle key={`title ${index}`} index={index} text={title} />
-            {videoContent.contentList[index].map((list, itemIndex) => (
+            <SortListTitle key={list.id} index={index} text={list.title} />
+            {list.list.map((item, itemIndex) => (
               <SortListItem
-                key={`list ${itemIndex}`}
+                key={`item ${itemIndex}`}
                 collection={index}
                 index={itemIndex}
+                list={list.list[itemIndex]}
               />
             ))}
           </React.Fragment>

@@ -22,7 +22,7 @@ const MyHeader = () => {
                 <Link to="/">
                   <img
                     className="logo"
-                    src="http://localhost:3100/images/m.svg"
+                    src="http://localhost:3000/images/m.svg"
                     alt="logo"
                   />
                 </Link>
@@ -30,9 +30,9 @@ const MyHeader = () => {
               <Menu.Item key="2">
                 <Link to="/courses">Coureses</Link>
               </Menu.Item>
-              <Menu.Item key="3">
+              {/* <Menu.Item key="3">
                 <Link to="/challenges">Challenges</Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key="4">
                 <Link to="/community">Community</Link>
               </Menu.Item>
@@ -48,7 +48,7 @@ const MyHeader = () => {
               <Menu.Item key="13">
                 <Link to="/admin/communityCategory">CCS</Link>
               </Menu.Item>
-              <Menu.Item key="13">
+              <Menu.Item key="14">
                 <Link to="/admin/faqCategory">AFC</Link>
               </Menu.Item>
 

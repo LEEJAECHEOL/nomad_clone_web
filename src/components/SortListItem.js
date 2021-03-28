@@ -27,13 +27,12 @@ import {
 
 const DragHandle = sortableHandle(() => <MenuOutlined />);
 
-const SortListItem = memo(({ collection, index }) => {
+const SortListItem = memo(({ collection, index, list }) => {
   const dispatch = useDispatch();
   const { videoContent } = useSelector((state) => state.adminVideo);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [uploading, setUploading] = useState(false);
-  console.log(videoContent);
   const showModal = useCallback(() => {
     setIsModalVisible(true);
   }, []);
@@ -69,7 +68,7 @@ const SortListItem = memo(({ collection, index }) => {
           icon={<DeleteOutlined />}
           onClick={removeList}
         ></Button>
-        {!videoContent.contentList[collection][index].vimeoId ? (
+        {!list.vimeoId ? (
           <Button size="small" onClick={showModal}>
             영상등록하기
           </Button>
@@ -95,9 +94,7 @@ const SortListItem = memo(({ collection, index }) => {
   }, [form]);
   const handleMove = useCallback(async (vimeoId) => {
     // 영상 폴더 이동
-    console.log(vimeoId);
     const forderId = videoContent.vimeoFolderId;
-    console.log(forderId);
     await axios({
       method: "put",
       url: `https://api.vimeo.com/me/projects/${forderId}/videos/${vimeoId}`,
@@ -151,7 +148,6 @@ const SortListItem = memo(({ collection, index }) => {
         },
         headers: {},
         onError: function (error) {
-          console.log("Failed because: " + error);
           eventObject.onError("Upload Error!!");
         },
         onProgress: function (bytesUploaded, bytesTotal) {
@@ -185,7 +181,7 @@ const SortListItem = memo(({ collection, index }) => {
     <>
       <SortableItem
         key={`list ${index}`}
-        text={videoContent.contentList[collection][index].title}
+        text={videoContent.contents[collection].list[index].title}
         collection={collection}
         index={index}
       />
@@ -200,9 +196,9 @@ const SortListItem = memo(({ collection, index }) => {
           onFinish={onFinish}
           form={form}
           initialValues={{
-            title: videoContent.contentList[collection][index].title,
-            isFree: videoContent.contentList[collection][index].isFree,
-            vimeoId: videoContent.contentList[collection][index].vimeoId,
+            title: list.title,
+            isFree: list.isFree,
+            vimeoId: list.vimeoId,
           }}
         >
           <Form.Item className="form_hidden" name="vimeoId"></Form.Item>

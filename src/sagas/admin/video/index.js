@@ -55,7 +55,6 @@ function videoPostAPI(data) {
 }
 function* videoPost(action) {
   try {
-    console.log(action.data);
     // vimeo 폴더 생성 후 폴더 id값 가져오기 (vimeoFolderId)
     const vimeoResult = yield call(vimeoCreateFolder, action.data);
     const parse = vimeoResult.data.uri.split("/");
@@ -164,7 +163,6 @@ function videoPutAPI(data) {
 function* videoPut(action) {
   try {
     const result = yield call(videoPutAPI, action.data);
-    console.log(result);
     yield put({
       type: VIDEO_PUT_SUCCESS,
       data: result.data.data,

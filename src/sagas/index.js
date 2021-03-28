@@ -8,6 +8,7 @@ import adminVideoSaga from "./admin/video/";
 import dashBoardSaga from "./dashboard";
 import categorySaga from "./category";
 import coursesSaga from "./courses";
+import videoSaga from "./video";
 axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
 
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     fork(dashBoardSaga),
     fork(adminCoursesSaga),
     fork(adminVideoSaga),
+    fork(videoSaga),
   ]);
 }
