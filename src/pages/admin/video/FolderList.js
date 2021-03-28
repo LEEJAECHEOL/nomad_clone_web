@@ -7,6 +7,7 @@ import {
 } from "../../../reducers/admin/video";
 import FolderListItem from "../../../components/FolderListItem";
 import { CurriculumListCard, ModalForm, VideoList } from "./style";
+import AppLayout from "../../../components/AppLayout";
 
 const FolderList = () => {
   const dispatch = useDispatch();
@@ -41,51 +42,53 @@ const FolderList = () => {
 
   return (
     <>
-      <CurriculumListCard title="Curriculum List" bordered={false}>
-        <VideoList>
-          {videoList !== null
-            ? videoList.map((folder) => (
-                <FolderListItem key={folder.id} folder={folder} />
-              ))
-            : null}
-        </VideoList>
-        <Button type="primary" onClick={showModal}>
-          폴더 생성하기!!
-        </Button>
-        <Modal
-          title="Regist Curriculum Folder"
-          footer={null}
-          closable={false}
-          maskClosable={false}
-          visible={isModalVisible}
-        >
-          <ModalForm onFinish={onFinish} form={form}>
-            <Form.Item
-              label="폴더 명"
-              name="name"
-              rules={[{ required: true, message: "폴더 명을 입력해주세요." }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                htmlType="button"
-                onClick={handleCancel}
-                loading={videoPostLoading}
+      <AppLayout>
+        <CurriculumListCard title="Curriculum List" bordered={false}>
+          <VideoList>
+            {videoList !== null
+              ? videoList.map((folder) => (
+                  <FolderListItem key={folder.id} folder={folder} />
+                ))
+              : null}
+          </VideoList>
+          <Button type="primary" onClick={showModal}>
+            폴더 생성하기!!
+          </Button>
+          <Modal
+            title="Regist Curriculum Folder"
+            footer={null}
+            closable={false}
+            maskClosable={false}
+            visible={isModalVisible}
+          >
+            <ModalForm onFinish={onFinish} form={form}>
+              <Form.Item
+                label="폴더 명"
+                name="name"
+                rules={[{ required: true, message: "폴더 명을 입력해주세요." }]}
               >
-                취소
-              </Button>
-              <Button
-                type="primary"
-                htmlType="submit"
-                loading={videoPostLoading}
-              >
-                저장
-              </Button>
-            </Form.Item>
-          </ModalForm>
-        </Modal>
-      </CurriculumListCard>
+                <Input />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  htmlType="button"
+                  onClick={handleCancel}
+                  loading={videoPostLoading}
+                >
+                  취소
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={videoPostLoading}
+                >
+                  저장
+                </Button>
+              </Form.Item>
+            </ModalForm>
+          </Modal>
+        </CurriculumListCard>
+      </AppLayout>
     </>
   );
 };

@@ -31,7 +31,7 @@ const SortListTitle = memo(({ index, text }) => {
     handleCancel();
   }, [dispatch, form, handleCancel, index]);
   const removeTitle = () => {
-    if (videoContent.contentList[index].length === 0) {
+    if (videoContent.contents[index].list.length === 0) {
       dispatch(videoContentsListDeleteAction(index));
     } else {
       alert("하위에 있는 데이터를 모두 삭제해주세요!!");

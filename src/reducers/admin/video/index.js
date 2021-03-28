@@ -23,12 +23,11 @@ export const initialState = {
   videoPutDone: false,
   videoPutError: null,
 
-  videoList: null,
+  videoList: [],
 
   videoContent: {
     id: null,
     contents: [],
-    contentList: [],
   },
 };
 
@@ -56,11 +55,12 @@ export const VIDEO_PUT_FAILURE = "VIDEO_PUT_FAILURE";
 
 // saga 안씀.========================================================
 
-export const VIDEO_CONTENT_LIST_SAVE = "VIDEO_CONTENT_LIST_SAVE";
-export const VIDEO_CONTENT_LIST_DELETE = "VIDEO_CONTENT_LIST_DELETE";
+export const VIDEO_CONTENT_LIST_SAVE = "VIDEO_CONTENT_LIST_SAVE"; // 목차 저장
+
+export const VIDEO_CONTENT_LIST_DELETE = "VIDEO_CONTENT_LIST_DELETE"; // 목차 삭제
 
 export const VIDEO_CONTENT_ITEM_LIST_TITLE_SAVE =
-  "VIDEO_CONTENT_ITEM_LIST_TITLE_SAVE";
+  "VIDEO_CONTENT_ITEM_LIST_TITLE_SAVE"; // 목차 리스트 저장
 export const VIDEO_CONTENT_ITEM_LIST_SAVE = "VIDEO_CONTENT_ITEM_LIST_SAVE";
 export const VIDEO_CONTENT_ITEM_LIST_DELETE = "VIDEO_CONTENT_ITEM_LIST_DELETE";
 
@@ -99,7 +99,6 @@ export const videoPutRequestAction = (data) => {
 
 // 사가 안쓰는 액션
 export const videoContentsListSaveAction = (data) => {
-  console.log(data);
   return {
     type: VIDEO_CONTENT_LIST_SAVE,
     data: data,
@@ -228,42 +227,36 @@ const reducer = (state = initialState, action) => {
 
       // ========================================== saga 않씀 ====================================
       case VIDEO_CONTENT_LIST_SAVE:
-        draft.videoContent.contents.push(action.data);
-        draft.videoContent.contentList.push([]);
+        draft.videoContent.contents.push({ title: action.data, list: [] });
         break;
       case VIDEO_CONTENT_ITEM_LIST_TITLE_SAVE:
-        draft.videoContent.contentList[action.data.index].push({
+        draft.videoContent.contents[action.data.index].list.push({
           title: action.data.title,
           vimeoId: "",
           isFree: false,
         });
         break;
       case VIDEO_CONTENT_ITEM_LIST_SAVE:
-        console.log(action.data.data);
-        draft.videoContent.contentList[action.data.collection][
+        draft.videoContent.contents[action.data.collection].list[
           action.data.index
         ] = action.data.data;
         break;
       case VIDEO_CONTENT_LIST_DELETE:
-        console.log(action.data);
         draft.videoContent.contents = draft.videoContent.contents.filter(
-          (v, index) => index !== action.data
-        );
-        draft.videoContent.contentList = draft.videoContent.contentList.filter(
           (v, index) => index !== action.data
         );
 
         break;
       case VIDEO_CONTENT_ITEM_LIST_DELETE:
-        draft.videoContent.contentList[
+        draft.videoContent.contents[
           action.data.collection
-        ] = draft.videoContent.contentList[action.data.collection].filter(
-          (v, index) => index !== action.data.index
-        );
+        ].list = draft.videoContent.contents[
+          action.data.collection
+        ].list.filter((v, index) => index !== action.data.index);
         break;
       case VIDEO_CONTENT_ITEM_LIST_SORT:
-        draft.videoContent.contentList[action.data.collection] = arrayMove(
-          draft.videoContent.contentList[action.data.collection],
+        draft.videoContent.contents[action.data.collection].list = arrayMove(
+          draft.videoContent.contents[action.data.collection].list,
           action.data.oldIndex,
           action.data.newIndex
         );
