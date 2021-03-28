@@ -20,10 +20,12 @@ export const CommunityBoard = styled(Col)`
     justify-content: space-between;
     height: 24px;
     div {
-      height: 100%;
+      height: 50px;
       display: flex;
       justify-content: space-between;
       b {
+        width: 66px;
+        line-height: 50px;
         color: #6b7280;
         font-weight: 500;
       }

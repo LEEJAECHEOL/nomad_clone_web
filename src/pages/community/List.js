@@ -1,5 +1,5 @@
-import { Button, Menu, Skeleton } from "antd";
-import React, { useCallback, useEffect, useState } from "react";
+import { Button, Menu } from "antd";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CommunityItem from "../../components/CommunityItem";
@@ -7,6 +7,8 @@ import { PageHero } from "../../components/style";
 import {
   communityCategoryGetRequestAction,
   communityGetRequestAction,
+  communityPopularGetRequestAction,
+  communityNewGetRequestAction,
 } from "../../reducers/community";
 import {
   CommunityBoard,
@@ -15,7 +17,6 @@ import {
   CommunityWriteButton,
   CommunityWrite,
   CommunityBoardContainer,
-  SkeltonCard,
 } from "./style";
 import {
   LineChartOutlined,
@@ -34,16 +35,21 @@ const Community = () => {
     dispatch(categoryGetRequestAction());
   }, []);
 
-  const { communityList, communityGetLoading } = useSelector(
-    (state) => state.community
-  );
+  const { communityList } = useSelector((state) => state.community);
   const { categoryList } = useSelector((state) => state.category);
 
   const onClickCategory = useCallback(({ key }) => {
     if (key === "all") {
       dispatch(communityGetRequestAction());
       return;
+    } else if (key === "popular") {
+      dispatch(communityPopularGetRequestAction());
+      return;
+    } else if (key === "new") {
+      dispatch(communityNewGetRequestAction());
+      return;
     }
+
     console.log(key);
     dispatch(communityCategoryGetRequestAction(key));
   }, []);
@@ -79,12 +85,22 @@ const Community = () => {
             <div className="Community-Filter">
               <div>
                 <b>Sort by: </b>
-                <Button size="small" type="text" icon={<LineChartOutlined />}>
-                  Popular
-                </Button>
-                <Button size="small" type="text" icon={<ThunderboltOutlined />}>
-                  New
-                </Button>
+                <Menu mode="horizontal">
+                  <Menu.Item
+                    key={"popular"}
+                    onClick={onClickCategory}
+                    icon={<LineChartOutlined />}
+                  >
+                    Popular
+                  </Menu.Item>
+                  <Menu.Item
+                    key={"new"}
+                    onClick={onClickCategory}
+                    icon={<ThunderboltOutlined />}
+                  >
+                    New
+                  </Menu.Item>
+                </Menu>
               </div>
               <div>
                 <Button size="small" type="text" icon={<SearchOutlined />}>
