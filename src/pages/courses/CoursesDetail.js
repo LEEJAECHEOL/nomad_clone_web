@@ -313,7 +313,7 @@ const CoursesDetail = ({ match }) => {
               <div className="price">
                 <p>{coursesItem !== null ? coursesItem.price : null}원</p>
               </div>
-              <Link>
+              <Link to={`/purchase/${courseId}`}>
                 Go to Checkout <ArrowRightOutlined />
               </Link>
             </div>

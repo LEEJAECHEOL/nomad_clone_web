@@ -536,5 +536,82 @@ export const FaqLayout = styled(ColorLayout)`
       font-weight: 600;
       border-top: 1px solid #ccc;
     }
+export const PurchaseContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+  .purchaseInfo {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    row-gap: 50px;
+    .purchaseInfoLeft {
+      flex: 1;
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        img {
+          border-radius: 13px;
+          width: 400px;
+          height: 250px;
+        }
+        .courseInfo {
+          position: absolute;
+          width: 350px;
+          left: 50%;
+          bottom: -30px;
+          background: #fff;
+          display: flex;
+          flex-direction: column;
+          transform: translateX(-50%);
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          padding: 15px 0;
+          border-radius: 10px;
+          h3 {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .purchaseInfoRight {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      div {
+        width: 450px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        h2 {
+          text-align: center;
+          padding: 15px 0;
+        }
+        .totalPrice {
+          border: 1px solid #ddd;
+          padding: 30px 0;
+          h3 {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            padding: 0 20px;
+          }
+        }
+      }
+      button {
+        display: block;
+        width: 450px;
+        margin-top: 30px;
+        height: 50px;
+        border-radius: 7px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
   }
 `;
