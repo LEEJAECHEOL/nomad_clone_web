@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadMyInfoRequestAction, logoutRequestAction } from "./reducers/user";
 import CategorySave from "./pages/admin/community/CategorySave";
 import FaqCategorySave from "./pages/admin/faq/FaqCategorySave";
+import Purchase from "./pages/courses/Purchase";
 const App = () => {
   const dispatch = useDispatch();
   const { loadMyInfoDone, loadMyInfoError } = useSelector(
@@ -88,6 +89,7 @@ const App = () => {
           exact={true}
           component={FaqCategorySave}
         />
+        <Route path="/purchase/:id" exact={true} component={Purchase} />
       </Switch>
     </>
   );

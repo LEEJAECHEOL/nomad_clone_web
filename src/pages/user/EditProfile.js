@@ -31,7 +31,7 @@ export default function EditProfile({ match }) {
   }, []);
 
   const onSubmit = (values) => {
-    const data = { ...values };
+    const data = { values };
     console.log("post데이터는?", data);
     // dispatch(communityPostRequestAction(data));
   };
@@ -52,6 +52,7 @@ export default function EditProfile({ match }) {
                 className="ant-form-vertical"
                 form={form}
                 initialValues={initial}
+                onFinish={onSubmit}
               >
                 <AccountInputBox>
                   <Form.Item label="Username" name="username">
@@ -85,17 +86,12 @@ export default function EditProfile({ match }) {
                   <Form.Item label="Email" name="email">
                     <Input disabled />
                   </Form.Item>
-                  <Form.Item className="AccountUpdate">
-                    <Button type="primary" htmlType="submit">
-                      Chage email
-                    </Button>
-                  </Form.Item>
                 </EmailInputBox>
               </Form>
             </AccountInfromationColInput>
           </AccountInfromation>
           {/* 프로필박스 */}
-          <AccountInfromation>
+          {/* <AccountInfromation>
             <AccountInfromationCol span={8}>
               <h2>Profile</h2>
             </AccountInfromationCol>
@@ -116,9 +112,9 @@ export default function EditProfile({ match }) {
                 </EmailInputBox>
               </Form>
             </AccountInfromationColInput>
-          </AccountInfromation>
+          </AccountInfromation> */}
           {/* 딜리트어카운트 */}
-          <AccountInfromation>
+          {/* <AccountInfromation>
             <DeleteAccountCol span={8}>
               <h2>Delete Account</h2>
             </DeleteAccountCol>
@@ -130,15 +126,10 @@ export default function EditProfile({ match }) {
                     After you delete your account no one will be able to recover
                     it.
                   </p>
-                  <Form.Item className="AccountUpdate">
-                    <Button type="primary" htmlType="submit">
-                      Delete
-                    </Button>
-                  </Form.Item>
                 </EmailInputBox>
               </Form>
             </AccountInfromationColInput>
-          </AccountInfromation>
+          </AccountInfromation> */}
         </EditProfileContainer>
       </AppLayout>
     </>
