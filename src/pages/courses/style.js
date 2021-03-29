@@ -166,30 +166,300 @@ export const SimpleInfo = styled.div`
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
+    margin-bottom: 96px;
     img {
       flex: 1;
       max-width: 192px;
       height: 192px;
+      border-radius: 20px;
+      margin-right: 20px;
     }
     div {
       flex: 2;
       min-width: 390px;
       padding: 24px;
       background: #fff;
-    }
-    .simpleInfoBoxR {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      img {
-        max-width: 192px;
-        height: 192px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      h3 {
+        font-size: 30px;
       }
+      p {
+        font-size: 18px;
+        color: #4b5563;
+      }
+    }
+  }
+  .simpleInfoBoxR {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 96px;
+    img {
+      flex: 1;
+      max-width: 192px;
+      height: 192px;
+      border-radius: 20px;
+      margin-right: 20px;
+    }
+    div {
+      flex: 2;
+      min-width: 390px;
+      padding: 24px;
+      background: #fff;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      h3 {
+        font-size: 30px;
+      }
+      p {
+        font-size: 18px;
+        color: #4b5563;
+      }
+    }
+  }
+`;
+
+export const ConcepConatiner = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .concepTitle {
+    font-size: 36px;
+    margin-bottom: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    margin: 0;
+    margin-bottom: 70px;
+  }
+  .concepVisual {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 32px;
+    gap: 30px;
+    .concepLeft {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      height: 5 00px;
+      min-width: 440px;
+      grid-gap: 20px;
       div {
-        min-width: 390px;
-        padding: 24px;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
         background: #fff;
+        padding: 12px;
+        h3 {
+          text-align: center;
+          margin: 0;
+          margin-bottom: 10px;
+          padding: 5px 0;
+          border-bottom: 1px solid #e5e7eb;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+    .concepRight {
+      flex: 1;
+      min-width: 450px;
+      background: #111827;
+      border-radius: 10px;
+      overflow: hidden;
+      .console {
+        background: #374151;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        span {
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          background: #fde047;
+          border-radius: 50%;
+          position: relative;
+          :after {
+            content: "";
+            position: absolute;
+            left: -20px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #ef4444;
+            border-radius: 50%;
+          }
+          :before {
+            content: "";
+            position: absolute;
+            right: -20px;
+            bottom: 0px;
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border-radius: 50%;
+          }
+        }
+      }
+      .consoleConcept {
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        b {
+          font-size: 20px;
+          color: #fff;
+        }
+        .endB {
+          margin-left: 15px;
+        }
+        p {
+          color: #fff;
+          font-size: 20px;
+          margin: 0;
+        }
+        h3 {
+          color: #fee08a;
+          span {
+            color: #00ffff;
+          }
+        }
+      }
+      h4 {
+        text-indent: 30px;
+        color: #fff;
+        font-size: 16px;
+        span {
+          color: #00ffff;
+        }
+      }
+    }
+  }
+`;
+
+export const ConceptLayout = styled(ColorLayout)`
+  padding: 100px 0 150px;
+  .afterLecture {
+    text-align: center;
+    font-size: 36px;
+    h2 {
+      font-weight: bold;
+      margin-bottom: 50px;
+    }
+    p {
+      font-size: 18px;
+      strong {
+        margin-left: 10px;
+        font-weight: normal;
+      }
+    }
+  }
+`;
+
+export const LevelDetailLayout = styled(ColorLayout)`
+  padding: 100px 0 150px;
+  text-align: center;
+  h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  p {
+    font-size: 20px;
+    color: #111827;
+    font-weight: bold;
+    padding: 0 20px;
+  }
+`;
+
+export const PurchaseLayout = styled(ColorLayout)`
+  h2 {
+    color: #000;
+    text-align: center;
+    margin-top: 80px;
+    font-size: 36px;
+  }
+  h3 {
+    font-weight: normal;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  .purchaseBox {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 15px;
+    .purchaseInfo {
+      flex: 2;
+      padding: 48px;
+      h3 {
+        font-size: 30px;
+        font-weight: bold;
+      }
+      p {
+        margin-top: 24px;
+        color: #6b7280;
+        font-size: 16px;
+      }
+      .included {
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        span {
+          display: block;
+          min-width: 150px;
+          color: #2563eb;
+          font-weight: bold;
+        }
+        div {
+          width: 100%;
+          height: 1px;
+          background: #ddd;
+        }
+      }
+      .includedBox {
+        display: grid;
+        grid-template-columns: repeat(2, 2fr);
+        span {
+          span {
+            margin-right: 5px;
+            color: #374151;
+          }
+        }
+      }
+    }
+    .purchasePrice {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: #f9fafb;
+      h4 {
+        color: #111827;
+        font-size: 18px;
+      }
+      .price {
+        p {
+          font-size: 48px;
+          color: #111827;
+          font-weight: bold;
+        }
+      }
+      a {
+        width: 80%;
+        padding: 12px 20px;
+        background: #000;
+        text-align: center;
+        border-radius: 10px;
+        color: #fff;
       }
     }
   }
