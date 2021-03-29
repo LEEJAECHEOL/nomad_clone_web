@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const MyFooter = () => {
   return (
     <>
-      <Footer>
+      <Footer style={{ padding: "24px 50px" }}>
         <section className="footer_info">
           <div className="footer_company">
             <h4>Nomad Coders</h4>

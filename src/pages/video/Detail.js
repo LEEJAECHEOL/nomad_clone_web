@@ -92,9 +92,8 @@ const Detail = ({ match }) => {
             <div className="embed-container">
               <iframe
                 src={"https://player.vimeo.com/video/" + vimeo}
+                allow="autoplay; fullscreen;"
                 frameborder="0"
-                allowfullscreen
-                title="Recap!"
               ></iframe>
             </div>
             <CourseReply>

@@ -17,7 +17,7 @@ export const ColorLayout = styled(Layout)`
     z-index: -1;
     position: absolute;
     width: 100%;
-    height: 144px;
+    height: 100%;
     background: inherit;
     top: 0px;
     transform-origin: left top;

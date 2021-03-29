@@ -242,11 +242,12 @@ export const ConcepConatiner = styled.div`
     .concepLeft {
       flex: 1;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
       height: 5 00px;
       min-width: 440px;
       grid-gap: 20px;
       div {
+        border-radius: 10px;
         width: 100%;
         height: 100%;
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
@@ -261,6 +262,9 @@ export const ConcepConatiner = styled.div`
           border-bottom: 1px solid #e5e7eb;
         }
         p {
+          svg {
+            margin: 0 10px;
+          }
           font-size: 14px;
         }
       }
@@ -465,6 +469,73 @@ export const PurchaseLayout = styled(ColorLayout)`
   }
 `;
 
+export const CurriculumLayout = styled(ColorLayout)`
+  padding: 100px 0 150px;
+  .afterLecture {
+    font-size: 26px;
+    h2 {
+      font-weight: bold;
+      text-align: center;
+    }
+
+    @media only screen and (max-width: 1000px) {
+      .ant-list {
+        width: 80%;
+      }
+    }
+    @media only screen and (min-width: 1000px) {
+      .ant-list {
+        width: 60%;
+      }
+    }
+    .ant-list{
+      margin-top:40px;
+      margin:40px auto 0 auto;
+      border-radius:5px;
+      box-shadow: 0 5px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+      .ant-list-header{
+        border-radius:5px 5px 0 0;
+        background-color:white;
+        padding: 10px 20px;
+        font-weight:600;
+      }
+      .ant-spin-container li:nth-child(2n-1){
+        background-color:#F3F4F6;
+      }
+      .ant-spin-container li:nth-child(2n){
+        background-color:#fff;
+      }
+      .ant-spin-container li:last-child{
+        border-radius: 0 0 5px 5px;
+      }
+    }
+`;
+
+export const FaqLayout = styled(ColorLayout)`
+  padding: 100px 0 150px;
+  .afterLecture {
+    font-size: 26px;
+    h2 {
+      font-weight: bold;
+      text-align: center;
+    }
+    @media only screen and (max-width: 1000px) {
+      .ant-collapse {
+        margin: 0 auto;
+        width: 80%;
+      }
+    }
+    @media only screen and (min-width: 1000px) {
+      .ant-collapse {
+        margin: 0 auto;
+        width: 50%;
+      }
+    }
+    .ant-collapse-header {
+      font-size: 18px;
+      font-weight: 600;
+      border-top: 1px solid #ccc;
+    }
 export const PurchaseContainer = styled.div`
   width: 100%;
   display: flex;
