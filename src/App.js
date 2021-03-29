@@ -52,7 +52,7 @@ const App = () => {
         <Route path="/login" exact={true} component={Login} />
         <Route path="/join" exact={true} component={Join} />
         <Route path="/courses" exact={true} component={Courses} />
-        <Route path="/courses/:ind" exact={true} component={CoursesDetail} />
+        <Route path="/courses/:id" exact={true} component={CoursesDetail} />
 
         <Route path="/challenges" exact={true} component={Challenges} />
         <Route path="/community" exact={true} component={Community} />
