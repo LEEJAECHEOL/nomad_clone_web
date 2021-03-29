@@ -440,6 +440,7 @@ export const PurchaseLayout = styled(ColorLayout)`
       }
     }
     .purchasePrice {
+      border-radius: 0 15px 15px 0;
       flex: 1;
       display: flex;
       justify-content: center;
