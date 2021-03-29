@@ -488,27 +488,29 @@ export const CurriculumLayout = styled(ColorLayout)`
         width: 60%;
       }
     }
-    .ant-list{
-      margin-top:40px;
-      margin:40px auto 0 auto;
-      border-radius:5px;
-      box-shadow: 0 5px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
-      .ant-list-header{
-        border-radius:5px 5px 0 0;
-        background-color:white;
+    .ant-list {
+      margin-top: 40px;
+      margin: 40px auto 0 auto;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px -3px rgb(0 0 0 / 10%),
+        0 4px 6px -2px rgb(0 0 0 / 5%);
+      .ant-list-header {
+        border-radius: 5px 5px 0 0;
+        background-color: white;
         padding: 10px 20px;
-        font-weight:600;
+        font-weight: 600;
       }
-      .ant-spin-container li:nth-child(2n-1){
-        background-color:#F3F4F6;
+      .ant-spin-container li:nth-child(2n-1) {
+        background-color: #f3f4f6;
       }
-      .ant-spin-container li:nth-child(2n){
-        background-color:#fff;
+      .ant-spin-container li:nth-child(2n) {
+        background-color: #fff;
       }
-      .ant-spin-container li:last-child{
+      .ant-spin-container li:last-child {
         border-radius: 0 0 5px 5px;
       }
     }
+  }
 `;
 
 export const FaqLayout = styled(ColorLayout)`
@@ -536,6 +538,8 @@ export const FaqLayout = styled(ColorLayout)`
       font-weight: 600;
       border-top: 1px solid #ccc;
     }
+  }
+`;
 export const PurchaseContainer = styled.div`
   width: 100%;
   display: flex;
