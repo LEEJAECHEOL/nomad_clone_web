@@ -11,12 +11,46 @@ import { PurchaseContainer } from "./style";
 const Purchase = ({ match }) => {
   const courseId = match.params.id;
   const dispatch = useDispatch();
+  const { coursesItem, coursesOneGetLoading } = useSelector(
+    (state) => state.courses
+  );
+  const { principal } = useSelector((state) => state.user);
+  const onClickPayment = () => {
+    /* 1. 가맹점 식별하기 */
+    const { IMP } = window;
+    IMP.init(process.env.REACT_APP_IAMPORT_KEY);
+
+    /* 2. 결제 데이터 정의하기 */
+    const data = {
+      pg: "html5_inicis", // PG사
+      pay_method: "card", // 결제수단
+      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+      amount: coursesItem.price, // 결제금액
+      name: coursesItem.title, // 주문명
+      buyer_name: principal.name, // 구매자 이름
+      buyer_email: principal.email, // 구매자 이메일
+    };
+    console.log(data);
+
+    /* 4. 결제 창 호출하기 */
+    IMP.request_pay(data, callback);
+  };
+  /* 3. 콜백 함수 정의하기 */
+  const callback = (response) => {
+    console.log(response);
+    const { success, merchant_uid, error_msg } = response;
+
+    if (success) {
+      alert("결제 성공");
+    } else {
+      alert(`결제 실패: ${error_msg}`);
+    }
+  };
 
   useEffect(() => {
     dispatch(coursesOneGetRequestAction(courseId));
   }, []);
 
-  const { coursesItem } = useSelector((state) => state.courses);
   console.log("펄체이스아이템", coursesItem);
   return (
     <>
@@ -52,7 +86,13 @@ const Purchase = ({ match }) => {
                   </h3>
                 </div>
               </div>
-              <Button type="primary">Pay now</Button>
+              <Button
+                type="primary"
+                loading={coursesOneGetLoading}
+                onClick={onClickPayment}
+              >
+                Pay now
+              </Button>
             </div>
           </div>
         </PurchaseContainer>

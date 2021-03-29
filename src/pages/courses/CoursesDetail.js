@@ -21,12 +21,11 @@ import {
   CurriculumLayout,
   FaqLayout,
 } from "./style";
+
 const { Panel } = Collapse;
 const CoursesDetail = ({ match }) => {
   const courseId = match.params.id;
   const dispatch = useDispatch();
-
-  console.log(match);
   useEffect(() => {
     console.log("유즈이펙트 발동?", courseId);
     dispatch(coursesOneGetRequestAction(courseId));
