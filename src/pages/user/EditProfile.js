@@ -31,7 +31,7 @@ export default function EditProfile({ match }) {
   }, []);
 
   const onSubmit = (values) => {
-    const data = { values };
+    const data = { ...values, userId };
     console.log("post데이터는?", data);
     // dispatch(communityPostRequestAction(data));
   };
@@ -55,9 +55,18 @@ export default function EditProfile({ match }) {
                 onFinish={onSubmit}
               >
                 <AccountInputBox>
-                  <Form.Item label="Username" name="username">
+                  {/* <Form.Item label="Username" name="username">
                     <Input disabled />
-                  </Form.Item>
+                  </Form.Item> */}
+                  <EmailInputBox>
+                    <input
+                      type="text"
+                      value={
+                        dashBoardItem !== null ? dashBoardItem.username : null
+                      }
+                      readOnly="readOnly"
+                    />
+                  </EmailInputBox>
                   <Form.Item label="Name" name="name">
                     <Input />
                   </Form.Item>
@@ -77,17 +86,13 @@ export default function EditProfile({ match }) {
               <h2>Email</h2>
             </AccountInfromationCol>
             <AccountInfromationColInput span={16}>
-              <Form
-                className="ant-form-vertical"
-                form={form}
-                initialValues={initial}
-              >
-                <EmailInputBox>
-                  <Form.Item label="Email" name="email">
-                    <Input disabled />
-                  </Form.Item>
-                </EmailInputBox>
-              </Form>
+              <EmailInputBox>
+                <input
+                  type="text"
+                  value={dashBoardItem !== null ? dashBoardItem.email : null}
+                  readOnly="readOnly"
+                />
+              </EmailInputBox>
             </AccountInfromationColInput>
           </AccountInfromation>
           {/* 프로필박스 */}

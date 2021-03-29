@@ -213,13 +213,15 @@ export const AccountInputBox = styled.div`
 export const EmailInputBox = styled.div`
   input {
     width: 50%;
-  }
-  p {
-    line-height: 1;
-    margin: 0;
-  }
-  label {
-    display: flex;
-    align-items: center;
+    border: 1px solid #d9d9d9;
+    height: 32px;
+    transition: all 0.5s;
+    background: #f5f5f5;
+    color: rgba(0, 0, 0, 0.25);
+    text-indent: 10px;
+    cursor: not-allowed;
+    :focus {
+      outline: none;
+    }
   }
 `;
