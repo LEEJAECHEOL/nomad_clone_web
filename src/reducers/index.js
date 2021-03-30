@@ -10,6 +10,7 @@ import video from "./video";
 import pay from "./pay";
 import dashboard from "./dashboard";
 import adminCourses from "./admin/courses/courses";
+import tech from "./admin/courses/tech";
 import adminVideo from "./admin/video/";
 
 const rootReducer = (history) =>
@@ -31,5 +32,6 @@ const rootReducer = (history) =>
     adminVideo,
     video,
     pay,
+    tech,
   });
 export default rootReducer;
