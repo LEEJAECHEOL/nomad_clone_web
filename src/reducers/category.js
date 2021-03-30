@@ -15,7 +15,7 @@ export const initialState = {
   faqCategoryPostDone: false,
   faqCategoryPostError: null,
 
-  categoryList: null,
+  categoryList: [],
 };
 
 export const CATEGORY_GET_REQUEST = "CATEGORY_GET_REQUEST";
@@ -85,6 +85,7 @@ const reducer = (state = initialState, action) => {
       case CATEGORY_POST_SUCCESS:
         draft.categoryPostLoading = false;
         draft.categoryPostDone = true;
+        draft.categoryList.push(action.data);
         break;
 
       case CATEGORY_POST_FAILURE:

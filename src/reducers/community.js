@@ -26,7 +26,7 @@ export const initialState = {
   communityNewGetDone: false,
   communityNewGetError: null,
 
-  communityList: null,
+  communityList: [],
   communityItem: null,
 
   replyPostLoading: false, // 로그인 시도중 -> 로딩창 띄움

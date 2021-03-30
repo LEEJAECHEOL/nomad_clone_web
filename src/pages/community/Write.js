@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PageHero } from "../../components/style";
 import { Button, Form, Input, Select } from "antd";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -6,15 +6,21 @@ import { WriteEditor, WriteForm } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { communityPostRequestAction } from "../../reducers/community";
 import AppLayout from "../../components/AppLayout";
+import { categoryGetRequestAction } from "../../reducers/category";
 
-const Write = ({ history }) => {
+const Write = () => {
   const [content, setContet] = useState("");
 
   const dispatch = useDispatch();
 
+  const { categoryList } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(categoryGetRequestAction());
+  }, []);
+
   const onSubmit = (values) => {
     const data = { ...values, content };
-    console.log("post데이터는?", data);
     dispatch(communityPostRequestAction(data));
   };
 
@@ -37,18 +43,13 @@ const Write = ({ history }) => {
           {/* 셀렉터 */}
           <Form.Item name="categoryId">
             <Select name="categoryId" placeholder="카테고리 고르기">
-              <Select.Option value={1}>#to-do-list</Select.Option>
-              <Select.Option value={2}>#javascript</Select.Option>
-              <Select.Option value={3}>#bla-bla</Select.Option>
-              <Select.Option value={4}>#html_css</Select.Option>
-              <Select.Option value={5}>#python</Select.Option>
-              <Select.Option value={6}>#dev_resources</Select.Option>
-              <Select.Option value={7}>#jobs</Select.Option>
-              <Select.Option value={8}>#side_project</Select.Option>
-              <Select.Option value={9}>#react</Select.Option>
-              <Select.Option value={10}>#uber_eats</Select.Option>
-              <Select.Option value={11}>#hello</Select.Option>
-              <Select.Option value={12}>#instaclone</Select.Option>
+              {categoryList.map((list) => (
+                <>
+                  <Select.Option value={list.id}>
+                    {"# " + list.title}
+                  </Select.Option>
+                </>
+              ))}
             </Select>
           </Form.Item>
 

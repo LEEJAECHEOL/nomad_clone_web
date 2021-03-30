@@ -1,3 +1,4 @@
+import { Form } from "antd";
 import styled from "styled-components";
 
 // Course-Item
@@ -172,5 +173,19 @@ export const CommunityReplyCard = styled.div`
         border-radius: 50%;
       }
     }
+  }
+`;
+
+export const ButtonRightModalForm = styled(Form)`
+  > div:last-child {
+    margin-bottom: 0;
+    text-align: right;
+  }
+  > div:last-child button:first-child {
+    margin-right: 5px;
+  }
+  .form_hidden {
+    height: 1px;
+    margin-bottom: 0;
   }
 `;

@@ -43,16 +43,15 @@ function categoryPostAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
-  console.log("포스트실행되니?", data);
   return axios.post("/category", JSON.stringify(data), config);
 }
 
 function* categoryPost(action) {
   try {
-    yield call(categoryPostAPI, action.data);
+    const result = yield call(categoryPostAPI, action.data);
     yield put({
       type: CATEGORY_POST_SUCCESS,
+      data: result.data.data,
     });
     yield put(push("/community"));
   } catch (err) {

@@ -1,5 +1,5 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Menu, Row } from "antd";
 import { Form } from "antd";
 import styled from "styled-components";
 
@@ -18,13 +18,12 @@ export const CommunityBoard = styled(Col)`
   .Community-Filter {
     display: flex;
     justify-content: space-between;
-    height: 24px;
     div {
-      height: 50px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       b {
-        width: 66px;
+        width: 80px;
         line-height: 50px;
         color: #6b7280;
         font-weight: 500;
@@ -310,5 +309,22 @@ export const SkeltonCard = styled(Card)`
   }
   .ant-skeleton-paragraph {
     margin-top: 10px;
+  }
+`;
+
+export const SortMenu = styled(Menu)`
+  border-bottom: none;
+  > .ant-menu-item {
+    margin: 0 5px !important;
+    border-bottom: none;
+  }
+  > .ant-menu-item.ant-menu-item-active {
+    border-bottom: none !important;
+  }
+  .ant-menu-item:hover {
+    border-bottom: none;
+  }
+  .ant-menu-item.ant-menu-item-selected {
+    border-bottom: none;
   }
 `;
