@@ -9,6 +9,7 @@ import courses from "./courses";
 import video from "./video";
 import dashboard from "./dashboard";
 import adminCourses from "./admin/courses/courses";
+import tech from "./admin/courses/tech";
 import adminVideo from "./admin/video/";
 
 const rootReducer = (history) =>
@@ -29,5 +30,6 @@ const rootReducer = (history) =>
     adminCourses,
     adminVideo,
     video,
+    tech,
   });
 export default rootReducer;
