@@ -1,4 +1,5 @@
-import { Button, Input, Typography } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Input, message, Typography, Upload } from "antd";
 import { Form } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -7,81 +8,51 @@ import { techPostRequestAction } from "../../../reducers/admin/courses/tech";
 import { WriteForm } from "../../community/style";
 
 const Tech = () => {
-  const [file, setFile] = useState("");
-  const [previewURL, setPreviewURL] = useState("");
-  const [preview, setPreview] = useState(null);
-  const fileRef = useRef();
-
-  useEffect(() => {
-    if (file !== "")
-      //처음 파일 등록하지 않았을 때를 방지
-      setPreview(<img className="img_preview" src={previewURL}></img>);
-    return () => {};
-  }, [previewURL]);
-
-  const handleFileOnChange = (event) => {
-    //파일 불러오기
-    event.preventDefault();
-    let file = event.target.files[0];
-    let reader = new FileReader();
-
-    reader.onloadend = (e) => {
-      setFile(file);
-      setPreviewURL(reader.result);
-    };
-    if (file) reader.readAsDataURL(file);
+  const [fileList, setFileList] = useState([]);
+  const meta = {
+    title: "title 1",
+    contents: "contents 1",
   };
 
-  const handleFileButtonClick = (e) => {
-    //버튼 대신 클릭하기
-    e.preventDefault();
-    fileRef.current.click(); // file 불러오는 버튼을 대신 클릭함
-  };
-  const dispatch = useDispatch();
-  const onSubmit = (values) => {
-    const data = { ...values, file };
-    console.log(data);
-    dispatch(techPostRequestAction(data));
+  const handleUpload = () => {
+    const formData = new FormData();
+    fileList.forEach((file) => formData.append("files", file));
+
+    // FormData의 append의 경우 value에 매개변수로 JSON Object를 받지 않음.
+    // JSON Object의 값들을 일일히 string으로 설정해주어야함.
+    // string 데이터 입력(metadata)
+    for (let key in meta) {
+      formData.append(key, meta[key]);
+    }
   };
 
-  console.log("ref는", file);
+  const props = {
+    name: "file",
+    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    headers: {
+      authorization: "authorization-text",
+    },
+    onChange(info) {
+      if (info.file.status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === "done") {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+
   return (
     <>
       <AppLayout>
         <h2>태크 등록페이지</h2>
         <>
-          <div className="priveiw-rapping">{preview}</div>
-          <aside className="side">
-            <input
-              ref={fileRef}
-              hidden={true}
-              id="file"
-              type="file"
-              name="file"
-              onChange={handleFileOnChange}
-            ></input>
-            <header className="side-header">
-              <Typography
-                align="center"
-                variant="overline"
-                display="block"
-                gutterBottom
-              >
-                Title text
-              </Typography>
-            </header>
-            <div style={{ padding: 10 }}>
-              <button onClick={handleFileButtonClick}>UPLOAD</button>
-            </div>
-          </aside>
-          <WriteForm onFinish={onSubmit}>
-            <Form.Item name="title">
-              <Input placeholder="제목" />
-            </Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </WriteForm>
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
+          ,
         </>
       </AppLayout>
     </>

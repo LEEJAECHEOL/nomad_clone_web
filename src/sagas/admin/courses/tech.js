@@ -12,7 +12,6 @@ function techPostAPI(data) {
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
-      "Content-Type": "multipart/form-data",
     },
   };
   console.log(config);
