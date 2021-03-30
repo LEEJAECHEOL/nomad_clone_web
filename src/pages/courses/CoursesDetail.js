@@ -1,5 +1,6 @@
 import {
   ArrowRightOutlined,
+  CheckCircleOutlined,
   CheckCircleTwoTone,
   CheckOutlined,
   CheckSquareOutlined,
@@ -41,6 +42,7 @@ const CoursesDetail = ({ match }) => {
           background={
             coursesItem !== null ? coursesItem.backgroundColor : "#000"
           }
+          textcolor={coursesItem !== null ? coursesItem.textColor : "#000"}
         >
           <div className="mainImage">
             <img
@@ -129,7 +131,9 @@ const CoursesDetail = ({ match }) => {
             coursesItem !== null ? coursesItem.backgroundColor : "#000"
           }
         >
-          <ConcepConatiner>
+          <ConcepConatiner
+            textcolor={coursesItem !== null ? coursesItem.textColor : "#000"}
+          >
             <h2 className="concepTitle">구현하는 기능과 배우는 컨셉</h2>
             <div className="concepVisual">
               <div className="concepLeft">
@@ -217,6 +221,7 @@ const CoursesDetail = ({ match }) => {
         </LevelDetailLayout>
         {/* 결과적으로, 이 수업 이후... */}
         <ConceptLayout
+          textcolor={coursesItem !== null ? coursesItem.textColor : "#000"}
           beforedisplay="block"
           background={
             coursesItem !== null ? coursesItem.backgroundColor : "#000"
@@ -230,9 +235,7 @@ const CoursesDetail = ({ match }) => {
                   ? coursesItem.lectureAfter.map((list) => (
                       <>
                         <p>
-                          <CheckSquareOutlined
-                            style={{ fontSize: "20px", color: "#fff" }}
-                          />
+                          <CheckCircleOutlined />
                           <strong>{list.content}</strong>
                         </p>
                       </>
@@ -271,6 +274,7 @@ const CoursesDetail = ({ match }) => {
           </div>
         </CurriculumLayout>
         <PurchaseLayout
+          textcolor={coursesItem !== null ? coursesItem.textColor : "#000"}
           background={
             coursesItem !== null ? coursesItem.backgroundColor : "#000"
           }
