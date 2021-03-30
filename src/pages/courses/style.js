@@ -88,6 +88,8 @@ export const CoursesDetailLayout = styled(ColorLayout)`
     }
   }
   .titleContainer {
+    display: flex;
+    flex-direction: column;
     * {
       text-align: center;
       margin: 0;
@@ -95,11 +97,19 @@ export const CoursesDetailLayout = styled(ColorLayout)`
     }
     h1 {
       font-size: 48px;
+      color: ${(props) => props.textcolor || "#000"};
     }
     h2 {
+      color: ${(props) => props.textcolor || "#000"};
       font-size: 24px;
     }
     h3 {
+      width: 50px;
+      line-height: 26px;
+      margin: 20px auto;
+      border-radius: 30px;
+      background-color: ${(props) => props.textcolor || "#000"};
+      color: ${(props) => props.background || "#000"};
       font-size: 14px;
       font-weight: bold;
     }
@@ -116,6 +126,7 @@ export const CoursesDetailLayout = styled(ColorLayout)`
     z-index: 100000000000 !important;
     img {
       width: 128px;
+      height: 128px;
       border: 7px solid #fff;
       border-radius: 50%;
       transition: 0.3s all;
@@ -132,10 +143,18 @@ export const CourseInfomation = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  margin-bottom: 100px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  div:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+  div:last-child {
+    border-radius: 0 10px 10px 0;
+  }
   div {
+    background-color: #fff;
     flex: 1;
     padding: 24px;
     min-width: 230px;
@@ -147,11 +166,13 @@ export const CourseInfomation = styled.div`
     }
     h2 {
       color: #2563eb;
+      margin: 0;
       font-size: 48px;
       font-weight: bold;
     }
     p {
       color: #6b7280;
+      margin: 0;
       font-size: 18px;
     }
   }
@@ -193,6 +214,7 @@ export const SimpleInfo = styled.div`
   .simpleInfoBoxR {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row-reverse;
     width: 100%;
     justify-content: center;
     margin-bottom: 96px;
@@ -226,6 +248,7 @@ export const ConcepConatiner = styled.div`
   justify-content: center;
   flex-direction: column;
   .concepTitle {
+    color: ${(props) => props.textcolor || "#000"};
     font-size: 36px;
     margin-bottom: 12px;
     font-weight: bold;
@@ -346,16 +369,19 @@ export const ConcepConatiner = styled.div`
 `;
 
 export const ConceptLayout = styled(ColorLayout)`
-  padding: 100px 0 150px;
+  padding: 50px 0 150px;
   .afterLecture {
     text-align: center;
     font-size: 36px;
     h2 {
+      color: ${(props) => props.textcolor || "#000"};
       font-weight: bold;
       margin-bottom: 50px;
+      font-size: 40px;
     }
     p {
       font-size: 18px;
+      color: ${(props) => props.textcolor || "#000"};
       strong {
         margin-left: 10px;
         font-weight: normal;
@@ -382,12 +408,13 @@ export const LevelDetailLayout = styled(ColorLayout)`
 
 export const PurchaseLayout = styled(ColorLayout)`
   h2 {
-    color: #000;
+    color: ${(props) => props.textcolor || "#000"};
     text-align: center;
     margin-top: 80px;
     font-size: 36px;
   }
   h3 {
+    color: ${(props) => props.textcolor || "#000"};
     font-weight: normal;
     text-align: center;
     font-size: 24px;
@@ -404,6 +431,7 @@ export const PurchaseLayout = styled(ColorLayout)`
       flex: 2;
       padding: 48px;
       h3 {
+        color: #000;
         font-size: 30px;
         font-weight: bold;
       }
