@@ -1,16 +1,12 @@
 import { Button, Form, Input, Modal } from "antd";
 import React, { memo, useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { categoryPostRequestAction } from "../reducers/category";
+import { useDispatch } from "react-redux";
 import { ButtonRightModalForm } from "./style";
 
-const CategoryBtn = memo(() => {
+const CategoryBtn = memo(({ action, done, loading }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const { categoryPostDone, categoryPostLoading, categoryList } = useSelector(
-    (state) => state.category
-  );
 
   const showModal = useCallback(() => {
     setIsModalVisible(true);
@@ -21,14 +17,14 @@ const CategoryBtn = memo(() => {
     form.setFieldsValue({ title: "" });
   }, []);
   const onFinish = useCallback((values) => {
-    dispatch(categoryPostRequestAction(values));
+    dispatch(action(values));
   }, []);
 
   useEffect(() => {
-    if (categoryPostDone) {
+    if (done) {
       handleCancel();
     }
-  }, [categoryPostDone]);
+  }, [done]);
 
   return (
     <>
@@ -52,18 +48,10 @@ const CategoryBtn = memo(() => {
           </Form.Item>
 
           <Form.Item>
-            <Button
-              htmlType="button"
-              onClick={handleCancel}
-              loading={categoryPostLoading}
-            >
+            <Button htmlType="button" onClick={handleCancel} loading={loading}>
               취소
             </Button>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={categoryPostLoading}
-            >
+            <Button type="primary" htmlType="submit" loading={loading}>
               저장
             </Button>
           </Form.Item>

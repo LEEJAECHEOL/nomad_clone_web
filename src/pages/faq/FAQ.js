@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
+import { Button, Card } from "antd";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import CategoryBtn from "../../components/AdminCategoryBtn";
 import AppLayout from "../../components/AppLayout";
 import { PageHero } from "../../components/style";
-import { faqGetRequestAction } from "../../reducers/faq";
-import { FaqContainer } from "./style";
+import {
+  faqCategoryPostRequestAction,
+  faqGetRequestAction,
+} from "../../reducers/faq";
+import { FaqContainer, RightCard } from "./style";
 
 const FAQ = () => {
-  const [category, setCategory] = useState("");
-
   const dispatch = useDispatch();
+  const { faqCategoryPostLoading, faqCategoryPostDone } = useSelector(
+    (state) => state.faq
+  );
 
   useEffect(() => {
-    dispatch(faqGetRequestAction(category));
-    console.log("몇번실행되?");
+    dispatch(faqGetRequestAction());
   }, []);
 
   const { faqList } = useSelector((state) => state.faq);
-  console.log("정보는? ", faqList);
   return (
     <>
       <AppLayout>
@@ -35,7 +40,12 @@ const FAQ = () => {
                       {list.faq !== null
                         ? list.faq.map((item) => (
                             <>
-                              <Link to={`/faq/${item.id}`}>{item.title}</Link>
+                              <Link
+                                key={`faq-${item.id}`}
+                                to={`/faq/${item.id}`}
+                              >
+                                {item.title}
+                              </Link>
                             </>
                           ))
                         : null}
@@ -45,6 +55,18 @@ const FAQ = () => {
               ))
             : null}
         </FaqContainer>
+
+        {/* 권한 검사 - 관리자만*/}
+        <RightCard bordered={false}>
+          <CategoryBtn
+            action={faqCategoryPostRequestAction}
+            done={faqCategoryPostDone}
+            loading={faqCategoryPostLoading}
+          />
+          <Button>
+            <Link to="/admin/faq/write">FAQ 작성하기</Link>
+          </Button>
+        </RightCard>
       </AppLayout>
     </>
   );
