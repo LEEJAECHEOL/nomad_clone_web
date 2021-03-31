@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { coursesPostRequestAction } from "../../../reducers/admin/courses/courses";
 import { videoAllGetRequestAction } from "../../../reducers/admin/video";
 import AppNoColLayout from "../../../components/AppNoColLayout";
+import { techGetRequestAction } from "../../../reducers/admin/tech";
 
 const { Option } = Select;
 
@@ -30,20 +31,23 @@ const CoursesDetail = memo(() => {
 
   const dispatch = useDispatch();
   const { videoList } = useSelector((state) => state.adminVideo);
+  const { techList } = useSelector((state) => state.admintech);
 
   const onSubmit = useCallback(
     (values) => {
       values.backgroundColor = background;
       values.textColor = textColor;
+      values.tech = values.tech.map((item) => JSON.parse(item));
       console.log(values);
       dispatch(coursesPostRequestAction(values));
     },
     [background, textColor, dispatch]
   );
+  console.log(techList);
   useEffect(() => {
     dispatch(videoAllGetRequestAction());
+    dispatch(techGetRequestAction());
   }, []);
-
   return (
     <AppNoColLayout>
       <DivContainer>
@@ -111,8 +115,28 @@ const CoursesDetail = memo(() => {
           </ColorLayout>
           <ColorLayout beforedisplay="block" paddingbottom={50}>
             <MyCard2 bordered={false}>
-              <Form.Item name="simpleImage">
-                <CircleUpload />
+              <Form.Item
+                name="tech"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select Technique",
+                    type: "array",
+                  },
+                ]}
+              >
+                <Select mode="multiple" placeholder="Please select Technique">
+                  {techList.map((item) => (
+                    <Option
+                      value={JSON.stringify({
+                        techId: item.id,
+                        imageUrl: item.file.fileUrl,
+                      })}
+                    >
+                      {item.title}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
             </MyCard2>
             <MyRow>
