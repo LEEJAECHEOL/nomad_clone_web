@@ -1,6 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Card, Checkbox, Form, Input, Upload } from "antd";
-import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";

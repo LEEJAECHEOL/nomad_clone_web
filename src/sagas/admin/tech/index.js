@@ -3,20 +3,32 @@ import { push } from "connected-react-router";
 import axios from "axios";
 
 import {
+  // 태크 등록
   TECH_POST_FAILURE,
   TECH_POST_REQUEST,
   TECH_POST_SUCCESS,
+
+  // 테크 리스트
   TECH_GET_FAILURE,
   TECH_GET_REQUEST,
   TECH_GET_SUCCESS,
+
+  // 테크 삭제
+  TECH_DELETE_FAILURE,
+  TECH_DELETE_REQUEST,
+  TECH_DELETE_SUCCESS,
 } from "../../../reducers/admin/tech/index";
 
+// 태크등록
 function techPostAPI(data) {
   const formData = new FormData();
-  console.log(data);
   formData.append("file", data.file);
   formData.append("title", data.title);
   formData.append("isFilter", data.isFilter);
+
+  for (var value of formData.values()) {
+    console.log("폼데이터", value);
+  }
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
@@ -35,7 +47,7 @@ function* techPost(action) {
       type: TECH_POST_SUCCESS,
     });
 
-    // yield put(push("/"));
+    yield put(push("/teckList"));
   } catch (err) {
     yield put({
       type: TECH_POST_FAILURE,
@@ -43,6 +55,8 @@ function* techPost(action) {
     });
   }
 }
+
+// 태크 리스트
 function techGetAPI() {
   return axios.get("/tech");
 }
@@ -62,13 +76,41 @@ function* techGet() {
   }
 }
 
+// 태크 삭제
+function techDeleteAPI(data) {
+  console.log("여기 들어옵니까?", data);
+  JSON.stringify(data);
+  return axios.delete(`/tech/${data}`);
+}
+
+function* techDelete(action) {
+  try {
+    const result = yield call(techDeleteAPI, action.data);
+
+    yield put({
+      type: TECH_DELETE_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: TECH_DELETE_FAILURE,
+      error: "테크작성에 실패하였습니다.",
+    });
+  }
+}
+
 function* watchTechPost() {
   yield takeLatest(TECH_POST_REQUEST, techPost);
 }
+
+function* watchTechDelete() {
+  yield takeLatest(TECH_DELETE_REQUEST, techDelete);
+}
+
 function* watchTechGet() {
   yield takeLatest(TECH_GET_REQUEST, techGet);
 }
 
 export default function* techSaga() {
-  yield all([fork(watchTechPost), fork(watchTechGet)]);
+  yield all([fork(watchTechPost), fork(watchTechGet), fork(watchTechDelete)]);
 }
