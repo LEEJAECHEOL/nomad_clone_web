@@ -48,7 +48,6 @@ import {
   REPLY_DELETE_REQUEST,
   REPLY_DELETE_SUCCESS,
 } from "../reducers/community";
-import { number } from "prop-types";
 
 function communityPostAPI(data) {
   const config = {

@@ -40,10 +40,20 @@ const Dashboard = ({ match }) => {
               <div className="UserInfoBox">
                 <div className="UserInfo">
                   <div className="UserInfo-Img">
-                    <img
-                      src={dashBoardItem !== null ? dashBoardItem.imageUrl : ""}
-                      alt=""
-                    />
+                    {dashBoardItem !== null ? (
+                      <>
+                        <img
+                          src={
+                            dashBoardItem.file !== null
+                              ? dashBoardItem.file.fileUrl
+                              : dashBoardItem.imageUrl
+                          }
+                          alt=""
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="UserInfoName">
                     <div className="Name">

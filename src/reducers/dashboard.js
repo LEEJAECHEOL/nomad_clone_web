@@ -6,11 +6,35 @@ export const initialState = {
   dashBoardGetDone: false,
   dashBoardGetError: null,
   dashBoardItem: null,
+
+  profilePostLoading: false,
+  profilePostDone: false,
+  profilePostError: null,
+
+  profileGetLoading: false,
+  profileGetDone: false,
+  profileGetError: null,
+
+  namePostLoading: false,
+  namePostDone: false,
+  namePostError: null,
 };
 
 export const DASHBOARD_GET_REQUEST = "DASHBOARD_GET_REQUEST";
 export const DASHBOARD_GET_SUCCESS = "DASHBOARD_GET_SUCCESS";
 export const DASHBOARD_GET_FAILURE = "DASHBOARD_GET_FAILURE";
+
+export const PROFILE_POST_REQUEST = "PROFILE_POST_REQUEST";
+export const PROFILE_POST_SUCCESS = "PROFILE_POST_SUCCESS";
+export const PROFILE_POST_FAILURE = "PROFILE_POST_FAILURE";
+
+export const PROFILE_GET_REQUEST = "PROFILE_GET_REQUEST";
+export const PROFILE_GET_SUCCESS = "PROFILE_GET_SUCCESS";
+export const PROFILE_GET_FAILURE = "PROFILE_GET_FAILURE";
+
+export const NAME_POST_REQUEST = "NAME_POST_REQUEST";
+export const NAME_POST_SUCCESS = "NAME_POST_SUCCESS";
+export const NAME_POST_FAILURE = "NAME_POST_FAILURE";
 
 // 커뮤니티
 
@@ -22,11 +46,31 @@ export const dashBoardGetRequestAction = (data) => {
     data,
   };
 };
+export const namePostRequestAction = (data) => {
+  return {
+    type: NAME_POST_REQUEST,
+    data,
+  };
+};
+
+export const profilePostRequestAction = (data) => {
+  return {
+    type: PROFILE_POST_REQUEST,
+    data,
+  };
+};
+
+export const profileGetRequestAction = (data) => {
+  return {
+    type: PROFILE_GET_REQUEST,
+    data,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      // get
+      // 대시보드 정보 가져오기
       case DASHBOARD_GET_REQUEST:
         draft.dashBoardGetLoading = true;
         draft.dashBoardGetDone = false;
@@ -42,6 +86,58 @@ const reducer = (state = initialState, action) => {
       case DASHBOARD_GET_FAILURE:
         draft.dashBoardItemGetLoading = false;
         draft.dashBoardItemGetError = action.error;
+        break;
+
+      // 이름변경
+      case NAME_POST_REQUEST:
+        draft.namePostLoading = true;
+        draft.namePostDone = false;
+        draft.namePostError = null;
+        break;
+
+      case NAME_POST_SUCCESS:
+        draft.namePostLoading = false;
+        draft.namePostDone = true;
+        break;
+
+      case NAME_POST_FAILURE:
+        draft.namePostLoading = false;
+        draft.namePostError = action.error;
+        break;
+
+      // 프로필이미지 변경
+      case PROFILE_POST_REQUEST:
+        draft.profilePostLoading = true;
+        draft.profilePostDone = false;
+        draft.profilePostError = null;
+        break;
+
+      case PROFILE_POST_SUCCESS:
+        draft.profilePostLoading = false;
+        draft.profilePostDone = true;
+        break;
+
+      case PROFILE_POST_FAILURE:
+        draft.profilePostLoading = false;
+        draft.profilePostError = action.error;
+        break;
+
+      // 프로필이미지 가져오기
+      case PROFILE_GET_REQUEST:
+        draft.profileGetLoading = true;
+        draft.profileGetDone = false;
+        draft.profileGetError = null;
+        break;
+
+      case PROFILE_GET_SUCCESS:
+        draft.profileGetLoading = false;
+        draft.profileGetDone = true;
+        draft.profileList = action.data;
+        break;
+
+      case PROFILE_GET_FAILURE:
+        draft.profileGetLoading = false;
+        draft.profileGetError = action.error;
         break;
 
       default:

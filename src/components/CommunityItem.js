@@ -1,5 +1,5 @@
 import { UpOutlined } from "@ant-design/icons";
-import { Button, Menu } from "antd";
+import { Menu } from "antd";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ const CommunityItem = ({ list }) => {
               key={list.id}
               icon={<UpOutlined />}
             >
-              <span>{list.like !== null ? list.likes.length : 0}</span>
+              <span>{list.likes !== null ? list.likes.length : 0}</span>
             </Menu.Item>
           </CommunityLikeButton>
         </div>
