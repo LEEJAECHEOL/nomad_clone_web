@@ -3,7 +3,7 @@ import { Button, Input, Form } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../../components/AppLayout";
-import { faqCategoryPostRequestAction } from "../../../reducers/category";
+import { faqCategoryPostRequestAction } from "../../../reducers/faq";
 import { WriteForm } from "../../community/style";
 import { AdminFaqContainer } from "./style";
 
