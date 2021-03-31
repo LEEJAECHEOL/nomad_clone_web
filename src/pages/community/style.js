@@ -73,73 +73,60 @@ export const CommunityBoardItem = styled(Card)`
     .Board-Fav {
       width: 45px;
       height: 45px;
-      button {
-        cursor: pointer;
-        padding-top: 5px;
-        width: 45px;
-        height: 45px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: transparent;
-        border: 2px solid rgba(55, 65, 81, 0.2);
-        border-radius: 10px;
-        svg {
-          color: gray;
-          font-size: 10px;
-        }
-      }
     }
-    .Board-Body {
-      width: 100%;
+  }
+  .Board-Body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    .Board-Body-Title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: black;
+    }
+    .Board-Body-Info {
       display: flex;
-      flex-direction: column;
-      padding-left: 15px;
-      .Board-Body-Title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 6px;
-        color: black;
+      flex-wrap: wrap;
+      div {
+        margin-right: 5px;
+        color: #4b5563;
       }
-      .Board-Body-Info {
-        display: flex;
-        flex-wrap: wrap;
-        div {
-          margin-right: 5px;
-          color: #4b5563;
+      .Info-Tag {
+        span {
+          background: #6b7280;
+          color: #fff;
+          padding: 2px;
+          border-radius: 5px;
+          font-weight: 500;
         }
-        .Info-Tag {
-          span {
-            background: #6b7280;
-            color: #fff;
-            padding: 2px;
-            border-radius: 5px;
-            font-weight: 500;
-          }
-        }
-        .Info-Name {
+      }
+      .Info-Name {
+        a {
+          color: #555;
           span {
             font-weight: 700;
           }
         }
-        .Info-Date {
-        }
-        .Info-Reply {
-          span {
-            margin-right: 5px;
-          }
+      }
+      .Info-Date {
+      }
+      .Info-Reply {
+        span {
+          margin-right: 5px;
         }
       }
     }
-    .Board-UserImg {
+  }
+  .Board-UserImg {
+    width: 56px;
+    height: 56px;
+    box-sizing: border-box;
+    img {
       width: 56px;
       height: 56px;
-      box-sizing: border-box;
-      img {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-      }
+      border-radius: 50%;
     }
   }
 `;
@@ -246,8 +233,11 @@ export const CommunityDetailItem = styled(Card)`
             }
           }
           .Info-Name {
-            span {
-              font-weight: 700;
+            a {
+              color: #555;
+              span {
+                font-weight: 700;
+              }
             }
           }
           .Info-Date {

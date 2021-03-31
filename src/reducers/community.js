@@ -6,6 +6,10 @@ export const initialState = {
   communityPostDone: false,
   communityPostError: null,
 
+  communityLikePostLoading: false,
+  communityLikePostDone: false,
+  communityLikePostError: null,
+
   communityGetLoading: false,
   communityGetDone: false,
   communityGetError: null,
@@ -32,12 +36,20 @@ export const initialState = {
   replyPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
   replyPostDone: false,
   replyPostError: null,
+
+  replyDeleteLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  replyDeleteDone: false,
+  replyDeleteError: null,
 };
 
 // 타입
 export const COMMUNITY_POST_REQUEST = "COMMUNITY_POST_REQUEST";
 export const COMMUNITY_POST_SUCCESS = "COMMUNITY_POST_SUCCESS";
 export const COMMUNITY_POST_FAILURE = "COMMUNITY_POST_FAILURE";
+
+export const COMMUNITY_LIKE_POST_REQUEST = "COMMUNITY_LIKE_POST_REQUEST";
+export const COMMUNITY_LIKE_POST_SUCCESS = "COMMUNITY_LIKE_POST_SUCCESS";
+export const COMMUNITY_LIKE_POST_FAILURE = "COMMUNITY_LIKE_POST_FAILURE";
 
 export const COMMUNITY_GET_REQUEST = "COMMUNITY_GET_REQUEST";
 export const COMMUNITY_GET_SUCCESS = "COMMUNITY_GET_SUCCESS";
@@ -59,9 +71,13 @@ export const COMMUNITY_NEW_GET_REQUEST = "COMMUNITY_NEW_GET_REQUEST";
 export const COMMUNITY_NEW_GET_SUCCESS = "COMMUNITY_NEW_GET_SUCCESS";
 export const COMMUNITY_NEW_GET_FAILURE = "COMMUNITY_NEW_GET_FAILURE";
 
-export const REPLY_POST_REQUEST = "reply_POST_REQUEST";
-export const REPLY_POST_SUCCESS = "reply_POST_SUCCESS";
-export const REPLY_POST_FAILURE = "reply_POST_FAILURE";
+export const REPLY_POST_REQUEST = "REPLY_POST_REQUEST";
+export const REPLY_POST_SUCCESS = "REPLY_POST_SUCCESS";
+export const REPLY_POST_FAILURE = "REPLY_POST_FAILURE";
+
+export const REPLY_DELETE_REQUEST = "REPLY_DELETE_REQUEST";
+export const REPLY_DELETE_SUCCESS = "REPLY_DELETE_SUCCESS";
+export const REPLY_DELETE_FAILURE = "REPLY_DELETE_FAILURE";
 // 커뮤니티
 
 // 댓글작성
@@ -72,10 +88,26 @@ export const replyPostRequestAction = (data) => {
   };
 };
 
+// 댓글삭제
+export const replyDeleteRequestAction = (data) => {
+  return {
+    type: REPLY_DELETE_REQUEST,
+    data,
+  };
+};
+
 // 게시글작성
 export const communityPostRequestAction = (data) => {
   return {
     type: COMMUNITY_POST_REQUEST,
+    data,
+  };
+};
+
+// 게시글좋아요
+export const communityLikePostRequestAction = (data) => {
+  return {
+    type: COMMUNITY_LIKE_POST_REQUEST,
     data,
   };
 };
@@ -137,6 +169,22 @@ const reducer = (state = initialState, action) => {
       case COMMUNITY_POST_FAILURE:
         draft.communityPostLoading = false;
         draft.communityPostError = action.error;
+        break;
+
+      case COMMUNITY_LIKE_POST_REQUEST:
+        draft.communityLikePostLoading = true;
+        draft.communityLikePostDone = false;
+        draft.communityLikePostError = null;
+        break;
+
+      case COMMUNITY_LIKE_POST_SUCCESS:
+        draft.communityLikePostLoading = false;
+        draft.communityLikePostDone = true;
+        break;
+
+      case COMMUNITY_LIKE_POST_FAILURE:
+        draft.communityLikePostLoading = false;
+        draft.communityLikePostError = action.error;
         break;
 
       // get
@@ -211,7 +259,7 @@ const reducer = (state = initialState, action) => {
         draft.communityPopularGetError = action.error;
         break;
 
-      // 인기순으로 찾기
+      // 최신순으로 찾기
       case COMMUNITY_NEW_GET_REQUEST:
         draft.communityNewGetLoading = true;
         draft.communityNewGetDone = false;
@@ -229,7 +277,7 @@ const reducer = (state = initialState, action) => {
         draft.communityNewGetError = action.error;
         break;
 
-      // 리플리
+      // 리플리 작성
       case REPLY_POST_REQUEST:
         draft.replyPostLoading = true;
         draft.replyPostDone = false;
@@ -247,6 +295,22 @@ const reducer = (state = initialState, action) => {
         draft.replyPostError = action.error;
         break;
 
+      // 리플리 삭제
+      case REPLY_DELETE_REQUEST:
+        draft.replyDeleteLoading = true;
+        draft.replyDeleteDone = false;
+        draft.replyDeleteError = null;
+        break;
+
+      case REPLY_DELETE_SUCCESS:
+        draft.replyDeleteLoading = false;
+        draft.replyDeleteDone = true;
+        break;
+
+      case REPLY_DELETE_FAILURE:
+        draft.replyDeleteLoading = false;
+        draft.replyDeleteError = action.error;
+        break;
       default:
         return state;
     }

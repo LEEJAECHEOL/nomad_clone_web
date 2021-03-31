@@ -8,6 +8,11 @@ import {
   COMMUNITY_POST_REQUEST,
   COMMUNITY_POST_SUCCESS,
 
+  // 글작성
+  COMMUNITY_LIKE_POST_FAILURE,
+  COMMUNITY_LIKE_POST_REQUEST,
+  COMMUNITY_LIKE_POST_SUCCESS,
+
   // 글목록
   COMMUNITY_GET_FAILURE,
   COMMUNITY_GET_REQUEST,
@@ -37,7 +42,13 @@ import {
   REPLY_POST_FAILURE,
   REPLY_POST_REQUEST,
   REPLY_POST_SUCCESS,
+
+  // 댓글삭제
+  REPLY_DELETE_FAILURE,
+  REPLY_DELETE_REQUEST,
+  REPLY_DELETE_SUCCESS,
 } from "../reducers/community";
+import { number } from "prop-types";
 
 function communityPostAPI(data) {
   const config = {
@@ -64,8 +75,33 @@ function* communityPost(action) {
   }
 }
 
+function communityLikePostAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  console.log(config);
+  console.log("좋아요데이터는?", data);
+  return axios.post(`/like`, JSON.stringify(data), config);
+}
+
+function* communityLikePost(action) {
+  try {
+    yield call(communityLikePostAPI, action.data);
+    yield put({
+      type: COMMUNITY_LIKE_POST_SUCCESS,
+    });
+    yield put(push("/community"));
+  } catch (err) {
+    yield put({
+      type: COMMUNITY_LIKE_POST_FAILURE,
+      error: "좋아요 실패하였습니다.",
+    });
+  }
+}
+
 function communityGetAPI() {
-  console.log("여기 몇번실행?");
   return axios.get(`/community`);
 }
 
@@ -109,8 +145,9 @@ function* communityPopularGet(action) {
   }
 }
 
-function communityNewGetAPI() {
-  return axios.get(`/community/new`);
+function communityNewGetAPI(data) {
+  console.log("들어오는 데이터는?", data);
+  return axios.get(`/community/new/${data}`);
 }
 
 function* communityNewGet(action) {
@@ -132,7 +169,6 @@ function* communityNewGet(action) {
 }
 
 function communityCategoryGetAPI(data) {
-  console.log("카테고리아이디는?", data);
   return axios.get(`/community/category/${data}`);
 }
 
@@ -202,12 +238,42 @@ function* replyPost(action) {
   }
 }
 
+function replyDeleteAPI(data) {
+  console.log("여기 들어옵니까?", data);
+  JSON.stringify(data);
+  return axios.delete(`/cReply/${data}`);
+}
+
+function* replyDelete(action) {
+  try {
+    const result = yield call(replyDeleteAPI, action.data);
+
+    yield put({
+      type: REPLY_DELETE_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: REPLY_DELETE_FAILURE,
+      error: "댓글작성에 실패하였습니다.",
+    });
+  }
+}
+
 function* watchReplyPost() {
   yield takeLatest(REPLY_POST_REQUEST, replyPost);
 }
 
+function* watchReplyDelete() {
+  yield takeLatest(REPLY_DELETE_REQUEST, replyDelete);
+}
+
 function* watchCommunityPost() {
   yield takeLatest(COMMUNITY_POST_REQUEST, communityPost);
+}
+
+function* watchCommunityLikePost() {
+  yield takeLatest(COMMUNITY_LIKE_POST_REQUEST, communityLikePost);
 }
 
 function* watchCommunityGet() {
@@ -230,7 +296,6 @@ function* watchCommunityNewGet() {
   yield takeLatest(COMMUNITY_NEW_GET_REQUEST, communityNewGet);
 }
 
-// communityPopularGet;
 export default function* communitySaga() {
   yield all([
     fork(watchCommunityPost),
@@ -240,5 +305,7 @@ export default function* communitySaga() {
     fork(watchCommunityCategoryGet),
     fork(watchCommunityPopularGet),
     fork(watchCommunityNewGet),
+    fork(watchReplyDelete),
+    fork(watchCommunityLikePost),
   ]);
 }

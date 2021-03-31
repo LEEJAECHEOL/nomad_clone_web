@@ -29,6 +29,8 @@ import { categoryGetRequestAction } from "../../reducers/category";
 import CategoryBtn from "../../components/AdminCategoryBtn";
 
 const Community = () => {
+  const { principal } = useSelector((state) => state.user);
+  console.log("프린시퍼", principal);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("# all");
   const [categoryId, setCategoryId] = useState("");
@@ -41,25 +43,24 @@ const Community = () => {
   const { communityList } = useSelector((state) => state.community);
   const { categoryList } = useSelector((state) => state.category);
 
-  const onClickCategory = useCallback((e) => {
-    setTitle(e.domEvent.target.textContent);
-    setCategoryId(e.key);
+  const onClickCategory = useCallback(
+    (e) => {
+      setTitle(e.domEvent.target.textContent);
+      setCategoryId(e.key);
+      dispatch(communityCategoryGetRequestAction(e.key));
+      console.log(categoryId);
+    },
+    [categoryId]
+  );
+
+  const onClickSort = useCallback(({ key }) => {
+    if (key === "new") {
+      dispatch(communityNewGetRequestAction(categoryId));
+    }
+    if (key === "all") {
+      dispatch(communityGetRequestAction());
+    }
   }, []);
-
-  // const onClickCategory = useCallback(({ key }) => {
-  //   if (key === "all") {
-  //     dispatch(communityGetRequestAction());
-  //     return;
-  //   } else if (key === "popular") {
-  //     dispatch(communityPopularGetRequestAction());
-  //     return;
-  //   } else if (key === "new") {
-  //     dispatch(communityNewGetRequestAction());
-  //     return;
-  //   }
-
-  //   dispatch(communityCategoryGetRequestAction(key));
-  // }, []);
   return (
     <>
       <AppLayout>
@@ -74,7 +75,11 @@ const Community = () => {
           <CommunityCategory span={5}>
             <h3>카테고리</h3>
             <Menu mode="vertical" defaultSelectedKeys={["0"]}>
-              <Menu.Item key="0" onClick={onClickCategory}>
+              <Menu.Item
+                key="all"
+                defaultSelectedKeys={["all"]}
+                onClick={onClickSort}
+              >
                 # all
               </Menu.Item>
               {categoryList.map((list) => (
@@ -93,10 +98,18 @@ const Community = () => {
               <div>
                 <b>Sort by: </b>
                 <SortMenu mode="horizontal" defaultSelectedKeys={["new"]}>
-                  <Menu.Item key={"popular"} icon={<LineChartOutlined />}>
+                  <Menu.Item
+                    key={"popular"}
+                    icon={<LineChartOutlined />}
+                    onClick={onClickSort}
+                  >
                     Popular
                   </Menu.Item>
-                  <Menu.Item key={"new"} icon={<ThunderboltOutlined />}>
+                  <Menu.Item
+                    key={"new"}
+                    icon={<ThunderboltOutlined />}
+                    onClick={onClickSort}
+                  >
                     New
                   </Menu.Item>
                 </SortMenu>
