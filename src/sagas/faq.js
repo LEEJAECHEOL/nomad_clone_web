@@ -15,6 +15,9 @@ import {
   FAQ_ONE_GET_FAILURE,
   FAQ_ONE_GET_REQUEST,
   FAQ_ONE_GET_SUCCESS,
+  FAQ_CATEGORY_POST_FAILURE,
+  FAQ_CATEGORY_POST_REQUEST,
+  FAQ_CATEGORY_POST_SUCCESS,
 } from "../reducers/faq";
 
 // 업데이트 [이부분 모르겠음.[]
@@ -25,12 +28,7 @@ function faqUpdateAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
-  const faqId = data[Object.keys(data)[3]];
-  console.log("업데이트 실행되니?11", faqId);
-  delete data.faqCategory;
-  console.log("제거된 데이터", data);
-  return axios.put(`/faq/${faqId}`, JSON.stringify(data), config);
+  return axios.put(`/admin/faq/${data.faqId}`, JSON.stringify(data), config);
 }
 
 // 이부분 막힘.
@@ -42,7 +40,7 @@ function* faqUpdate(action) {
       type: FAQ_UPDATE_SUCCESS,
       data: data,
     });
-    yield put(push("/faq/"));
+    yield put(push("/faq"));
   } catch (err) {
     yield put({
       type: FAQ_UPDATE_FAILURE,
@@ -83,7 +81,7 @@ function faqPostAPI(data) {
   };
   console.log(config);
   console.log("포스트실행되니?", data);
-  return axios.post("/faq", JSON.stringify(data), config);
+  return axios.post("/admin/faq", JSON.stringify(data), config);
 }
 
 function* faqPost(action) {
@@ -106,12 +104,10 @@ function faqGetAPI() {
   return axios.get(`/faq/category`);
 }
 
-function* faqGet(action) {
+function* faqGet() {
   try {
-    const result = yield call(faqGetAPI, action.data);
+    const result = yield call(faqGetAPI);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: FAQ_GET_SUCCESS,
       data: data,
@@ -120,6 +116,30 @@ function* faqGet(action) {
     yield put({
       type: FAQ_GET_FAILURE,
       error: "로그인에 실패하였습니다.",
+    });
+  }
+}
+
+function faqCategoryPostAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.post("/admin/faq/category", JSON.stringify(data), config);
+}
+
+function* faqCategoryPost(action) {
+  try {
+    const result = yield call(faqCategoryPostAPI, action.data);
+    yield put({
+      type: FAQ_CATEGORY_POST_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: FAQ_CATEGORY_POST_FAILURE,
+      error: "FAQ작성에 실패하였습니다.",
     });
   }
 }
@@ -136,11 +156,15 @@ function* watchFaqGet() {
 function* watchFaqOneGet() {
   yield takeLatest(FAQ_ONE_GET_REQUEST, faqOneGet);
 }
+function* watchFaqCategoryPost() {
+  yield takeLatest(FAQ_CATEGORY_POST_REQUEST, faqCategoryPost);
+}
 export default function* faqSaga() {
   yield all([
     fork(watchFaqPost),
     fork(watchFaqGet),
     fork(watchFaqOneGet),
     fork(watchFaqUpdate),
+    fork(watchFaqCategoryPost),
   ]);
 }

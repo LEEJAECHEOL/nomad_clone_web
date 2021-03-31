@@ -7,7 +7,6 @@ import { PageHero } from "../../components/style";
 import {
   communityCategoryGetRequestAction,
   communityGetRequestAction,
-  communityPopularGetRequestAction,
   communityNewGetRequestAction,
 } from "../../reducers/community";
 import {
@@ -25,7 +24,10 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import AppLayout from "../../components/AppLayout";
-import { categoryGetRequestAction } from "../../reducers/category";
+import {
+  categoryGetRequestAction,
+  categoryPostRequestAction,
+} from "../../reducers/category";
 import CategoryBtn from "../../components/AdminCategoryBtn";
 
 const Community = () => {
@@ -41,7 +43,9 @@ const Community = () => {
   }, []);
 
   const { communityList } = useSelector((state) => state.community);
-  const { categoryList } = useSelector((state) => state.category);
+  const { categoryList, categoryPostDone, categoryPostLoading } = useSelector(
+    (state) => state.category
+  );
 
   const onClickCategory = useCallback(
     (e) => {
@@ -90,7 +94,11 @@ const Community = () => {
                 </>
               ))}
             </Menu>
-            <CategoryBtn />
+            <CategoryBtn
+              action={categoryPostRequestAction}
+              done={categoryPostDone}
+              loading={categoryPostLoading}
+            />
           </CommunityCategory>
           {/* 중앙 Board */}
           <CommunityBoard span={14}>

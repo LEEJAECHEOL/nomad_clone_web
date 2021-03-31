@@ -1,37 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select } from "antd";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { WriteEditor, WriteForm } from "../../community/style";
 import { AdminFaqContainer } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { faqPostRequestAction } from "../../../reducers/faq";
+import {
+  faqGetRequestAction,
+  faqPostRequestAction,
+} from "../../../reducers/faq";
 import AppLayout from "../../../components/AppLayout";
 
-const AdminFaq = ({ history }) => {
-  const [content, setContent] = useState("");
-
+const FaqWrite = () => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const { faqList, faqPostLoading } = useSelector((state) => state.faq);
+
+  useEffect(() => {
+    dispatch(faqGetRequestAction());
+  }, []);
 
   const onSubmit = (values) => {
-    const data = { ...values, content };
-    console.log(data);
-    dispatch(faqPostRequestAction(data));
+    dispatch(faqPostRequestAction(values));
   };
-
-  const { faqPostLoading } = useSelector((state) => state.faq);
 
   return (
     <>
       <AppLayout>
         <AdminFaqContainer>
-          <WriteForm onFinish={onSubmit}>
+          <WriteForm onFinish={onSubmit} form={form}>
             {/* 셀렉터 */}
             <Form.Item name="categoryId">
               <Select name="categoryId" placeholder="카테고리 고르기">
-                <Select.Option value="1">노마드아카데미</Select.Option>
-                <Select.Option value="2">노마드 챌린지</Select.Option>
-                <Select.Option value="3">졸업작품 및 후기</Select.Option>
-                <Select.Option value="4">노마드 커뮤니티</Select.Option>
+                {faqList.map((list) => (
+                  <Select.Option value={list.id}>{list.title}</Select.Option>
+                ))}
               </Select>
             </Form.Item>
 
@@ -39,13 +42,16 @@ const AdminFaq = ({ history }) => {
               <Input placeholder="제목" />
             </Form.Item>
 
-            <WriteEditor
-              editor={ClassicEditor}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setContent(data);
-              }}
-            />
+            <Form.Item name="content">
+              <WriteEditor
+                editor={ClassicEditor}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  form.setFieldsValue({ content: data });
+                }}
+              />
+            </Form.Item>
+
             <Button type="primary" htmlType="submit" loading={faqPostLoading}>
               Submit
             </Button>
@@ -56,4 +62,4 @@ const AdminFaq = ({ history }) => {
   );
 };
 
-export default AdminFaq;
+export default FaqWrite;

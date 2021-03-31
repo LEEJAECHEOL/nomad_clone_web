@@ -11,10 +11,6 @@ export const initialState = {
   categoryPostDone: false,
   categoryPostError: null,
 
-  faqCategoryPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
-  faqCategoryPostDone: false,
-  faqCategoryPostError: null,
-
   categoryList: [],
 };
 
@@ -26,30 +22,19 @@ export const CATEGORY_POST_REQUEST = "CATEGORY_POST_REQUEST";
 export const CATEGORY_POST_SUCCESS = "CATEGORY_POST_SUCCESS";
 export const CATEGORY_POST_FAILURE = "CATEGORY_POST_FAILURE";
 
-export const FAQ_CATEGORY_POST_REQUEST = "FAQ_CATEGORY_POST_REQUEST";
-export const FAQ_CATEGORY_POST_SUCCESS = "FAQ_CATEGORY_POST_SUCCESS";
-export const FAQ_CATEGORY_POST_FAILURE = "FAQ_CATEGORY_POST_FAILURE";
 // 커뮤니티
 
 // 액션
 
-export const categoryGetRequestAction = (data) => {
+export const categoryGetRequestAction = () => {
   return {
     type: CATEGORY_GET_REQUEST,
-    data,
   };
 };
 
 export const categoryPostRequestAction = (data) => {
   return {
     type: CATEGORY_POST_REQUEST,
-    data,
-  };
-};
-
-export const faqCategoryPostRequestAction = (data) => {
-  return {
-    type: FAQ_CATEGORY_POST_REQUEST,
     data,
   };
 };
@@ -93,23 +78,6 @@ const reducer = (state = initialState, action) => {
         draft.categoryPostError = action.error;
         break;
 
-      // FAQ카테고리 저장
-      case FAQ_CATEGORY_POST_REQUEST:
-        draft.faqCategoryPostLoading = true;
-        draft.faqcategoryPostDone = false;
-        draft.faqcategoryPostError = null;
-        break;
-
-      case FAQ_CATEGORY_POST_SUCCESS:
-        draft.faqcategoryPostLoading = false;
-        draft.faqcategoryPostDone = true;
-        break;
-
-      case FAQ_CATEGORY_POST_FAILURE:
-        draft.faqcategoryPostLoading = false;
-        draft.faqcategoryPostError = action.error;
-
-        break;
       default:
         return state;
     }
