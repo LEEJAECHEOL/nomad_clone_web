@@ -26,6 +26,9 @@ import { timeForToday } from "../../util/Script";
 import AppLayout from "../../components/AppLayout";
 
 const CommunityDetail = ({ match }) => {
+  const { principal } = useSelector((state) => state.user);
+
+  console.log("principal데이터", principal);
   const comId = match.params.id;
   const dispatch = useDispatch();
 
@@ -80,11 +83,19 @@ const CommunityDetail = ({ match }) => {
                       </div>
                       <div className="Info-Name">
                         by &nbsp;
-                        <span>
-                          {communityItem !== null
-                            ? communityItem.user.name
-                            : "Title"}
-                        </span>
+                        <Link
+                          to={`/dashboard/${
+                            communityItem !== null
+                              ? communityItem.user.id
+                              : "userId"
+                          }`}
+                        >
+                          <span>
+                            {communityItem !== null
+                              ? communityItem.user.name
+                              : "Title"}
+                          </span>
+                        </Link>
                       </div>
                       <div className="Info-Date">
                         &#8226; &nbsp;
@@ -97,14 +108,22 @@ const CommunityDetail = ({ match }) => {
                     </div>
                   </div>
                   <div className="Board-UserImg">
-                    <img
-                      src={
+                    <Link
+                      to={`/dashboard/${
                         communityItem !== null
-                          ? communityItem.user.imageUrl
-                          : ""
-                      }
-                      alt=""
-                    />
+                          ? communityItem.user.id
+                          : "userId"
+                      }`}
+                    >
+                      <img
+                        src={
+                          communityItem !== null
+                            ? communityItem.user.imageUrl
+                            : ""
+                        }
+                        alt=""
+                      />
+                    </Link>
                   </div>
                 </div>
                 <DetailContent>

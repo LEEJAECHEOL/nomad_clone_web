@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import { Button, Form, Menu } from "antd";
 import styled from "styled-components";
 
 // Course-Item
@@ -187,5 +187,26 @@ export const ButtonRightModalForm = styled(Form)`
   .form_hidden {
     height: 1px;
     margin-bottom: 0;
+  }
+`;
+
+export const CommunityLikeButton = styled(Menu)`
+  height: 100%;
+  :before {
+    display: none !important;
+  }
+  :after {
+    display: none !important;
+  }
+  li {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    span {
+      margin: 0 !important;
+      line-height: 1;
+    }
   }
 `;
