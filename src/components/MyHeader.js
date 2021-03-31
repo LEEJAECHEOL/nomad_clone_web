@@ -45,9 +45,6 @@ const MyHeader = () => {
               <Menu.Item key="12">
                 <Link to="/admin/courses">Ac</Link>
               </Menu.Item>
-              <Menu.Item key="13">
-                <Link to="/admin/communityCategory">CCS</Link>
-              </Menu.Item>
               <Menu.Item key="14">
                 <Link to="/admin/faqCategory">AFC</Link>
               </Menu.Item>
