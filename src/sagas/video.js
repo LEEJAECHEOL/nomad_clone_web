@@ -48,7 +48,7 @@ function videoReplyPostAPI(data) {
     },
   };
   console.log("들어오는데이터는?", data);
-  return axios.post("/vreply", JSON.stringify(data), config);
+  return axios.post("/vReply", JSON.stringify(data), config);
 }
 
 function* videoReplyPost(action) {
@@ -71,7 +71,7 @@ function* videoReplyPost(action) {
 function videoReplyDeleteAPI(data) {
   console.log("여기 들어옵니까?", data);
   JSON.stringify(data);
-  return axios.delete(`/vreply/${data}`);
+  return axios.delete(`/vReply/${data}`);
 }
 
 function* videoReplyDelete(action) {

@@ -57,7 +57,7 @@ const CommunityItem = ({ list }) => {
         </div>
         <div className="Board-UserImg">
           <Link to={`/dashboard/${list.userId}`}>
-            <img src={list.user.imageUrl} alt="" />
+            <img src={list.imageUrl} alt="" />
           </Link>
         </div>
       </CommunityBoardItem>
