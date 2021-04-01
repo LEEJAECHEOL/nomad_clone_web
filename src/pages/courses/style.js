@@ -190,7 +190,7 @@ export const CourseInfomation = styled.div`
 `;
 
 export const SimpleInfo = styled.div`
-  padding: 30px 0;
+  padding: 100px 0 30px;
   width: 90%;
   margin: 0 auto;
   .simpleInfoBox {
@@ -657,5 +657,21 @@ export const PurchaseContainer = styled.div`
         font-weight: bold;
       }
     }
+  }
+`;
+
+export const CoursePaidMoveButton = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  a {
+    padding: 12px 40px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
   }
 `;

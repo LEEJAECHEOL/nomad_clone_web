@@ -1,18 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Layout, Menu, Breadcrumb, Progress, Card } from "antd";
-import { HomeOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { Layout, Menu, Breadcrumb, Progress, Form, Input, Button } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
 import {
   CourseTitleIcon,
   VideoLayout,
   CourseTitle,
   VideoMain,
   CourseReply,
-  CourseReplyItem,
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { videoGetRequestAction } from "../../reducers/video";
+import {
+  videoGetRequestAction,
+  videoReplyPostRequestAction,
+} from "../../reducers/video";
+import VideoReplyItem from "../../components/VideoReplyItem";
+import { ReplyInputForm } from "../community/style";
 
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 const Detail = ({ match }) => {
@@ -25,7 +29,9 @@ const Detail = ({ match }) => {
 
   useEffect(() => {
     dispatch(videoGetRequestAction(id));
+    console.log(videoList);
   }, []);
+
   useEffect(() => {
     if (videoList !== null) {
       setVimeo(videoList.contents[0].list[0].vimeoId);
@@ -39,6 +45,16 @@ const Detail = ({ match }) => {
     setVimeo(item.props.vimeoId);
     setVimeoTitle(item.props.children[1]);
   }, []);
+
+  // 여기 하는중
+  const onSubmit = (values) => {
+    const videoId = id;
+    const data = { ...values, videoId };
+    dispatch(videoReplyPostRequestAction(data));
+  };
+
+  const { videoReplyPostLoading } = useSelector((state) => state.video);
+
   return (
     <>
       <VideoLayout>
@@ -96,21 +112,31 @@ const Detail = ({ match }) => {
                 frameborder="0"
               ></iframe>
             </div>
+            {/* 댓글작성구간 */}
+            <ReplyInputForm onFinish={onSubmit}>
+              <Form.Item name="content">
+                <Input.TextArea />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={videoReplyPostLoading}
+                >
+                  Submit
+                </Button>
+              </Form.Item>
+            </ReplyInputForm>
+            {/* 작성된 댓글 컨테이너 */}
             <CourseReply>
-              <CourseReplyItem>
-                <div className="ReplyItemImage">
-                  <img src="http://localhost:3000/test.jpg" alt="" />
-                </div>
-                <div className="ReplyItemContent">
-                  <div className="ReplyInfo">
-                    <p>
-                      <b>username</b> <span>createdate</span>{" "}
-                    </p>
-                    <div>content내용</div>
-                  </div>
-                  <div className="ReplyFab">좋아요</div>
-                </div>
-              </CourseReplyItem>
+              {videoList !== null
+                ? videoList.videoReplys.map((list) => (
+                    <>
+                      <VideoReplyItem key={"comment-" + list.id} list={list} />
+                    </>
+                  ))
+                : null}
+              {/* {videoReplys} */}
             </CourseReply>
           </VideoMain>
         </Layout>

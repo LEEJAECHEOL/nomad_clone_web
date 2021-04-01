@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import AppLayout from "../../components/AppLayout";
-import { techPostRequestAction } from "../../reducers/admin/tech";
 import {
   dashBoardGetRequestAction,
   namePostRequestAction,

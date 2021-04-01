@@ -2,11 +2,12 @@ import produce from "immer";
 
 // 상태
 export const initialState = {
-  categoryGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
+  // 카테고리 가져오기
+  categoryGetLoading: false,
   categoryGetDone: false,
   categoryGetError: null,
 
-  // 포스트
+  // 카테고리 등록
   categoryPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
   categoryPostDone: false,
   categoryPostError: null,
@@ -14,18 +15,17 @@ export const initialState = {
   categoryList: [],
 };
 
+// 카테고리 가져오기
 export const CATEGORY_GET_REQUEST = "CATEGORY_GET_REQUEST";
 export const CATEGORY_GET_SUCCESS = "CATEGORY_GET_SUCCESS";
 export const CATEGORY_GET_FAILURE = "CATEGORY_GET_FAILURE";
 
+// 카테고리 등록
 export const CATEGORY_POST_REQUEST = "CATEGORY_POST_REQUEST";
 export const CATEGORY_POST_SUCCESS = "CATEGORY_POST_SUCCESS";
 export const CATEGORY_POST_FAILURE = "CATEGORY_POST_FAILURE";
 
-// 커뮤니티
-
 // 액션
-
 export const categoryGetRequestAction = () => {
   return {
     type: CATEGORY_GET_REQUEST,

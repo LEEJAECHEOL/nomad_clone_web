@@ -42,14 +42,14 @@ const Dashboard = ({ match }) => {
                   <div className="UserInfo-Img">
                     {dashBoardItem !== null ? (
                       <>
-                        <img
+                        {/* <img
                           src={
                             dashBoardItem.file !== null
                               ? dashBoardItem.file.fileUrl
                               : dashBoardItem.imageUrl
                           }
                           alt=""
-                        />
+                        /> */}
                       </>
                     ) : (
                       ""

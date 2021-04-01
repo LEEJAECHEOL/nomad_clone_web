@@ -45,6 +45,9 @@ const MyHeader = () => {
               <Menu.Item key="16">
                 <Link to="/teckList">ATL</Link>
               </Menu.Item>
+              <Menu.Item key="17">
+                <Link to="/video/1">1번강의</Link>
+              </Menu.Item>
 
               {principal ? (
                 <>

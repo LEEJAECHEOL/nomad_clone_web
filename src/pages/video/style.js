@@ -83,34 +83,39 @@ export const CourseTitle = styled(Breadcrumb.Item)`
 export const CourseReply = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 80px;
 `;
 
-export const CourseReplyItem = styled.div`
+export const VideoReplyCard = styled.div`
+  width: 684px;
+  padding: 12px 12px 20px;
+  margin-bottom: 20px;
   display: flex;
-  align-items: center;
-  height: 133px;
-  .ReplyItemImage {
-    width: 80px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-    }
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  .ReplyItemLeft {
+    margin-right: 10px;
   }
-  .ReplyItemContent {
-    margin-left: 10px;
-    width: 684px;
-    padding: 12px 20px 20px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  .ReplyItemRight {
+    width: 100%;
+  }
+  .ReplyItemRightHeader {
     display: flex;
-
-    .ReplyInfo {
-      width: 90%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .ReplyItemRightUserInfo {
+      span {
+        margin-right: 10px;
+        color: #4b5563;
+      }
+      img {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
     }
   }
 `;
