@@ -1,4 +1,4 @@
-import { all, call, fork, put, takeLatest } from "redux-saga/effects";
+import { all, call, fork, put, takeLatest, throttle } from "redux-saga/effects";
 import { push } from "connected-react-router";
 import axios from "axios";
 
@@ -28,16 +28,6 @@ import {
   COMMUNITY_ONE_GET_REQUEST,
   COMMUNITY_ONE_GET_SUCCESS,
 
-  // 인기순으로 찾기
-  COMMUNITY_POPULAR_GET_FAILURE,
-  COMMUNITY_POPULAR_GET_REQUEST,
-  COMMUNITY_POPULAR_GET_SUCCESS,
-
-  // 최근작성순으로 찾기
-  COMMUNITY_NEW_GET_FAILURE,
-  COMMUNITY_NEW_GET_REQUEST,
-  COMMUNITY_NEW_GET_SUCCESS,
-
   // 댓글작성
   REPLY_POST_FAILURE,
   REPLY_POST_REQUEST,
@@ -47,6 +37,11 @@ import {
   REPLY_DELETE_FAILURE,
   REPLY_DELETE_REQUEST,
   REPLY_DELETE_SUCCESS,
+
+  // 스크롤링 데이터 가져오기
+  LOAD_POSTS_FAILURE,
+  LOAD_POSTS_REQUEST,
+  LOAD_POSTS_SUCCESS,
 } from "../reducers/community";
 
 function communityPostAPI(data) {
@@ -120,46 +115,6 @@ function* communityGet(action) {
   }
 }
 
-function communityPopularGetAPI() {
-  return axios.get(`/community/popular`);
-}
-
-function* communityPopularGet(action) {
-  try {
-    const result = yield call(communityPopularGetAPI, action.data);
-    const data = result.data.data;
-    yield put({
-      type: COMMUNITY_POPULAR_GET_SUCCESS,
-      data: data,
-    });
-  } catch (err) {
-    yield put({
-      type: COMMUNITY_POPULAR_GET_FAILURE,
-      error: "로그인에 실패하였습니다.",
-    });
-  }
-}
-
-function communityNewGetAPI(data) {
-  return axios.get(`/community/new/${data}`);
-}
-
-function* communityNewGet(action) {
-  try {
-    const result = yield call(communityNewGetAPI, action.data);
-    const data = result.data.data;
-    yield put({
-      type: COMMUNITY_NEW_GET_SUCCESS,
-      data: data,
-    });
-  } catch (err) {
-    yield put({
-      type: COMMUNITY_NEW_GET_FAILURE,
-      error: "로그인에 실패하였습니다.",
-    });
-  }
-}
-
 function communityCategoryGetAPI(data) {
   return axios.get(`/community/category/${data}`);
 }
@@ -226,26 +181,47 @@ function* replyPost(action) {
 }
 
 function replyDeleteAPI(data) {
-  JSON.stringify(data);
   return axios.delete(`/cReply/${data}`);
 }
 
 function* replyDelete(action) {
   try {
-    const result = yield call(replyDeleteAPI, action.data);
-
+    yield call(replyDeleteAPI, action.data);
     yield put({
       type: REPLY_DELETE_SUCCESS,
-      data: result.data.data,
+      data: action.data,
     });
   } catch (err) {
     yield put({
       type: REPLY_DELETE_FAILURE,
-      error: "댓글작성에 실패하였습니다.",
+      error: "댓글삭제에 실패하였습니다.",
     });
   }
 }
+function loadPostsAPI(data) {
+  return axios.get(
+    `/community?sort=${data.sort}&categoryId=${data.categoryId}&page=${data.page}`
+  );
+}
 
+function* loadPosts(action) {
+  try {
+    const result = yield call(loadPostsAPI, action.data);
+    console.log(result);
+    yield put({
+      type: LOAD_POSTS_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: LOAD_POSTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+function* watchLoadPosts() {
+  yield throttle(3000, LOAD_POSTS_REQUEST, loadPosts);
+}
 function* watchReplyPost() {
   yield takeLatest(REPLY_POST_REQUEST, replyPost);
 }
@@ -274,14 +250,6 @@ function* watchCommunityCategoryGet() {
   yield takeLatest(COMMUNITY_CATEGORY_GET_REQUEST, communityCategoryGet);
 }
 
-function* watchCommunityPopularGet() {
-  yield takeLatest(COMMUNITY_POPULAR_GET_REQUEST, communityPopularGet);
-}
-
-function* watchCommunityNewGet() {
-  yield takeLatest(COMMUNITY_NEW_GET_REQUEST, communityNewGet);
-}
-
 export default function* communitySaga() {
   yield all([
     fork(watchCommunityPost),
@@ -289,9 +257,8 @@ export default function* communitySaga() {
     fork(watchCommunityOneGet),
     fork(watchReplyPost),
     fork(watchCommunityCategoryGet),
-    fork(watchCommunityPopularGet),
-    fork(watchCommunityNewGet),
     fork(watchReplyDelete),
     fork(watchCommunityLikePost),
+    fork(watchLoadPosts),
   ]);
 }

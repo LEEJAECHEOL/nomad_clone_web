@@ -24,11 +24,14 @@ import { Button, Form } from "antd";
 import { Input } from "antd";
 import { timeForToday } from "../../util/Script";
 import AppLayout from "../../components/AppLayout";
+import { useForm } from "antd/lib/form/Form";
 
 const CommunityDetail = ({ match }) => {
   const { principal } = useSelector((state) => state.user);
+  const { communityItem } = useSelector((state) => state.community);
+  const { replyPostLoading } = useSelector((state) => state.community);
+  const [form] = useForm();
 
-  console.log("principal데이터", principal);
   const comId = match.params.id;
   const dispatch = useDispatch();
 
@@ -40,10 +43,10 @@ const CommunityDetail = ({ match }) => {
   const onSubmit = (values) => {
     const data = { ...values, comId };
     dispatch(replyPostRequestAction(data));
+    form.setFieldsValue({ content: "" });
   };
 
-  const { communityItem } = useSelector((state) => state.community);
-  const { replyPostLoading } = useSelector((state) => state.community);
+  console.log(communityItem);
 
   return (
     <>
@@ -135,7 +138,7 @@ const CommunityDetail = ({ match }) => {
                 </DetailContent>
               </CommunityDetailItem>
               {/* 여기 댓글 작성 폼 */}
-              <ReplyInputForm onFinish={onSubmit}>
+              <ReplyInputForm onFinish={onSubmit} form={form}>
                 <Form.Item name="content">
                   <Input.TextArea />
                 </Form.Item>
@@ -156,7 +159,7 @@ const CommunityDetail = ({ match }) => {
                     <b>
                       {communityItem !== null
                         ? communityItem.replys.length
-                        : "zz"}
+                        : ""}
                     </b>
                     comments
                   </span>
