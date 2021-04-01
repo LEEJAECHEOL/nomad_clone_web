@@ -1,6 +1,6 @@
 import { UpOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { CommunityBoardItem } from "../pages/community/style";
@@ -11,6 +11,7 @@ import { CommunityLikeButton } from "./style";
 const CommunityItem = ({ list }) => {
   const dispatch = useDispatch();
   console.log("리스트정보", list);
+
   const onClickLikes = useCallback((e) => {
     const data = e.key;
     console.log(data);

@@ -3,7 +3,6 @@ import {
   CheckCircleOutlined,
   CheckCircleTwoTone,
   CheckOutlined,
-  CheckSquareOutlined,
 } from "@ant-design/icons";
 import { Collapse, List } from "antd";
 import React, { useEffect } from "react";
@@ -21,6 +20,7 @@ import {
   PurchaseLayout,
   CurriculumLayout,
   FaqLayout,
+  CoursePaidMoveButton,
 } from "./style";
 
 const { Panel } = Collapse;
@@ -59,9 +59,9 @@ const CoursesDetail = ({ match }) => {
         <CoursesDetailLayout beforedisplay="block">
           <div className="badgeContainer">
             {coursesItem !== null
-              ? coursesItem.simpleImage.map((list) => (
+              ? coursesItem.tech.map((list) => (
                   <>
-                    <img src={list !== null ? list.url : ""} alt="" />
+                    <img src={list !== null ? list.imageUrl : ""} alt="" />
                   </>
                 ))
               : null}
@@ -87,6 +87,26 @@ const CoursesDetail = ({ match }) => {
               <p>레벨</p>
             </div>
           </CourseInfomation>
+
+          <CoursePaidMoveButton>
+            {coursesItem !== null ? (
+              <>
+                {coursesItem.price === "0" ? (
+                  <>
+                    <Link to={`/video/${coursesItem.video.id}`}>
+                      Enroll now <ArrowRightOutlined />
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to={`/purchase/${courseId}`}>
+                      Start Coding Now! <ArrowRightOutlined />
+                    </Link>
+                  </>
+                )}
+              </>
+            ) : null}
+          </CoursePaidMoveButton>
 
           <SimpleInfo>
             {coursesItem !== null
@@ -314,11 +334,37 @@ const CoursesDetail = ({ match }) => {
             <div className="purchasePrice">
               <h4>Pay once, own it forever</h4>
               <div className="price">
-                <p>{coursesItem !== null ? coursesItem.price : null}원</p>
+                {coursesItem !== null ? (
+                  <>
+                    {coursesItem.price === "0" ? (
+                      <>
+                        <p>FREE</p>
+                      </>
+                    ) : (
+                      <>
+                        <p>{coursesItem.price}원</p>
+                      </>
+                    )}
+                  </>
+                ) : null}
               </div>
-              <Link to={`/purchase/${courseId}`}>
-                Go to Checkout <ArrowRightOutlined />
-              </Link>
+              {coursesItem !== null ? (
+                <>
+                  {coursesItem.price === "0" ? (
+                    <>
+                      <Link to={`/video/${coursesItem.video.id}`}>
+                        Go to Checkout <ArrowRightOutlined />
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to={`/purchase/${courseId}`}>
+                        Go to Checkout <ArrowRightOutlined />
+                      </Link>
+                    </>
+                  )}
+                </>
+              ) : null}
             </div>
           </div>
         </PurchaseLayout>
