@@ -90,11 +90,13 @@ export const CourseReply = styled.div`
 
 export const VideoReplyCard = styled.div`
   width: 684px;
-  padding: 12px 12px 20px;
+  padding: 20px;
   margin-bottom: 20px;
   display: flex;
+  background: #fff;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
   .ReplyItemLeft {
     margin-right: 10px;
   }

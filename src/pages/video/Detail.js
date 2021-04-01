@@ -129,14 +129,27 @@ const Detail = ({ match }) => {
             </ReplyInputForm>
             {/* 작성된 댓글 컨테이너 */}
             <CourseReply>
-              {videoList !== null
+              {/* {videoList !== null
                 ? videoList.videoReplys.map((list) => (
                     <>
                       <VideoReplyItem key={"comment-" + list.id} list={list} />
                     </>
                   ))
-                : null}
-              {/* {videoReplys} */}
+                : null} */}
+              {videoList !== null ? (
+                <>
+                  {videoList.vreplys !== null
+                    ? videoList.vreplys.map((list) => (
+                        <>
+                          <VideoReplyItem
+                            key={"comment-" + list.id}
+                            list={list}
+                          />
+                        </>
+                      ))
+                    : null}
+                </>
+              ) : null}
             </CourseReply>
           </VideoMain>
         </Layout>
