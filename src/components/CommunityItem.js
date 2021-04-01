@@ -13,7 +13,6 @@ const CommunityItem = ({ list }) => {
   console.log(list);
   const onClickLikes = useCallback((e) => {
     const data = e.key;
-    // console.log(data);
     dispatch(communityLikePostRequestAction(data));
   }, []);
   return (
@@ -58,7 +57,7 @@ const CommunityItem = ({ list }) => {
         </div>
         <div className="Board-UserImg">
           <Link to={`/dashboard/${list.userId}`}>
-            <img src={list.imageUrl} alt="" />
+            <img src={list.user.imageUrl} alt="" />
           </Link>
         </div>
       </CommunityBoardItem>

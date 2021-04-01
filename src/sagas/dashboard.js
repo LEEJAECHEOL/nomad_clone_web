@@ -80,7 +80,7 @@ function namePostAPI(data) {
   const id = data.id;
   const name = data.name;
   console.log(id);
-  return axios.post(`/name/${id}`, JSON.stringify(name), config);
+  return axios.post(`/user/${id}`, JSON.stringify(name), config);
 }
 
 function* namePost(action) {

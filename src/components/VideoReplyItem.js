@@ -29,21 +29,6 @@ const VideoReplyItem = ({ list }) => {
               X
             </button>
           )}
-          {/* {list.user !== null ? (
-            <>
-              {list.user.id !== null ? (
-                <>
-                  {list.user.id !== principal.id ? (
-                    <>실패</>
-                  ) : (
-                    <button onClick={onClickVideoReplyDelte} id={list.id}>
-                      X
-                    </button>
-                  )}
-                </>
-              ) : null}
-            </>
-          ) : null} */}
         </div>
         <div className="ReplyItemRightContent">{list.content}</div>
       </div>
