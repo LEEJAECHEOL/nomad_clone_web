@@ -31,40 +31,53 @@ import {
 import CategoryBtn from "../../components/AdminCategoryBtn";
 
 const Community = () => {
-  const { principal } = useSelector((state) => state.user);
-  console.log("프린시퍼", principal);
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("# all");
-  const [categoryId, setCategoryId] = useState("");
-
-  useEffect(() => {
-    dispatch(communityGetRequestAction());
-    dispatch(categoryGetRequestAction());
-  }, []);
-
+  const { principal } = useSelector((state) => state.user);
   const { communityList } = useSelector((state) => state.community);
   const { categoryList, categoryPostDone, categoryPostLoading } = useSelector(
     (state) => state.category
   );
+  const [title, setTitle] = useState("# all");
+  const [categoryId, setCategoryId] = useState(0);
+  const [sort, setSort] = useState("new");
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    const data = {
+      sort,
+      categoryId,
+      page,
+    };
+    dispatch(categoryGetRequestAction()); // 초기 카테고리 리스트 가져오기
+    dispatch(communityGetRequestAction(data)); // 초기 글 목록 가져오기
+  }, []);
 
   const onClickCategory = useCallback(
-    (e) => {
-      setTitle(e.domEvent.target.textContent);
-      setCategoryId(e.key);
-      dispatch(communityCategoryGetRequestAction(e.key));
-      console.log(categoryId);
+    ({ domEvent, key }) => {
+      setTitle(domEvent.target.textContent);
+      setPage(0);
+      setCategoryId(key);
+      const data = {
+        sort,
+        categoryId: key,
+        page: 0,
+      };
+      dispatch(communityGetRequestAction(data));
     },
-    [categoryId]
+    [sort, dispatch]
   );
-
-  const onClickSort = useCallback(({ key }) => {
-    if (key === "new") {
-      dispatch(communityNewGetRequestAction(categoryId));
-    }
-    if (key === "all") {
-      dispatch(communityGetRequestAction());
-    }
-  }, []);
+  const onClickSort = useCallback(
+    ({ key }) => {
+      setSort(key);
+      const data = {
+        sort: key,
+        categoryId,
+        page: 0,
+      };
+      dispatch(communityGetRequestAction(data));
+    },
+    [categoryId, dispatch]
+  );
   return (
     <>
       <AppLayout>
@@ -79,11 +92,7 @@ const Community = () => {
           <CommunityCategory span={5}>
             <h3>카테고리</h3>
             <Menu mode="vertical" defaultSelectedKeys={["0"]}>
-              <Menu.Item
-                key="all"
-                defaultSelectedKeys={["all"]}
-                onClick={onClickSort}
-              >
+              <Menu.Item key={0} onClick={onClickCategory}>
                 # all
               </Menu.Item>
               {categoryList.map((list) => (

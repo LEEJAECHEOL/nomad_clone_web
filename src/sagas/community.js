@@ -55,7 +55,6 @@ function communityPostAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
   return axios.post("/community", JSON.stringify(data), config);
 }
 
@@ -80,8 +79,6 @@ function communityLikePostAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
-  console.log("좋아요데이터는?", data);
   return axios.post(`/like`, JSON.stringify(data), config);
 }
 
@@ -100,16 +97,17 @@ function* communityLikePost(action) {
   }
 }
 
-function communityGetAPI() {
-  return axios.get(`/community`);
+function communityGetAPI(data) {
+  // return axios.get(`/community`);
+  return axios.get(
+    `/community?sort=${data.sort}&categoryId=${data.categoryId}&page=${data.page}`
+  );
 }
 
 function* communityGet(action) {
   try {
     const result = yield call(communityGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: COMMUNITY_GET_SUCCESS,
       data: data,
@@ -130,8 +128,6 @@ function* communityPopularGet(action) {
   try {
     const result = yield call(communityPopularGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: COMMUNITY_POPULAR_GET_SUCCESS,
       data: data,
@@ -145,7 +141,6 @@ function* communityPopularGet(action) {
 }
 
 function communityNewGetAPI(data) {
-  console.log("들어오는 데이터는?", data);
   return axios.get(`/community/new/${data}`);
 }
 
@@ -153,8 +148,6 @@ function* communityNewGet(action) {
   try {
     const result = yield call(communityNewGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: COMMUNITY_NEW_GET_SUCCESS,
       data: data,
@@ -175,8 +168,6 @@ function* communityCategoryGet(action) {
   try {
     const result = yield call(communityCategoryGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: COMMUNITY_CATEGORY_GET_SUCCESS,
       data: data,
@@ -197,8 +188,6 @@ function* communityOneGet(action) {
   try {
     const result = yield call(communityOneGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: COMMUNITY_ONE_GET_SUCCESS,
       data: data,
@@ -217,7 +206,6 @@ function replyPostAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
   return axios.post("/cReply", JSON.stringify(data), config);
 }
 
@@ -238,7 +226,6 @@ function* replyPost(action) {
 }
 
 function replyDeleteAPI(data) {
-  console.log("여기 들어옵니까?", data);
   JSON.stringify(data);
   return axios.delete(`/cReply/${data}`);
 }

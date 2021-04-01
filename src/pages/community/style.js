@@ -7,6 +7,7 @@ export const CommunityContainer = styled(Row)``;
 
 export const CommunityCategory = styled(Col)`
   padding-top: 24px;
+  padding-right: 10px;
   min-width: 200px;
   .ant-menu-vertical {
     border: none;

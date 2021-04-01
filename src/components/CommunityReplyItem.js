@@ -24,11 +24,13 @@ const CommunityReplyItem = ({ list }) => {
               <span>{list.user.name}</span>
               <span>ㅣ {timeForToday(list.createDate)}</span>
             </div>
-            {list.user.id !== principal.id ? null : (
-              <button onClick={onClickReplyDelte} id={list.id}>
-                X
-              </button>
-            )}
+            {principal !== null ? (
+              list.user.id !== principal.id ? null : (
+                <button onClick={onClickReplyDelte} id={list.id}>
+                  X
+                </button>
+              )
+            ) : null}
           </div>
           <div className="ReplyItemRightContent">{list.content}</div>
         </div>

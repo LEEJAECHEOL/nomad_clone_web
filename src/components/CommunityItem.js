@@ -10,10 +10,10 @@ import { CommunityLikeButton } from "./style";
 
 const CommunityItem = ({ list }) => {
   const dispatch = useDispatch();
-  console.log("리스트정보", list);
+  // console.log("리스트정보", list);
   const onClickLikes = useCallback((e) => {
     const data = e.key;
-    console.log(data);
+    // console.log(data);
     dispatch(communityLikePostRequestAction(data));
   }, []);
   return (
@@ -26,7 +26,7 @@ const CommunityItem = ({ list }) => {
               key={list.id}
               icon={<UpOutlined />}
             >
-              <span>{list.likes !== null ? list.likes.length : 0}</span>
+              <span>{list.likeCount}</span>
             </Menu.Item>
           </CommunityLikeButton>
         </div>
@@ -37,14 +37,12 @@ const CommunityItem = ({ list }) => {
           <div className="Board-Body-Info">
             <div className="Info-Tag">
               in &nbsp;
-              <span>#{list.category.title}</span>
+              <span>#{list.categoryTitle}</span>
             </div>
             <div className="Info-Name">
               by
-              <Link
-                to={`/dashboard/${list.user !== null ? list.user.id : null}`}
-              >
-                <span> {list.user !== null ? list.user.name : null}</span>
+              <Link to={`/dashboard/${list.userId}`}>
+                <span> {list.name}</span>
               </Link>
             </div>
             <div className="Info-Date">
@@ -54,13 +52,13 @@ const CommunityItem = ({ list }) => {
             <div className="Info-Reply">
               &#8226; &nbsp;
               <span>💬 </span>
-              <b>{list.replys.length}</b>
+              <b>{list.replyCount}</b>
             </div>
           </div>
         </div>
         <div className="Board-UserImg">
-          <Link to={`/dashboard/${list.user !== null ? list.user.id : null}`}>
-            <img src={list.user.imageUrl} alt="" />
+          <Link to={`/dashboard/${list.userId}`}>
+            <img src={list.imageUrl} alt="" />
           </Link>
         </div>
       </CommunityBoardItem>
