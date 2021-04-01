@@ -10,6 +10,7 @@ import { CommunityLikeButton } from "./style";
 
 const CommunityItem = ({ list }) => {
   const dispatch = useDispatch();
+  console.log(list);
   const onClickLikes = useCallback((e) => {
     const data = e.key;
     // console.log(data);

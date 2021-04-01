@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 import CommunityItem from "../../components/CommunityItem";
 import { PageHero } from "../../components/style";
 import {
-  communityCategoryGetRequestAction,
   communityGetRequestAction,
-  communityNewGetRequestAction,
+  loadPostsRequestAction,
 } from "../../reducers/community";
 import {
   CommunityBoard,
@@ -33,7 +32,9 @@ import CategoryBtn from "../../components/AdminCategoryBtn";
 const Community = () => {
   const dispatch = useDispatch();
   const { principal } = useSelector((state) => state.user);
-  const { communityList } = useSelector((state) => state.community);
+  const { communityList, hasMorePosts, loadPostsLoading } = useSelector(
+    (state) => state.community
+  );
   const { categoryList, categoryPostDone, categoryPostLoading } = useSelector(
     (state) => state.category
   );
@@ -51,6 +52,29 @@ const Community = () => {
     dispatch(categoryGetRequestAction()); // 초기 카테고리 리스트 가져오기
     dispatch(communityGetRequestAction(data)); // 초기 글 목록 가져오기
   }, []);
+
+  useEffect(() => {
+    function onScroll() {
+      if (
+        window.pageYOffset + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 250
+      ) {
+        if (hasMorePosts && !loadPostsLoading) {
+          setPage((prev) => prev + 1);
+          const data = {
+            sort,
+            categoryId,
+            page: page + 1,
+          };
+          dispatch(loadPostsRequestAction(data));
+        }
+      }
+    }
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [hasMorePosts, loadPostsLoading, communityList, page]);
 
   const onClickCategory = useCallback(
     ({ domEvent, key }) => {

@@ -1,3 +1,5 @@
+import { DeleteOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { replyDeleteRequestAction } from "../reducers/community";
@@ -8,9 +10,8 @@ const CommunityReplyItem = ({ list }) => {
   const { principal } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const onClickReplyDelte = useCallback((e) => {
-    const id = e.target.id;
-    dispatch(replyDeleteRequestAction(id));
+  const onClickReplyDelte = useCallback(() => {
+    dispatch(replyDeleteRequestAction(list.id));
   }, []);
   return (
     <>
@@ -26,9 +27,11 @@ const CommunityReplyItem = ({ list }) => {
             </div>
             {principal !== null ? (
               list.user.id !== principal.id ? null : (
-                <button onClick={onClickReplyDelte} id={list.id}>
-                  X
-                </button>
+                <Button
+                  type="text"
+                  icon={<DeleteOutlined />}
+                  onClick={onClickReplyDelte}
+                />
               )
             ) : null}
           </div>
