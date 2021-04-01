@@ -112,7 +112,7 @@ const Detail = ({ match }) => {
                 frameborder="0"
               ></iframe>
             </div>
-            {/* 댓글작성구간 */}
+
             <ReplyInputForm onFinish={onSubmit}>
               <Form.Item name="content">
                 <Input.TextArea />
@@ -127,15 +127,8 @@ const Detail = ({ match }) => {
                 </Button>
               </Form.Item>
             </ReplyInputForm>
-            {/* 작성된 댓글 컨테이너 */}
+
             <CourseReply>
-              {/* {videoList !== null
-                ? videoList.videoReplys.map((list) => (
-                    <>
-                      <VideoReplyItem key={"comment-" + list.id} list={list} />
-                    </>
-                  ))
-                : null} */}
               {videoList !== null ? (
                 <>
                   {videoList.vreplys !== null

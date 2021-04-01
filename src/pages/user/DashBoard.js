@@ -49,14 +49,7 @@ const Dashboard = ({ match }) => {
                   <div className="UserInfo-Img">
                     {dashBoardItem !== null ? (
                       <>
-                        <img
-                          src={
-                            dashBoardItem.file !== null
-                              ? dashBoardItem.file.fileUrl
-                              : dashBoardItem.imageUrl
-                          }
-                          alt=""
-                        />
+                        <img src={dashBoardItem.imageUrl} alt="" />
                       </>
                     ) : (
                       ""
@@ -66,15 +59,13 @@ const Dashboard = ({ match }) => {
                     <div className="Name">
                       <p>Name</p>
                       <h3>
-                        {dashBoardItem !== null ? dashBoardItem.name : "몰라"}
+                        {dashBoardItem !== null ? dashBoardItem.name : ""}
                       </h3>
                     </div>
                     <div className="UserName">
                       <p>Username</p>
                       <h3>
-                        {dashBoardItem !== null
-                          ? dashBoardItem.username
-                          : "몰라"}
+                        {dashBoardItem !== null ? dashBoardItem.username : ""}
                       </h3>
                     </div>
                   </div>
