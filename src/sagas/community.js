@@ -8,10 +8,15 @@ import {
   COMMUNITY_POST_REQUEST,
   COMMUNITY_POST_SUCCESS,
 
-  // 글작성
+  // 게시글좋아요
   COMMUNITY_LIKE_POST_FAILURE,
   COMMUNITY_LIKE_POST_REQUEST,
   COMMUNITY_LIKE_POST_SUCCESS,
+
+  // 상세페이지 게시글좋아요
+  COMMUNITY_DETAIL_LIKE_POST_FAILURE,
+  COMMUNITY_DETAIL_LIKE_POST_REQUEST,
+  COMMUNITY_DETAIL_LIKE_POST_SUCCESS,
 
   // 글목록
   COMMUNITY_GET_FAILURE,
@@ -86,10 +91,35 @@ function* communityLikePost(action) {
       type: COMMUNITY_LIKE_POST_SUCCESS,
       data: data,
     });
-    yield put(push("/community"));
   } catch (err) {
     yield put({
       type: COMMUNITY_LIKE_POST_FAILURE,
+      error: "좋아요 실패하였습니다.",
+    });
+  }
+}
+
+function communityDetailLikePostAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.post(`/like`, JSON.stringify(data), config);
+}
+
+function* communityDetailLikePost(action) {
+  try {
+    const result = yield call(communityDetailLikePostAPI, action.data);
+    const data = result.data.data;
+    yield put({
+      // 여기수정
+      type: COMMUNITY_DETAIL_LIKE_POST_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: COMMUNITY_DETAIL_LIKE_POST_FAILURE,
       error: "좋아요 실패하였습니다.",
     });
   }
@@ -144,13 +174,19 @@ function* communityCategoryGet(action) {
 }
 
 function communityOneGetAPI(data) {
-  return axios.get(`/community/${data}`);
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.get(`/community/${data}`, config);
 }
 
 function* communityOneGet(action) {
   try {
     const result = yield call(communityOneGetAPI, action.data);
     const data = result.data.data;
+    console.log("사가쪽 데이터는?", data);
     yield put({
       type: COMMUNITY_ONE_GET_SUCCESS,
       data: data,
@@ -227,6 +263,7 @@ function* loadPosts(action) {
     });
   }
 }
+
 function* watchLoadPosts() {
   yield throttle(3000, LOAD_POSTS_REQUEST, loadPosts);
 }
@@ -244,6 +281,10 @@ function* watchCommunityPost() {
 
 function* watchCommunityLikePost() {
   yield takeLatest(COMMUNITY_LIKE_POST_REQUEST, communityLikePost);
+}
+
+function* watchCommunityDetailLikePost() {
+  yield takeLatest(COMMUNITY_DETAIL_LIKE_POST_REQUEST, communityDetailLikePost);
 }
 
 function* watchCommunityGet() {
@@ -268,5 +309,6 @@ export default function* communitySaga() {
     fork(watchReplyDelete),
     fork(watchCommunityLikePost),
     fork(watchLoadPosts),
+    fork(watchCommunityDetailLikePost),
   ]);
 }

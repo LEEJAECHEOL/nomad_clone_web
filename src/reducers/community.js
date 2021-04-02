@@ -15,6 +15,10 @@ export const initialState = {
   communityLikePostDone: false,
   communityLikePostError: null,
 
+  communityDetailLikePostLoading: false,
+  communityDetailLikePostDone: false,
+  communityDetailLikePostError: null,
+
   communityGetLoading: false,
   communityGetDone: false,
   communityGetError: null,
@@ -47,6 +51,13 @@ export const COMMUNITY_POST_FAILURE = "COMMUNITY_POST_FAILURE";
 export const COMMUNITY_LIKE_POST_REQUEST = "COMMUNITY_LIKE_POST_REQUEST";
 export const COMMUNITY_LIKE_POST_SUCCESS = "COMMUNITY_LIKE_POST_SUCCESS";
 export const COMMUNITY_LIKE_POST_FAILURE = "COMMUNITY_LIKE_POST_FAILURE";
+
+export const COMMUNITY_DETAIL_LIKE_POST_REQUEST =
+  "COMMUNITY_DETAIL_LIKE_POST_REQUEST";
+export const COMMUNITY_DETAIL_LIKE_POST_SUCCESS =
+  "COMMUNITY_DETAIL_LIKE_POST_SUCCESS";
+export const COMMUNITY_DETAIL_LIKE_POST_FAILURE =
+  "COMMUNITY_DETAIL_LIKE_POST_FAILURE";
 
 export const COMMUNITY_GET_REQUEST = "COMMUNITY_GET_REQUEST";
 export const COMMUNITY_GET_SUCCESS = "COMMUNITY_GET_SUCCESS";
@@ -103,6 +114,14 @@ export const communityPostRequestAction = (data) => {
 export const communityLikePostRequestAction = (data) => {
   return {
     type: COMMUNITY_LIKE_POST_REQUEST,
+    data,
+  };
+};
+
+// 게시글상세좋아요
+export const communityDetailLikePostRequestAction = (data) => {
+  return {
+    type: COMMUNITY_DETAIL_LIKE_POST_REQUEST,
     data,
   };
 };
@@ -172,14 +191,31 @@ const reducer = (state = initialState, action) => {
           if (list.id === action.data.id) {
             list.likeCount = action.data.likeCount;
             list.likeCheck = action.data.likeCheck;
-            console.log("바뀐리스트는?", list);
+            console.log("바뀐리스트는?", list.likeCount);
+            console.log("바뀐리스트는?", list.likeCheck);
           }
           return list;
         });
-
         break;
 
-      case COMMUNITY_LIKE_POST_FAILURE:
+      // 좋아요버튼 누르기
+      case COMMUNITY_DETAIL_LIKE_POST_REQUEST:
+        draft.communityDetailLikePostLoading = true;
+        draft.communityDetailLikePostDone = false;
+        draft.communityDetailLikePostError = null;
+        break;
+
+      case COMMUNITY_DETAIL_LIKE_POST_SUCCESS:
+        draft.communityDetailLikePostLoading = false;
+        draft.communityDetailLikePostDone = true;
+        console.log("액션", action.data);
+        if (draft.communityItem.id === action.data.id) {
+          draft.communityItem.likeCount = action.data.likeCount;
+          draft.communityItem.likeCheck = action.data.likeCheck;
+        }
+        break;
+
+      case COMMUNITY_DETAIL_LIKE_POST_FAILURE:
         draft.communityLikePostLoading = false;
         draft.communityLikePostError = action.error;
         break;
@@ -249,7 +285,7 @@ const reducer = (state = initialState, action) => {
       case REPLY_POST_SUCCESS:
         draft.replyPostLoading = false;
         draft.replyPostDone = true;
-        draft.communityItem.replys.unshift(action.data);
+        draft.communityItem.community.replys.unshift(action.data);
         break;
 
       case REPLY_POST_FAILURE:
@@ -267,7 +303,7 @@ const reducer = (state = initialState, action) => {
       case REPLY_DELETE_SUCCESS:
         draft.replyDeleteLoading = false;
         draft.replyDeleteDone = true;
-        draft.communityItem.replys = draft.communityItem.replys.filter(
+        draft.communityItem.community.replys = draft.communityItem.community.replys.filter(
           (v) => v.id !== action.data
         );
         break;
