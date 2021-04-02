@@ -29,6 +29,8 @@ import CategorySave from "./pages/admin/community/CategorySave";
 import FaqCategorySave from "./pages/admin/faq/FaqCategorySave";
 import Purchase from "./pages/courses/Purchase";
 import AdminTechList from "./pages/admin/tech/List";
+import AdminPayList from "./pages/admin/pay/List";
+
 const App = () => {
   const dispatch = useDispatch();
   const { loadMyInfoDone, loadMyInfoError } = useSelector(
@@ -92,6 +94,7 @@ const App = () => {
         />
         <Route path="/purchase/:id" exact={true} component={Purchase} />
         <Route path="/admin/techList" exact={true} component={AdminTechList} />
+        <Route path="/admin/pay/list" exact={true} component={AdminPayList} />
       </Switch>
     </>
   );
