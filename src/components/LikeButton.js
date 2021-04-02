@@ -13,7 +13,7 @@ const LikeButton = ({ listId, count, state }) => {
 
   const LikeButton = styled(Button)`
     position: relative;
-    top: -6px;
+    top: -7px;
     height: 58px;
     display: flex;
     flex-direction: column;
