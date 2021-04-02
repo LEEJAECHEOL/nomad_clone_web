@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   CommunityBoard,
   CommunityDetailBack,
@@ -25,9 +25,10 @@ import { Input } from "antd";
 import { timeForToday } from "../../util/Script";
 import AppLayout from "../../components/AppLayout";
 import { useForm } from "antd/lib/form/Form";
+import LikeButton from "../../components/LikeButton";
+import DetailLikeButton from "../../components/adminCourses/DetailLikeButton";
 
 const CommunityDetail = ({ match }) => {
-  const { principal } = useSelector((state) => state.user);
   const { communityItem } = useSelector((state) => state.community);
   const { replyPostLoading } = useSelector((state) => state.community);
   const [form] = useForm();
@@ -46,8 +47,6 @@ const CommunityDetail = ({ match }) => {
     form.setFieldsValue({ content: "" });
   };
 
-  console.log(communityItem);
-
   return (
     <>
       <AppLayout>
@@ -64,39 +63,70 @@ const CommunityDetail = ({ match }) => {
               <CommunityDetailItem size="large">
                 <div className="Detail-top">
                   <div className="Board-Fav">
-                    <button>
-                      <UpOutlined />
-                      <span>
-                        {communityItem !== null ? communityItem.count : 0}
-                      </span>
-                    </button>
+                    <DetailLikeButton
+                      listId={communityItem !== null ? communityItem.id : null}
+                      count={
+                        communityItem !== null ? communityItem.likeCount : null
+                      }
+                      state={
+                        communityItem !== null ? communityItem.likeCheck : null
+                      }
+                    />
                   </div>
                   <div className="Board-Body">
+                    {/* 여기고치는중 */}
                     <div className="Board-Body-Title">
-                      {communityItem !== null ? communityItem.title : "Title"}
+                      {communityItem !== null ? (
+                        <>
+                          {communityItem.community !== null
+                            ? communityItem.community.title
+                            : null}
+                        </>
+                      ) : (
+                        "Title"
+                      )}
                     </div>
+                    {/* 여기고치는중 */}
                     <div className="Board-Body-Info">
                       <div className="Info-Tag">
                         in &nbsp;
                         <span>
-                          {communityItem !== null
-                            ? communityItem.category.title
-                            : "Category"}
+                          {communityItem !== null ? (
+                            <>
+                              {communityItem.community !== null
+                                ? communityItem.community.category.title
+                                : null}
+                            </>
+                          ) : (
+                            "Category"
+                          )}
                         </span>
                       </div>
                       <div className="Info-Name">
                         by &nbsp;
                         <Link
                           to={`/dashboard/${
-                            communityItem !== null
-                              ? communityItem.user.id
-                              : "userId"
+                            communityItem !== null ? (
+                              <>
+                                {communityItem.community !== null
+                                  ? communityItem.community.user.id
+                                  : null}
+                              </>
+                            ) : (
+                              "userId"
+                            )
                           }`}
                         >
                           <span>
-                            {communityItem !== null
-                              ? communityItem.user.name
-                              : "Title"}
+                            {communityItem !== null ? (
+                              <>
+                                {communityItem.community !== null
+                                  ? communityItem.community.user.name
+                                  : null}
+                              </>
+                            ) : (
+                              "Title"
+                            )}
                           </span>
                         </Link>
                       </div>
@@ -104,7 +134,7 @@ const CommunityDetail = ({ match }) => {
                         &#8226; &nbsp;
                         <span>
                           {communityItem !== null
-                            ? timeForToday(communityItem.createDate)
+                            ? timeForToday(communityItem.community.createDate)
                             : ""}
                         </span>
                       </div>
@@ -113,15 +143,21 @@ const CommunityDetail = ({ match }) => {
                   <div className="Board-UserImg">
                     <Link
                       to={`/dashboard/${
-                        communityItem !== null
-                          ? communityItem.user.id
-                          : "userId"
+                        communityItem !== null ? (
+                          <>
+                            {communityItem.community !== null
+                              ? communityItem.community.user.id
+                              : null}
+                          </>
+                        ) : (
+                          "userId"
+                        )
                       }`}
                     >
                       <img
                         src={
                           communityItem !== null
-                            ? communityItem.user.imageUrl
+                            ? communityItem.community.user.imageUrl
                             : ""
                         }
                         alt=""
@@ -132,7 +168,7 @@ const CommunityDetail = ({ match }) => {
                 <DetailContent>
                   <p>
                     {communityItem !== null
-                      ? ReactHtmlParser(communityItem.content)
+                      ? ReactHtmlParser(communityItem.community.content)
                       : "Content"}
                   </p>
                 </DetailContent>
@@ -158,14 +194,14 @@ const CommunityDetail = ({ match }) => {
                   <span>
                     <b>
                       {communityItem !== null
-                        ? communityItem.replys.length
+                        ? communityItem.community.replys.length
                         : ""}
                     </b>
                     comments
                   </span>
                 </CommunityReplyCounter>
                 {communityItem !== null
-                  ? communityItem.replys.map((list) => (
+                  ? communityItem.community.replys.map((list) => (
                       <>
                         <CommunityReplyItem
                           key={"comment-" + list.id}
@@ -174,7 +210,6 @@ const CommunityDetail = ({ match }) => {
                       </>
                     ))
                   : null}
-                {/* <CommunityReplyItem /> */}
               </CommunityReplyBoxContainer>
             </CommunityBoardContainer>
           </CommunityBoard>

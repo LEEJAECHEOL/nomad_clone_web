@@ -8,6 +8,9 @@ import { communityLikePostRequestAction } from "../reducers/community";
 const LikeButton = ({ listId, count, state }) => {
   const dispatch = useDispatch();
   const onClickLikes = useCallback((e) => {
+    console.log("실행됨?", listId);
+    console.log("실행됨?", count);
+    console.log("실행됨?", state);
     dispatch(communityLikePostRequestAction(listId));
   }, []);
 

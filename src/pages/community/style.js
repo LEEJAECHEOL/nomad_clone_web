@@ -192,20 +192,6 @@ export const CommunityDetailItem = styled(Card)`
       .Board-Fav {
         width: 45px;
         height: 45px;
-        button {
-          padding-top: 5px;
-          width: 45px;
-          height: 45px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          background: transparent;
-          border: 2px solid rgba(55, 65, 81, 0.2);
-          border-radius: 10px;
-          svg {
-            font-size: 10px;
-          }
-        }
       }
       .Board-Body {
         width: 100%;
