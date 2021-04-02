@@ -36,7 +36,6 @@ const AdminTechBtn = () => {
 
   const onFinish = (values) => {
     values.file = fileList;
-    console.log(values);
     dispatch(techPostRequestAction(values));
   };
 

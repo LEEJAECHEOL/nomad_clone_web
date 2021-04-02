@@ -91,7 +91,7 @@ const App = () => {
           component={FaqCategorySave}
         />
         <Route path="/purchase/:id" exact={true} component={Purchase} />
-        <Route path="/admin/teckList" exact={true} component={AdminTechList} />
+        <Route path="/admin/techList" exact={true} component={AdminTechList} />
       </Switch>
     </>
   );

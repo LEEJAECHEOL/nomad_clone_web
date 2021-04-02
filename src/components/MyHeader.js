@@ -40,7 +40,7 @@ const MyHeader = () => {
                 <Link to="/admin/courses">강의작성하기</Link>
               </Menu.Item>
               <Menu.Item key="16">
-                <Link to="/admin/teckList">태크등록하기</Link>
+                <Link to="/admin/techList">태크등록하기</Link>
               </Menu.Item>
               <Menu.Item key="17">
                 <Link to="/video/1">1번강의</Link>

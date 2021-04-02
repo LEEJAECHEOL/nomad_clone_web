@@ -26,16 +26,12 @@ function techPostAPI(data) {
   formData.append("title", data.title);
   formData.append("isFilter", data.isFilter);
 
-  for (var value of formData.values()) {
-    console.log("폼데이터", value);
-  }
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
       "Content-Type": "multipart/form-data",
     },
   };
-  console.log(config);
   return axios.post("/admin/tech", formData, config);
 }
 
@@ -46,8 +42,6 @@ function* techPost(action) {
       type: TECH_POST_SUCCESS,
       data: result.data.data,
     });
-
-    yield put(push("/teckList"));
   } catch (err) {
     yield put({
       type: TECH_POST_FAILURE,
