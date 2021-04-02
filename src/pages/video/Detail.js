@@ -1,20 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Layout, Menu, Breadcrumb, Progress, Form, Input, Button } from "antd";
+import { Layout, Menu, Breadcrumb, Progress } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
-import {
-  CourseTitleIcon,
-  VideoLayout,
-  CourseTitle,
-  VideoMain,
-  CourseReply,
-} from "./style";
+import { CourseTitleIcon, VideoLayout, CourseTitle, VideoMain } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  videoGetRequestAction,
-  videoReplyPostRequestAction,
-} from "../../reducers/video";
-import VideoReplyItem from "../../components/VideoReplyItem";
-import { ReplyInputForm } from "../community/style";
+import { videoGetRequestAction } from "../../reducers/video";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -45,15 +34,6 @@ const Detail = ({ match }) => {
     setVimeo(item.props.vimeoId);
     setVimeoTitle(item.props.children[1]);
   }, []);
-
-  // 여기 하는중
-  const onSubmit = (values) => {
-    const videoId = id;
-    const data = { ...values, videoId };
-    dispatch(videoReplyPostRequestAction(data));
-  };
-
-  const { videoReplyPostLoading } = useSelector((state) => state.video);
 
   return (
     <>
@@ -112,38 +92,6 @@ const Detail = ({ match }) => {
                 frameborder="0"
               ></iframe>
             </div>
-
-            <ReplyInputForm onFinish={onSubmit}>
-              <Form.Item name="content">
-                <Input.TextArea />
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={videoReplyPostLoading}
-                >
-                  Submit
-                </Button>
-              </Form.Item>
-            </ReplyInputForm>
-
-            <CourseReply>
-              {videoList !== null ? (
-                <>
-                  {videoList.vreplys !== null
-                    ? videoList.vreplys.map((list) => (
-                        <>
-                          <VideoReplyItem
-                            key={"comment-" + list.id}
-                            list={list}
-                          />
-                        </>
-                      ))
-                    : null}
-                </>
-              ) : null}
-            </CourseReply>
           </VideoMain>
         </Layout>
       </VideoLayout>

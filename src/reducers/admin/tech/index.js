@@ -109,6 +109,7 @@ const reducer = (state = initialState, action) => {
       case TECH_DELETE_SUCCESS:
         draft.techDeleteLoading = false;
         draft.techDeleteDone = true;
+        draft.techList = draft.techList.filter((v) => v.id !== action.data);
         break;
 
       case TECH_DELETE_FAILURE:

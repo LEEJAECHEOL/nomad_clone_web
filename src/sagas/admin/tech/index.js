@@ -78,18 +78,16 @@ function* techGet() {
 
 // 태크 삭제
 function techDeleteAPI(data) {
-  console.log("여기 들어옵니까?", data);
   JSON.stringify(data);
   return axios.delete(`/tech/${data}`);
 }
 
 function* techDelete(action) {
   try {
-    const result = yield call(techDeleteAPI, action.data);
-
+    yield call(techDeleteAPI, action.data);
     yield put({
       type: TECH_DELETE_SUCCESS,
-      data: result.data.data,
+      data: action.data,
     });
   } catch (err) {
     yield put({

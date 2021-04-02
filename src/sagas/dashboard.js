@@ -49,7 +49,7 @@ function profilePostAPI(data) {
   };
   console.log(config);
   const id = data.id;
-  return axios.post(`/profile/${id}`, formData, config);
+  return axios.post(`/user/profile/${id}`, formData, config);
 }
 
 function* profilePost(action) {
