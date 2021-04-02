@@ -1,18 +1,26 @@
 import { UpOutlined } from "@ant-design/icons";
-import React from "react";
+import { Menu } from "antd";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { CommunityBoardItem } from "../pages/community/style";
+import { communityLikePostRequestAction } from "../reducers/community";
 import { timeForToday } from "../util/Script";
+import LikeButton from "./LikeButton";
+import { CommunityLikeButton } from "./style";
 
 const CommunityItem = ({ list }) => {
   return (
     <>
       <CommunityBoardItem size="large">
         <div className="Board-Fav">
-          <button>
-            <UpOutlined />
-            <span>{list.count}</span>
-          </button>
+          <CommunityLikeButton>
+            <LikeButton
+              listId={list.id}
+              count={list.likeCount}
+              state={list.likeCheck}
+            />
+          </CommunityLikeButton>
         </div>
         <div className="Board-Body">
           <Link to={`/communityDetail/${list.id}`}>
@@ -21,11 +29,13 @@ const CommunityItem = ({ list }) => {
           <div className="Board-Body-Info">
             <div className="Info-Tag">
               in &nbsp;
-              <span>#{list.category.title}</span>
+              <span>#{list.categoryTitle}</span>
             </div>
             <div className="Info-Name">
               by
-              <span> {list.user !== null ? list.user.name : null}</span>
+              <Link to={`/dashboard/${list.userId}`}>
+                <span> {list.name}</span>
+              </Link>
             </div>
             <div className="Info-Date">
               &#8226;
@@ -34,12 +44,14 @@ const CommunityItem = ({ list }) => {
             <div className="Info-Reply">
               &#8226; &nbsp;
               <span>💬 </span>
-              <b>{list.replys.length}</b>
+              <b>{list.replyCount}</b>
             </div>
           </div>
         </div>
         <div className="Board-UserImg">
-          <img src={list.user.imageUrl} alt="" />
+          <Link to={`/dashboard/${list.userId}`}>
+            <img src={list.imageUrl} alt="" />
+          </Link>
         </div>
       </CommunityBoardItem>
     </>

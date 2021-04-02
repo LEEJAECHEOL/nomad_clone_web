@@ -1,18 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Layout, Menu, Breadcrumb, Progress, Card } from "antd";
-import { HomeOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-import {
-  CourseTitleIcon,
-  VideoLayout,
-  CourseTitle,
-  VideoMain,
-  CourseReply,
-  CourseReplyItem,
-} from "./style";
+import { Layout, Menu, Breadcrumb, Progress } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
+import { CourseTitleIcon, VideoLayout, CourseTitle, VideoMain } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { videoGetRequestAction } from "../../reducers/video";
 
-const { Header, Sider } = Layout;
+const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 const Detail = ({ match }) => {
@@ -25,7 +18,9 @@ const Detail = ({ match }) => {
 
   useEffect(() => {
     dispatch(videoGetRequestAction(id));
+    console.log(videoList);
   }, []);
+
   useEffect(() => {
     if (videoList !== null) {
       setVimeo(videoList.contents[0].list[0].vimeoId);
@@ -39,6 +34,7 @@ const Detail = ({ match }) => {
     setVimeo(item.props.vimeoId);
     setVimeoTitle(item.props.children[1]);
   }, []);
+
   return (
     <>
       <VideoLayout>
@@ -96,22 +92,6 @@ const Detail = ({ match }) => {
                 frameborder="0"
               ></iframe>
             </div>
-            <CourseReply>
-              <CourseReplyItem>
-                <div className="ReplyItemImage">
-                  <img src="http://localhost:3000/test.jpg" alt="" />
-                </div>
-                <div className="ReplyItemContent">
-                  <div className="ReplyInfo">
-                    <p>
-                      <b>username</b> <span>createdate</span>{" "}
-                    </p>
-                    <div>content내용</div>
-                  </div>
-                  <div className="ReplyFab">좋아요</div>
-                </div>
-              </CourseReplyItem>
-            </CourseReply>
           </VideoMain>
         </Layout>
       </VideoLayout>

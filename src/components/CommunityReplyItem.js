@@ -1,14 +1,21 @@
-import React from "react";
+import { DeleteOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { replyDeleteRequestAction } from "../reducers/community";
+import { timeForToday } from "../util/Script";
 import { CommunityReplyCard } from "./style";
 
 const CommunityReplyItem = ({ list }) => {
-  console.log("댓글데이터", list);
+  const { principal } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const onClickReplyDelte = useCallback(() => {
+    dispatch(replyDeleteRequestAction(list.id));
+  }, []);
   return (
     <>
       <CommunityReplyCard>
-        <div className="ReplyItemLeft">
-          <button>0</button>
-        </div>
         <div className="ReplyItemRight">
           <div className="ReplyItemRightHeader">
             <div className="ReplyItemRightUserInfo">
@@ -16,9 +23,17 @@ const CommunityReplyItem = ({ list }) => {
                 <img src={list.user.imageUrl} alt="" />
               </span>
               <span>{list.user.name}</span>
-              <span>{list.createDate}</span>
+              <span>ㅣ {timeForToday(list.createDate)}</span>
             </div>
-            <button>X</button>
+            {principal !== null ? (
+              list.user.id !== principal.id ? null : (
+                <Button
+                  type="text"
+                  icon={<DeleteOutlined />}
+                  onClick={onClickReplyDelte}
+                />
+              )
+            ) : null}
           </div>
           <div className="ReplyItemRightContent">{list.content}</div>
         </div>

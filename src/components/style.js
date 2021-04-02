@@ -1,3 +1,4 @@
+import { Button, Form, Menu } from "antd";
 import styled from "styled-components";
 
 // Course-Item
@@ -171,6 +172,41 @@ export const CommunityReplyCard = styled.div`
         height: 32px;
         border-radius: 50%;
       }
+    }
+  }
+`;
+
+export const ButtonRightModalForm = styled(Form)`
+  > div:last-child {
+    margin-bottom: 0;
+    text-align: right;
+  }
+  > div:last-child button:first-child {
+    margin-right: 5px;
+  }
+  .form_hidden {
+    height: 1px;
+    margin-bottom: 0;
+  }
+`;
+
+export const CommunityLikeButton = styled(Menu)`
+  height: 100%;
+  :before {
+    display: none !important;
+  }
+  :after {
+    display: none !important;
+  }
+  li {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    span {
+      margin: 0 !important;
+      line-height: 1;
     }
   }
 `;

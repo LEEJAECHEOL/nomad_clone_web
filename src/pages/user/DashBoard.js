@@ -5,14 +5,14 @@ import {
   DashBoardBox,
   DashBoardContainer,
   DashBoardTabs,
-  LevelBox,
   ProfileButtonBox,
 } from "./style";
 import { Tabs } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { dashBoardGetRequestAction } from "../../reducers/dashboard";
+import { techGetRequestAction } from "../../reducers/admin/tech/index";
 import AppLayout from "../../components/AppLayout";
-import { LockOutlined, LockFilled } from "@ant-design/icons";
+import { LockFilled } from "@ant-design/icons";
 const { TabPane } = Tabs;
 
 function callback(key) {
@@ -24,12 +24,19 @@ const Dashboard = ({ match }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("유즈이펙트 발동?");
     dispatch(dashBoardGetRequestAction(data));
   }, []);
   const { dashBoardItem } = useSelector((state) => state.dashboard);
 
-  console.log("유저 디테일 데이터", dashBoardItem);
+  const { techList } = useSelector((state) => state.admintech);
+
+  useEffect(() => {
+    console.log("유즈이펙트 발동?");
+    dispatch(techGetRequestAction());
+  }, []);
+
+  console.log(techList);
+
   return (
     <>
       <AppLayout>
@@ -40,24 +47,25 @@ const Dashboard = ({ match }) => {
               <div className="UserInfoBox">
                 <div className="UserInfo">
                   <div className="UserInfo-Img">
-                    <img
-                      src={dashBoardItem !== null ? dashBoardItem.imageUrl : ""}
-                      alt=""
-                    />
+                    {dashBoardItem !== null ? (
+                      <>
+                        <img src={dashBoardItem.imageUrl} alt="" />
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="UserInfoName">
                     <div className="Name">
                       <p>Name</p>
                       <h3>
-                        {dashBoardItem !== null ? dashBoardItem.name : "몰라"}
+                        {dashBoardItem !== null ? dashBoardItem.name : ""}
                       </h3>
                     </div>
                     <div className="UserName">
                       <p>Username</p>
                       <h3>
-                        {dashBoardItem !== null
-                          ? dashBoardItem.username
-                          : "몰라"}
+                        {dashBoardItem !== null ? dashBoardItem.username : ""}
                       </h3>
                     </div>
                   </div>
@@ -68,172 +76,40 @@ const Dashboard = ({ match }) => {
                   </Link>
                 </ProfileButtonBox>
               </div>
-              <LevelBox>
-                <img src="./images/shield_1.svg" alt="" />
-                <div className="Level-Content">
-                  <h3>You are level 1</h3>
-                  <p>
-                    Join more courses and complete challenges to unlock the next
-                    level!
-                  </p>
-                </div>
-              </LevelBox>
             </div>
 
             <div className="Dash-Top-right">
               <BadgeBox>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
-
-                <div className="BadgeItem">
-                  <div className="BadgeImageWrap">
-                    <img src="./images/js.png" alt="" />
-                    <div className="BadgeLock">
-                      <LockFilled />
-                    </div>
-                  </div>
-                  <span>ES6</span>
-                </div>
+                {techList !== null
+                  ? techList.map((list) => (
+                      <>
+                        <div className="BadgeItem">
+                          <div className="BadgeImageWrap">
+                            <img
+                              src={
+                                list.file !== null ? list.file.fileUrl : null
+                              }
+                              alt=""
+                            />
+                            <div className="BadgeLock">
+                              <LockFilled />
+                            </div>
+                          </div>
+                          <span>{list.title}</span>
+                        </div>
+                      </>
+                    ))
+                  : null}
               </BadgeBox>
-              <p className="BadgeContent">
-                Join more challenges to unlock all badges!
-              </p>
+              <p className="BadgeContent">BadgeSystem is not implemented</p>
             </div>
           </DashBoardBox>
           <DashBoardTabs defaultActiveKey="1" onChange={callback}>
             <TabPane tab="My Courses" key="1">
-              Content of Tab Pane 1
+              구매한 강의목록
             </TabPane>
-            <TabPane tab="My Challenges" key="2">
-              Content of Tab Pane 2
-            </TabPane>
-            <TabPane tab="My Issues" key="3">
-              Content of Tab Pane 3
-            </TabPane>
-            <TabPane tab="My Notes" key="4">
-              Content of Tab Pane 4
-            </TabPane>
-            <TabPane tab="My Coupons" key="5">
-              Content of Tab Pane 5
-            </TabPane>
-            <TabPane tab="My Payment History" key="6">
-              Content of Tab Pane 6
+            <TabPane tab="My Payment History" key="2">
+              결제내역
             </TabPane>
           </DashBoardTabs>
         </DashBoardContainer>

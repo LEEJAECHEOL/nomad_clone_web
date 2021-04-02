@@ -9,7 +9,8 @@ import dashBoardSaga from "./dashboard";
 import categorySaga from "./category";
 import coursesSaga from "./courses";
 import videoSaga from "./video";
-import techSaga from "./admin/courses/tech";
+import paySaga from "./pay";
+import adminTechSaga from "./admin/tech";
 axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
 
@@ -22,8 +23,9 @@ export default function* rootSaga() {
     fork(categorySaga),
     fork(dashBoardSaga),
     fork(adminCoursesSaga),
-    fork(techSaga),
+    fork(adminTechSaga),
     fork(adminVideoSaga),
     fork(videoSaga),
+    fork(paySaga),
   ]);
 }
