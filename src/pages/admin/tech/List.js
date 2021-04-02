@@ -1,11 +1,12 @@
-import { Button } from "antd";
-import React, { useCallback, useEffect } from "react";
+import { Card } from "antd";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AdminTechBtn from "../../../components/AdminTechBtn";
 import AppLayout from "../../../components/AppLayout";
 import TechItem from "../../../components/TechItem";
 import { techGetRequestAction } from "../../../reducers/admin/tech";
-import KeyButton from "./KeyButton";
-import { TechCard, TechListContainer } from "./style";
+import { RightCard } from "../../faq/style";
+import { TechListContainer } from "./style";
 
 const List = () => {
   const dispatch = useDispatch();
@@ -17,19 +18,23 @@ const List = () => {
     dispatch(techGetRequestAction());
   }, []);
 
-  console.log(techList);
   return (
     <>
       <AppLayout>
-        <TechListContainer>
-          {techList !== null
-            ? techList.map((list) => (
-                <>
-                  <TechItem list={list} />
-                </>
-              ))
-            : null}
-        </TechListContainer>
+        <Card bordered={false} title="Tech 리스트">
+          <TechListContainer>
+            {techList !== null
+              ? techList.map((list) => (
+                  <>
+                    <TechItem list={list} />
+                  </>
+                ))
+              : null}
+          </TechListContainer>
+          <RightCard bordered={false}>
+            <AdminTechBtn />
+          </RightCard>
+        </Card>
       </AppLayout>
     </>
   );

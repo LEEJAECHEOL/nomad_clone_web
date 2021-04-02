@@ -1,4 +1,4 @@
-import { Button, Form, Menu } from "antd";
+import { Button, Form, Menu, Upload } from "antd";
 import styled from "styled-components";
 
 // Course-Item
@@ -208,5 +208,30 @@ export const CommunityLikeButton = styled(Menu)`
       margin: 0 !important;
       line-height: 1;
     }
+  }
+`;
+export const ImageUpload = styled(Upload)`
+  display: flex;
+  flex-direction: column-reverse;
+  .ant-upload-list {
+    width: 300px;
+    margin-bottom: 5px;
+  }
+  .ant-upload-list-picture {
+    .ant-upload-list-item {
+      height: inherit;
+    }
+    .ant-upload-list-item-thumbnail {
+      width: 200px;
+      height: 200px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .ant-upload-span {
+    flex-direction: column;
+    text-align: center;
   }
 `;

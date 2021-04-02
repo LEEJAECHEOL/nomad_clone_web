@@ -37,13 +37,10 @@ const MyHeader = () => {
                 <Link to="/faq">FAQ</Link>
               </Menu.Item>
               <Menu.Item key="menu-12">
-                <Link to="/admin/courses">Ac</Link>
-              </Menu.Item>
-              <Menu.Item key="15">
-                <Link to="/admin/tech">ATS</Link>
+                <Link to="/admin/courses">강의작성하기</Link>
               </Menu.Item>
               <Menu.Item key="16">
-                <Link to="/teckList">ATL</Link>
+                <Link to="/admin/teckList">태크등록하기</Link>
               </Menu.Item>
               <Menu.Item key="17">
                 <Link to="/video/1">1번강의</Link>
