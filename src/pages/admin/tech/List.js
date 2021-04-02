@@ -2,6 +2,7 @@ import { Button } from "antd";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../../components/AppLayout";
+import TechItem from "../../../components/TechItem";
 import { techGetRequestAction } from "../../../reducers/admin/tech";
 import KeyButton from "./KeyButton";
 import { TechCard, TechListContainer } from "./style";
@@ -24,17 +25,7 @@ const List = () => {
           {techList !== null
             ? techList.map((list) => (
                 <>
-                  <TechCard title={list.title}>
-                    <div>
-                      <img
-                        src={list.file !== null ? list.file.fileUrl : null}
-                        alt=""
-                      />
-                    </div>
-                    <div>
-                      <KeyButton keys={list.id} />
-                    </div>
-                  </TechCard>
+                  <TechItem list={list} />
                 </>
               ))
             : null}
