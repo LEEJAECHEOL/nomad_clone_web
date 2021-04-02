@@ -18,7 +18,6 @@ const Detail = ({ match }) => {
 
   useEffect(() => {
     dispatch(videoGetRequestAction(id));
-    console.log(videoList);
   }, []);
 
   useEffect(() => {
@@ -30,7 +29,6 @@ const Detail = ({ match }) => {
 
   const onCollapse = () => setCollapsed(!collapsed);
   const onClickHandler = useCallback(({ item }) => {
-    console.log(item);
     setVimeo(item.props.vimeoId);
     setVimeoTitle(item.props.children[1]);
   }, []);

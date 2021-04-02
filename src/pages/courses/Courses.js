@@ -17,7 +17,7 @@ const Courses = () => {
   }, []);
   const { techList } = useSelector((state) => state.admintech);
   const { coursesList } = useSelector((state) => state.courses);
-  console.log(techList);
+  console.log("dd", coursesList);
   return (
     <>
       <AppLayout>
