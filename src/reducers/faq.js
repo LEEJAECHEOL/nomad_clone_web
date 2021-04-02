@@ -2,28 +2,23 @@ import produce from "immer";
 
 // 상태
 export const initialState = {
-  faqPostLoading: false,
+  faqPostLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqPostDone: false,
   faqPostError: null,
 
-  faqUpdateLoading: false,
+  faqUpdateLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqUpdateDone: false,
   faqUpdateError: null,
 
-  faqGetLoading: false,
+  faqGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqGetDone: false,
   faqGetError: null,
 
-  faqOneGetLoading: false,
+  faqOneGetLoading: false, // 로그인 시도중 -> 로딩창 띄움
   faqOneGetDone: false,
   faqOneGetError: null,
-
-  faqCategoryPostLoading: false,
-  faqCategoryPostDone: false,
-  faqCategoryPostError: null,
-
-  faqList: [],
-  faqItem: {},
+  faqList: null,
+  faqItem: null,
 };
 
 // 타입
@@ -42,10 +37,6 @@ export const FAQ_GET_FAILURE = "FAQ_GET_FAILURE";
 export const FAQ_ONE_GET_REQUEST = "FAQ_ONE_GET_REQUEST";
 export const FAQ_ONE_GET_SUCCESS = "FAQ_ONE_GET_SUCCESS";
 export const FAQ_ONE_GET_FAILURE = "FAQ_ONE_GET_FAILURE";
-
-export const FAQ_CATEGORY_POST_REQUEST = "FAQ_CATEGORY_POST_REQUEST";
-export const FAQ_CATEGORY_POST_SUCCESS = "FAQ_CATEGORY_POST_SUCCESS";
-export const FAQ_CATEGORY_POST_FAILURE = "FAQ_CATEGORY_POST_FAILURE";
 // 커뮤니티
 
 // 액션
@@ -64,22 +55,16 @@ export const faqUpdateRequestAction = (data) => {
   };
 };
 
-export const faqGetRequestAction = () => {
+export const faqGetRequestAction = (data) => {
   return {
     type: FAQ_GET_REQUEST,
+    data,
   };
 };
 
 export const faqOneGetRequestAction = (data) => {
   return {
     type: FAQ_ONE_GET_REQUEST,
-    data,
-  };
-};
-
-export const faqCategoryPostRequestAction = (data) => {
-  return {
-    type: FAQ_CATEGORY_POST_REQUEST,
     data,
   };
 };
@@ -155,25 +140,6 @@ const reducer = (state = initialState, action) => {
       case FAQ_ONE_GET_FAILURE:
         draft.faqOneGetLoading = false;
         draft.faqOneGetError = action.error;
-        break;
-
-      // FAQ카테고리 저장
-      case FAQ_CATEGORY_POST_REQUEST:
-        draft.faqCategoryPostLoading = true;
-        draft.faqCategoryPostDone = false;
-        draft.faqCategoryPostError = null;
-        break;
-
-      case FAQ_CATEGORY_POST_SUCCESS:
-        draft.faqCategoryPostLoading = false;
-        draft.faqCategoryPostDone = true;
-        draft.faqList.push(action.data);
-        break;
-
-      case FAQ_CATEGORY_POST_FAILURE:
-        draft.faqCategoryPostLoading = false;
-        draft.faqCategoryPostError = action.error;
-
         break;
 
       default:

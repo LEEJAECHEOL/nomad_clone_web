@@ -24,14 +24,8 @@ import { Button, Form } from "antd";
 import { Input } from "antd";
 import { timeForToday } from "../../util/Script";
 import AppLayout from "../../components/AppLayout";
-import { useForm } from "antd/lib/form/Form";
 
 const CommunityDetail = ({ match }) => {
-  const { principal } = useSelector((state) => state.user);
-  const { communityItem } = useSelector((state) => state.community);
-  const { replyPostLoading } = useSelector((state) => state.community);
-  const [form] = useForm();
-
   const comId = match.params.id;
   const dispatch = useDispatch();
 
@@ -43,10 +37,10 @@ const CommunityDetail = ({ match }) => {
   const onSubmit = (values) => {
     const data = { ...values, comId };
     dispatch(replyPostRequestAction(data));
-    form.setFieldsValue({ content: "" });
   };
 
-  console.log(communityItem);
+  const { communityItem } = useSelector((state) => state.community);
+  const { replyPostLoading } = useSelector((state) => state.community);
 
   return (
     <>
@@ -86,19 +80,11 @@ const CommunityDetail = ({ match }) => {
                       </div>
                       <div className="Info-Name">
                         by &nbsp;
-                        <Link
-                          to={`/dashboard/${
-                            communityItem !== null
-                              ? communityItem.user.id
-                              : "userId"
-                          }`}
-                        >
-                          <span>
-                            {communityItem !== null
-                              ? communityItem.user.name
-                              : "Title"}
-                          </span>
-                        </Link>
+                        <span>
+                          {communityItem !== null
+                            ? communityItem.user.name
+                            : "Title"}
+                        </span>
                       </div>
                       <div className="Info-Date">
                         &#8226; &nbsp;
@@ -111,22 +97,14 @@ const CommunityDetail = ({ match }) => {
                     </div>
                   </div>
                   <div className="Board-UserImg">
-                    <Link
-                      to={`/dashboard/${
+                    <img
+                      src={
                         communityItem !== null
-                          ? communityItem.user.id
-                          : "userId"
-                      }`}
-                    >
-                      <img
-                        src={
-                          communityItem !== null
-                            ? communityItem.user.imageUrl
-                            : ""
-                        }
-                        alt=""
-                      />
-                    </Link>
+                          ? communityItem.user.imageUrl
+                          : ""
+                      }
+                      alt=""
+                    />
                   </div>
                 </div>
                 <DetailContent>
@@ -138,7 +116,7 @@ const CommunityDetail = ({ match }) => {
                 </DetailContent>
               </CommunityDetailItem>
               {/* 여기 댓글 작성 폼 */}
-              <ReplyInputForm onFinish={onSubmit} form={form}>
+              <ReplyInputForm onFinish={onSubmit}>
                 <Form.Item name="content">
                   <Input.TextArea />
                 </Form.Item>
@@ -159,7 +137,7 @@ const CommunityDetail = ({ match }) => {
                     <b>
                       {communityItem !== null
                         ? communityItem.replys.length
-                        : ""}
+                        : "zz"}
                     </b>
                     comments
                   </span>

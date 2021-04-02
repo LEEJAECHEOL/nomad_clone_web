@@ -12,6 +12,7 @@ const CategorySave = () => {
 
   const onSubmit = (values) => {
     const data = { ...values };
+    console.log(data);
     dispatch(categoryPostRequestAction(data));
   };
   const { categoryPostLoading } = useSelector((state) => state.category);

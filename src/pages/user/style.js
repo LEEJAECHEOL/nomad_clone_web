@@ -23,9 +23,6 @@ export const DashBoardBox = styled.div`
         display: flex;
         .UserInfo-Img {
           border-radius: 50%;
-          img {
-            width: 130px;
-          }
         }
       }
       .UserInfoName {
@@ -215,7 +212,7 @@ export const AccountInputBox = styled.div`
 
 export const EmailInputBox = styled.div`
   input {
-    width: 100%;
+    width: 50%;
     border: 1px solid #d9d9d9;
     height: 32px;
     transition: all 0.5s;
@@ -226,11 +223,5 @@ export const EmailInputBox = styled.div`
     :focus {
       outline: none;
     }
-  }
-`;
-
-export const NameInputBox = styled(EmailInputBox)`
-  input {
-    width: 50%;
   }
 `;

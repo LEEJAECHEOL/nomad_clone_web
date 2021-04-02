@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import styled from "styled-components";
 import {
   CommunityBoard,
@@ -11,10 +10,10 @@ export const FaqContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 35px;
-  padding-bottom: 20px;
+  padding-bottom: 224px;
   .Faq-Item {
     flex: 1;
-    min-width: 400px;
+    min-width: 500px;
     padding: 20px;
     box-sizing: border-box;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -88,14 +87,4 @@ export const FaqBoardItem = styled.div`
 
 export const FaqCategory = styled(CommunityCategory)`
   padding-bottom: 50px;
-`;
-
-export const RightCard = styled(Card)`
-  text-align: right;
-  .ant-card-body {
-    padding: 0;
-    button {
-      margin-left: 10px;
-    }
-  }
 `;

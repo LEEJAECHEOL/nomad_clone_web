@@ -9,13 +9,14 @@ export const initialState = {
   videoList: null,
 };
 
-// 비디오 가져오기
 export const VIDEO_GET_REQUEST = "VIDEO_GET_REQUEST";
 export const VIDEO_GET_SUCCESS = "VIDEO_GET_SUCCESS";
 export const VIDEO_GET_FAILURE = "VIDEO_GET_FAILURE";
 
+// 커뮤니티
+
 // 액션
-// 비디오 가져오기
+
 export const videoGetRequestAction = (data) => {
   return {
     type: VIDEO_GET_REQUEST,
@@ -26,7 +27,7 @@ export const videoGetRequestAction = (data) => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      // 비디오 가져오기
+      // get
       case VIDEO_GET_REQUEST:
         draft.videoGetLoading = true;
         draft.videoGetDone = false;

@@ -79,3 +79,38 @@ export const CourseTitle = styled(Breadcrumb.Item)`
   font-size: 25px;
   font-weight: bold;
 `;
+
+export const CourseReply = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+`;
+
+export const CourseReplyItem = styled.div`
+  display: flex;
+  align-items: center;
+  height: 133px;
+  .ReplyItemImage {
+    width: 80px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+  }
+  .ReplyItemContent {
+    margin-left: 10px;
+    width: 684px;
+    padding: 12px 20px 20px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    display: flex;
+
+    .ReplyInfo {
+      width: 90%;
+    }
+  }
+`;

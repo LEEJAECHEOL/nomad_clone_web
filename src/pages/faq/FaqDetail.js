@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "antd/dist/antd.css";
-import { Button, Menu } from "antd";
+import { Menu } from "antd";
 import {
   FaqDetailContainer,
   FaqDetailBoard,
@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { faqOneGetRequestAction } from "../../reducers/faq";
 import ReactHtmlParser from "react-html-parser";
 import AppLayout from "../../components/AppLayout";
-import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
@@ -166,9 +165,6 @@ const FaqDetail = ({ match }) => {
               </p>
             </FaqBoardItem> */}
             </FaqBoardContainer>
-            <Button>
-              <Link to={`/admin/faq/update/${data}`}>수정하기</Link>
-            </Button>
           </FaqDetailBoard>
         </FaqDetailContainer>
       </AppLayout>

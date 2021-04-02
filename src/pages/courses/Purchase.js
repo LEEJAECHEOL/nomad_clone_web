@@ -3,9 +3,9 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../components/AppLayout";
-import { PageHero } from "../../components/style";
+import Course from "../../components/Course";
+import { CourseBox, PageHero } from "../../components/style";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
-import { payPostRequestAction } from "../../reducers/pay";
 import { PurchaseContainer } from "./style";
 
 const Purchase = ({ match }) => {
@@ -23,23 +23,25 @@ const Purchase = ({ match }) => {
     /* 2. 결제 데이터 정의하기 */
     const data = {
       pg: "html5_inicis", // PG사
-      // pay_method: "card", // 결제수단
+      pay_method: "card", // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
       amount: coursesItem.price, // 결제금액
       name: coursesItem.title, // 주문명
       buyer_name: principal.name, // 구매자 이름
       buyer_email: principal.email, // 구매자 이메일
     };
+    console.log(data);
 
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
   };
   /* 3. 콜백 함수 정의하기 */
   const callback = (response) => {
-    const { success, error_msg } = response;
+    console.log(response);
+    const { success, merchant_uid, error_msg } = response;
+
     if (success) {
-      response.courseId = courseId;
-      dispatch(payPostRequestAction(response));
+      alert("결제 성공");
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
@@ -49,6 +51,7 @@ const Purchase = ({ match }) => {
     dispatch(coursesOneGetRequestAction(courseId));
   }, []);
 
+  console.log("펄체이스아이템", coursesItem);
   return (
     <>
       <AppLayout>

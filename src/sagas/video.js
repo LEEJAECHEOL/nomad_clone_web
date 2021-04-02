@@ -1,14 +1,13 @@
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
+import { push } from "connected-react-router";
 import axios from "axios";
 
 import {
-  // 비디오 가져오기
   VIDEO_GET_FAILURE,
   VIDEO_GET_REQUEST,
   VIDEO_GET_SUCCESS,
 } from "../reducers/video";
 
-// 비디오 가져오기
 function videoGetAPI(data) {
   return axios.get(`/video/${data}`);
 }

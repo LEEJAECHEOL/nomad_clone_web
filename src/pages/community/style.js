@@ -1,5 +1,5 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { Button, Card, Col, Menu, Row } from "antd";
+import { Button, Card, Col, Row } from "antd";
 import { Form } from "antd";
 import styled from "styled-components";
 
@@ -7,7 +7,6 @@ export const CommunityContainer = styled(Row)``;
 
 export const CommunityCategory = styled(Col)`
   padding-top: 24px;
-  padding-right: 10px;
   min-width: 200px;
   .ant-menu-vertical {
     border: none;
@@ -19,12 +18,13 @@ export const CommunityBoard = styled(Col)`
   .Community-Filter {
     display: flex;
     justify-content: space-between;
+    height: 24px;
     div {
+      height: 50px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       b {
-        width: 80px;
+        width: 66px;
         line-height: 50px;
         color: #6b7280;
         font-weight: 500;
@@ -74,60 +74,73 @@ export const CommunityBoardItem = styled(Card)`
     .Board-Fav {
       width: 45px;
       height: 45px;
-    }
-  }
-  .Board-Body {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-left: 15px;
-    .Board-Body-Title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 6px;
-      color: black;
-    }
-    .Board-Body-Info {
-      display: flex;
-      flex-wrap: wrap;
-      div {
-        margin-right: 5px;
-        color: #4b5563;
-      }
-      .Info-Tag {
-        span {
-          background: #6b7280;
-          color: #fff;
-          padding: 2px;
-          border-radius: 5px;
-          font-weight: 500;
+      button {
+        cursor: pointer;
+        padding-top: 5px;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: transparent;
+        border: 2px solid rgba(55, 65, 81, 0.2);
+        border-radius: 10px;
+        svg {
+          color: gray;
+          font-size: 10px;
         }
       }
-      .Info-Name {
-        a {
-          color: #555;
+    }
+    .Board-Body {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-left: 15px;
+      .Board-Body-Title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: black;
+      }
+      .Board-Body-Info {
+        display: flex;
+        flex-wrap: wrap;
+        div {
+          margin-right: 5px;
+          color: #4b5563;
+        }
+        .Info-Tag {
+          span {
+            background: #6b7280;
+            color: #fff;
+            padding: 2px;
+            border-radius: 5px;
+            font-weight: 500;
+          }
+        }
+        .Info-Name {
           span {
             font-weight: 700;
           }
         }
-      }
-      .Info-Date {
-      }
-      .Info-Reply {
-        span {
-          margin-right: 5px;
+        .Info-Date {
+        }
+        .Info-Reply {
+          span {
+            margin-right: 5px;
+          }
         }
       }
     }
-  }
-  .Board-UserImg {
-    width: 56px;
-    height: 56px;
-    box-sizing: border-box;
-    img {
+    .Board-UserImg {
       width: 56px;
       height: 56px;
-      border-radius: 50%;
+      box-sizing: border-box;
+      img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+      }
     }
   }
 `;
@@ -234,11 +247,8 @@ export const CommunityDetailItem = styled(Card)`
             }
           }
           .Info-Name {
-            a {
-              color: #555;
-              span {
-                font-weight: 700;
-              }
+            span {
+              font-weight: 700;
             }
           }
           .Info-Date {
@@ -300,22 +310,5 @@ export const SkeltonCard = styled(Card)`
   }
   .ant-skeleton-paragraph {
     margin-top: 10px;
-  }
-`;
-
-export const SortMenu = styled(Menu)`
-  border-bottom: none;
-  > .ant-menu-item {
-    margin: 0 5px !important;
-    border-bottom: none;
-  }
-  > .ant-menu-item.ant-menu-item-active {
-    border-bottom: none !important;
-  }
-  .ant-menu-item:hover {
-    border-bottom: none;
-  }
-  .ant-menu-item.ant-menu-item-selected {
-    border-bottom: none;
   }
 `;
