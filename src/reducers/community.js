@@ -167,6 +167,16 @@ const reducer = (state = initialState, action) => {
       case COMMUNITY_LIKE_POST_SUCCESS:
         draft.communityLikePostLoading = false;
         draft.communityLikePostDone = true;
+        console.log("액션", action.data);
+        draft.communityList = draft.communityList.map((list) => {
+          if (list.id === action.data.id) {
+            list.likeCount = action.data.likeCount;
+            list.likeCheck = action.data.likeCheck;
+            console.log("바뀐리스트는?", list);
+          }
+          return list;
+        });
+
         break;
 
       case COMMUNITY_LIKE_POST_FAILURE:

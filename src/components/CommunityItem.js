@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { CommunityBoardItem } from "../pages/community/style";
 import { communityLikePostRequestAction } from "../reducers/community";
 import { timeForToday } from "../util/Script";
+import LikeButton from "./LikeButton";
 import { CommunityLikeButton } from "./style";
 
 const CommunityItem = ({ list }) => {
@@ -20,13 +21,11 @@ const CommunityItem = ({ list }) => {
       <CommunityBoardItem size="large">
         <div className="Board-Fav">
           <CommunityLikeButton>
-            <Menu.Item
-              onClick={onClickLikes}
-              key={list.id}
-              icon={<UpOutlined />}
-            >
-              <span>{list.likeCount}</span>
-            </Menu.Item>
+            <LikeButton
+              listId={list.id}
+              count={list.likeCount}
+              state={list.likeCheck}
+            />
           </CommunityLikeButton>
         </div>
         <div className="Board-Body">

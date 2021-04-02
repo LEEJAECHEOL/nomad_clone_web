@@ -1,3 +1,4 @@
+
 import { Card } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -5,6 +6,7 @@ import AdminTechBtn from "../../../components/AdminTechBtn";
 import AppLayout from "../../../components/AppLayout";
 import TechItem from "../../../components/TechItem";
 import { techGetRequestAction } from "../../../reducers/admin/tech";
+
 import { RightCard } from "../../faq/style";
 import { TechListContainer } from "./style";
 

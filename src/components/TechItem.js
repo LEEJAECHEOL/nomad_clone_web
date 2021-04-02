@@ -1,6 +1,6 @@
 import React from "react";
-import KeyButton from "../pages/admin/tech/KeyButton";
 import { TechCard } from "../pages/admin/tech/style";
+import KeyButton from "./KeyButton";
 
 const TechItem = ({ list }) => {
   return (
