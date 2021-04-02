@@ -40,11 +40,11 @@ function techPostAPI(data) {
 }
 
 function* techPost(action) {
-  console.log(action.data);
   try {
-    yield call(techPostAPI, action.data);
+    const result = yield call(techPostAPI, action.data);
     yield put({
       type: TECH_POST_SUCCESS,
+      data: result.data.data,
     });
 
     yield put(push("/teckList"));

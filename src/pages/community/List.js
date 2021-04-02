@@ -93,6 +93,7 @@ const Community = () => {
   const onClickSort = useCallback(
     ({ key }) => {
       setSort(key);
+      setPage(0);
       const data = {
         sort: key,
         categoryId,

@@ -10,6 +10,12 @@ import LikeButton from "./LikeButton";
 import { CommunityLikeButton } from "./style";
 
 const CommunityItem = ({ list }) => {
+  const dispatch = useDispatch();
+  const onClickLikes = useCallback((e) => {
+    const data = e.key;
+    dispatch(communityLikePostRequestAction(data));
+  }, []);
+  console.log(list);
   return (
     <>
       <CommunityBoardItem size="large">

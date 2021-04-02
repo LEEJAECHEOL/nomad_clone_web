@@ -28,8 +28,7 @@ import { loadMyInfoRequestAction, logoutRequestAction } from "./reducers/user";
 import CategorySave from "./pages/admin/community/CategorySave";
 import FaqCategorySave from "./pages/admin/faq/FaqCategorySave";
 import Purchase from "./pages/courses/Purchase";
-import TechForm from "./pages/admin/tech/TechForm";
-import TechList from "./pages/admin/tech/List";
+import AdminTechList from "./pages/admin/tech/List";
 const App = () => {
   const dispatch = useDispatch();
   const { loadMyInfoDone, loadMyInfoError } = useSelector(
@@ -81,7 +80,6 @@ const App = () => {
         <Route path="/admin/video" exact={true} component={FolderList} />
         <Route path="/admin/video/:id" exact={true} component={FolderDetail} />
         <Route path="/admin/courses" exact={true} component={CoursesWrite} />
-        <Route path="/admin/tech" exact={true} component={TechForm} />
         <Route
           path="/admin/communityCategory"
           exact={true}
@@ -93,7 +91,7 @@ const App = () => {
           component={FaqCategorySave}
         />
         <Route path="/purchase/:id" exact={true} component={Purchase} />
-        <Route path="/teckList" exact={true} component={TechList} />
+        <Route path="/admin/teckList" exact={true} component={AdminTechList} />
       </Switch>
     </>
   );
