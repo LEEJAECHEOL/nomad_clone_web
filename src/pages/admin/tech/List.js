@@ -1,11 +1,9 @@
-import { Button } from "antd";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../../components/AppLayout";
 import TechItem from "../../../components/TechItem";
 import { techGetRequestAction } from "../../../reducers/admin/tech";
-import KeyButton from "./KeyButton";
-import { TechCard, TechListContainer } from "./style";
+import { TechListContainer } from "./style";
 
 const List = () => {
   const dispatch = useDispatch();

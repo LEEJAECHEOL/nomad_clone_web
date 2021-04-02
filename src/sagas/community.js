@@ -79,9 +79,12 @@ function communityLikePostAPI(data) {
 
 function* communityLikePost(action) {
   try {
-    yield call(communityLikePostAPI, action.data);
+    const result = yield call(communityLikePostAPI, action.data);
+    const data = result.data.data;
     yield put({
+      // 여기수정
       type: COMMUNITY_LIKE_POST_SUCCESS,
+      data: data,
     });
     yield put(push("/community"));
   } catch (err) {
