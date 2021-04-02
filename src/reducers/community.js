@@ -157,6 +157,7 @@ const reducer = (state = initialState, action) => {
         draft.communityPostError = action.error;
         break;
 
+      // 좋아요버튼 누르기
       case COMMUNITY_LIKE_POST_REQUEST:
         draft.communityLikePostLoading = true;
         draft.communityLikePostDone = false;

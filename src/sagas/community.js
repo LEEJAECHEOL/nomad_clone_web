@@ -93,9 +93,14 @@ function* communityLikePost(action) {
 }
 
 function communityGetAPI(data) {
-  // return axios.get(`/community`);
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
   return axios.get(
-    `/community?sort=${data.sort}&categoryId=${data.categoryId}&page=${data.page}`
+    `/community?sort=${data.sort}&categoryId=${data.categoryId}&page=${data.page}`,
+    config
   );
 }
 
