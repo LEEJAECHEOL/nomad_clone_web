@@ -2,12 +2,12 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import AppLayout from "../../components/AppLayout";
 import Course from "../../components/Course";
 import { PageHero } from "../../components/style";
+import TechButton from "../../components/TechButton";
 import { techGetRequestAction } from "../../reducers/admin/tech";
-import { coursesGetRequestAction } from "../../reducers/courses";
+import { coursesFilterGetRequestAction } from "../../reducers/courses";
 import {
   BadgeSelector,
   CoursesBox,
@@ -19,13 +19,11 @@ const Courses = () => {
   const dispatch = useDispatch();
   const [level, setLevel] = useState("");
   const [isFree, setIsFree] = useState("");
-  const [tech, setTech] = useState("");
-
+  const [techId, setTechId] = useState(0);
   useEffect(() => {
-    dispatch(coursesGetRequestAction());
+    // dispatch(coursesGetRequestAction());
     dispatch(techGetRequestAction());
   }, []);
-
   const { techList } = useSelector((state) => state.admintech);
   const { coursesList } = useSelector((state) => state.courses);
 
@@ -45,6 +43,18 @@ const Courses = () => {
   const onClickIsFreeCancel = useCallback(() => {
     setIsFree("");
   }, []);
+  const onClickTechIdCancel = useCallback(() => {
+    setTechId(0);
+  }, []);
+
+  useEffect(() => {
+    const data = {
+      level,
+      isFree,
+      techId,
+    };
+    dispatch(coursesFilterGetRequestAction(data));
+  }, [level, isFree, techId]);
 
   return (
     <>
@@ -119,26 +129,30 @@ const Courses = () => {
             <BadgeSelector>
               {techList !== null
                 ? techList.map((list) => (
-                    <>
-                      <Button>
-                        <span>
-                          <img
-                            src={list.file !== null ? list.file.fileUrl : null}
-                            alt=""
-                          />
-                        </span>
-                      </Button>
-                    </>
+                    <TechButton
+                      tech={list}
+                      setTechId={setTechId}
+                      techId={techId}
+                    />
                   ))
                 : null}
+              {techId !== 0 ? (
+                <Button
+                  className="cancel"
+                  icon={<CloseOutlined />}
+                  onClick={onClickTechIdCancel}
+                ></Button>
+              ) : (
+                ""
+              )}
             </BadgeSelector>
           </div>
         </CoursesFilter>
         <CoursesBox>
           {coursesList !== null
-            ? coursesList.map((list) => (
+            ? coursesList.map((list, index) => (
                 <>
-                  <Course list={list} />
+                  <Course key={index} list={list} />
                 </>
               ))
             : null}

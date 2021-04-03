@@ -11,18 +11,19 @@ import {
   COURSES_ONE_GET_FAILURE,
   COURSES_ONE_GET_REQUEST,
   COURSES_ONE_GET_SUCCESS,
+  COURSES_FILTER_GET_FAILURE,
+  COURSES_FILTER_GET_REQUEST,
+  COURSES_FILTER_GET_SUCCESS,
 } from "../reducers/courses";
 
 function coursesGetAPI() {
   return axios.get(`/courses`);
 }
 
-function* coursesGet(action) {
+function* coursesGet() {
   try {
-    const result = yield call(coursesGetAPI, action.data);
+    const result = yield call(coursesGetAPI);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: COURSES_GET_SUCCESS,
       data: data,
@@ -79,6 +80,27 @@ function* coursesOneGet(action) {
     });
   }
 }
+function coursesFilterGetAPI(data) {
+  return axios.get(
+    `/courses/filter?level=${data.level}&isFree=${data.isFree}&techId=${data.techId}`
+  );
+}
+
+function* coursesFilterGet(action) {
+  try {
+    const result = yield call(coursesFilterGetAPI, action.data);
+    const data = result.data.data;
+    yield put({
+      type: COURSES_FILTER_GET_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: COURSES_FILTER_GET_FAILURE,
+      error: "로그인에 실패하였습니다.",
+    });
+  }
+}
 
 function* watchCoursesGet() {
   yield takeLatest(COURSES_GET_REQUEST, coursesGet);
@@ -91,11 +113,15 @@ function* watchHomeCoursesGet() {
 function* watchCoursesOneGet() {
   yield takeLatest(COURSES_ONE_GET_REQUEST, coursesOneGet);
 }
+function* watchFilterCoursesGet() {
+  yield takeLatest(COURSES_FILTER_GET_REQUEST, coursesFilterGet);
+}
 
 export default function* coursesSaga() {
   yield all([
     fork(watchCoursesGet),
     fork(watchCoursesOneGet),
     fork(watchHomeCoursesGet),
+    fork(watchFilterCoursesGet),
   ]);
 }
