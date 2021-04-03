@@ -1,6 +1,7 @@
-import { Menu } from "antd";
-import React, { useEffect } from "react";
+import { Button } from "antd";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import AppLayout from "../../components/AppLayout";
 import Course from "../../components/Course";
 import { PageHero } from "../../components/style";
@@ -15,9 +16,11 @@ const Courses = () => {
     dispatch(coursesGetRequestAction());
     dispatch(techGetRequestAction());
   }, []);
+
   const { techList } = useSelector((state) => state.admintech);
   const { coursesList } = useSelector((state) => state.courses);
   console.log("dd", coursesList);
+
   return (
     <>
       <AppLayout>
@@ -30,13 +33,16 @@ const Courses = () => {
             <div>
               <h3>Filter by Level</h3>
               <p>
-                <span>초급</span> <span>중급</span> <span>고급</span>
+                <Button>초급</Button>
+                <Button>중급</Button>
+                <Button>고급</Button>
               </p>
             </div>
             <div>
               <h3>Filter by Price</h3>
               <p>
-                <span>Free</span> <span>Paid</span>
+                <Button>Free</Button>
+                <Button>Paid</Button>
               </p>
             </div>
           </div>
@@ -46,14 +52,14 @@ const Courses = () => {
               {techList !== null
                 ? techList.map((list) => (
                     <>
-                      <Menu.Item>
+                      <Button>
                         <span>
                           <img
                             src={list.file !== null ? list.file.fileUrl : null}
                             alt=""
                           />
                         </span>
-                      </Menu.Item>
+                      </Button>
                     </>
                   ))
                 : null}

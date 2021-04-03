@@ -8,15 +8,15 @@ import {
   PAY_POST_REQUEST,
   PAY_POST_SUCCESS,
 
-  // 대시보드페이지 결제목록
-  USER_PAY_GET_FAILURE,
-  USER_PAY_GET_REQUEST,
-  USER_PAY_GET_SUCCESS,
-
   // 어드민 결제목록확인
   PAY_GET_FAILURE,
   PAY_GET_REQUEST,
   PAY_GET_SUCCESS,
+
+  // 대시보드페이지 결제목록
+  USER_PAY_GET_FAILURE,
+  USER_PAY_GET_REQUEST,
+  USER_PAY_GET_SUCCESS,
 } from "../reducers/pay";
 
 // 결제하기
@@ -59,8 +59,9 @@ function userPayGetAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log("여기들어옴?", data);
-  return axios.get(`/pay/${data}`, config);
+  const id = data;
+  console.log("사가로 들어오나요??", id);
+  return axios.get(`/pay/${id}`, config);
 }
 
 function* userPayGet(action) {
@@ -74,7 +75,7 @@ function* userPayGet(action) {
   } catch (err) {
     yield put({
       type: USER_PAY_GET_FAILURE,
-      error: "결제 정보 저장 실패",
+      error: "결제 목록 가져오기 실패",
     });
   }
 }
@@ -105,6 +106,10 @@ function* payGet() {
   }
 }
 
+function* watchUserPayGet() {
+  yield takeLatest(USER_PAY_GET_REQUEST, userPayGet);
+}
+
 function* watchPayPost() {
   yield takeLatest(PAY_POST_REQUEST, payPost);
 }
@@ -113,10 +118,6 @@ function* watchPayGet() {
   yield takeLatest(PAY_GET_REQUEST, payGet);
 }
 
-function* watchUserPayGet() {
-  yield takeLatest(USER_PAY_GET_REQUEST, userPayGet);
-}
-
 export default function* paySaga() {
-  yield all([fork(watchPayPost), fork(watchPayGet)], fork(watchUserPayGet));
+  yield all([fork(watchPayPost), fork(watchPayGet), fork(watchUserPayGet)]);
 }

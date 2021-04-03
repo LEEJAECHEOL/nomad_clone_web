@@ -15,7 +15,6 @@ import {
 import { push } from "connected-react-router";
 
 function dashBoardGetAPI(data) {
-  console.log("들어오는 데이터는?", data);
   return axios.get(`/user/${data}`);
 }
 
@@ -23,8 +22,6 @@ function* dashBoardGet(action) {
   try {
     const result = yield call(dashBoardGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: DASHBOARD_GET_SUCCESS,
       data: data,
@@ -39,7 +36,6 @@ function* dashBoardGet(action) {
 
 function profilePostAPI(data) {
   const formData = new FormData();
-  console.log(data);
   formData.append("file", data.file);
   const config = {
     headers: {
@@ -47,13 +43,11 @@ function profilePostAPI(data) {
       "Content-Type": "multipart/form-data",
     },
   };
-  console.log(config);
   const id = data.id;
   return axios.post(`/user/profile/${id}`, formData, config);
 }
 
 function* profilePost(action) {
-  console.log(action.data);
   try {
     yield call(profilePostAPI, action.data);
     yield put({
@@ -70,21 +64,17 @@ function* profilePost(action) {
 }
 
 function namePostAPI(data) {
-  console.log(data);
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
   const id = data.id;
   const name = data.name;
-  console.log(id);
   return axios.post(`/user/${id}`, JSON.stringify(name), config);
 }
 
 function* namePost(action) {
-  console.log(action.data);
   try {
     yield call(namePostAPI, action.data);
     yield put({

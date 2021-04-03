@@ -352,7 +352,7 @@ const CoursesDetail = ({ match }) => {
                 <>
                   {coursesItem.price === "0" ? (
                     <>
-                      <Link to={`/video/${coursesItem.video.id}`}>
+                      <Link to={`/enroll/${courseId}`}>
                         Go to Checkout <ArrowRightOutlined />
                       </Link>
                     </>

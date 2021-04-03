@@ -30,6 +30,7 @@ import FaqCategorySave from "./pages/admin/faq/FaqCategorySave";
 import Purchase from "./pages/courses/Purchase";
 import AdminTechList from "./pages/admin/tech/List";
 import AdminPayList from "./pages/admin/pay/List";
+import Enroll from "./pages/courses/Enroll";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -93,6 +94,7 @@ const App = () => {
           component={FaqCategorySave}
         />
         <Route path="/purchase/:id" exact={true} component={Purchase} />
+        <Route path="/enroll/:id" exact={true} component={Enroll} />
         <Route path="/admin/techList" exact={true} component={AdminTechList} />
         <Route path="/admin/pay/list" exact={true} component={AdminPayList} />
       </Switch>
