@@ -8,10 +8,20 @@ import {
   PAY_POST_REQUEST,
   PAY_POST_SUCCESS,
 
+  // 무료강의 결제하기
+  FREE_POST_FAILURE,
+  FREE_POST_REQUEST,
+  FREE_POST_SUCCESS,
+
   // 어드민 결제목록확인
   PAY_GET_FAILURE,
   PAY_GET_REQUEST,
   PAY_GET_SUCCESS,
+
+  // 결제한 강의인지 체크
+  PAY_CHECK_POST_FAILURE,
+  PAY_CHECK_POST_REQUEST,
+  PAY_CHECK_POST_SUCCESS,
 
   // 대시보드페이지 결제목록
   USER_PAY_GET_FAILURE,
@@ -47,6 +57,76 @@ function* payPost(action) {
   } catch (err) {
     yield put({
       type: PAY_POST_FAILURE,
+      error: "결제 정보 저장 실패",
+    });
+  }
+}
+
+// 강의결제체크
+function payCheckPostAPI(data) {
+  console.log("강의체크 들어오나요?", data);
+
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  const id = { courseId: data };
+  console.log(id);
+  return axios.post(`/pay/check`, JSON.stringify(id), config);
+}
+
+function* payCheckPost(action) {
+  try {
+    const result = yield call(payCheckPostAPI, action.data);
+    const data = result.data.data;
+    if (result.data.statusCode === 201) {
+      yield put({
+        type: PAY_CHECK_POST_SUCCESS,
+        data: data,
+      });
+    } else {
+      yield put({
+        type: PAY_CHECK_POST_FAILURE,
+        error: "결제정보 체크 실패",
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: PAY_CHECK_POST_FAILURE,
+      error: "결제정보 체크 실패",
+    });
+  }
+}
+
+// 무료강의 결제하기
+function freePostAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.post("/pay/free", JSON.stringify(data), config);
+}
+
+function* freePost(action) {
+  try {
+    const result = yield call(freePostAPI, action.data);
+    const data = result.data.data;
+    if (result.data.statusCode === 201) {
+      yield put({
+        type: FREE_POST_SUCCESS,
+      });
+      yield put(push(`/dashboard/${data.id}`));
+    } else {
+      yield put({
+        type: FREE_POST_FAILURE,
+        error: "결제 정보 저장 실패",
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: FREE_POST_FAILURE,
       error: "결제 정보 저장 실패",
     });
   }
@@ -106,18 +186,37 @@ function* payGet() {
   }
 }
 
+// 사용자용 결제목록
 function* watchUserPayGet() {
   yield takeLatest(USER_PAY_GET_REQUEST, userPayGet);
 }
 
+// 유료강의 결제하기
 function* watchPayPost() {
   yield takeLatest(PAY_POST_REQUEST, payPost);
 }
 
+// 무료강의 결제하기
+function* watchFreePost() {
+  yield takeLatest(FREE_POST_REQUEST, freePost);
+}
+
+// 관리자용 결제내역
 function* watchPayGet() {
   yield takeLatest(PAY_GET_REQUEST, payGet);
 }
 
+// 강의 결제 체크
+function* watchPayCheckPost() {
+  yield takeLatest(PAY_CHECK_POST_REQUEST, payCheckPost);
+}
+
 export default function* paySaga() {
-  yield all([fork(watchPayPost), fork(watchPayGet), fork(watchUserPayGet)]);
+  yield all([
+    fork(watchPayPost),
+    fork(watchPayGet),
+    fork(watchUserPayGet),
+    fork(watchFreePost),
+    fork(watchPayCheckPost),
+  ]);
 }

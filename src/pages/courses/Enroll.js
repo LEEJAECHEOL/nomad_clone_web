@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../components/AppLayout";
 import { PageHero } from "../../components/style";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
+import { freePostRequestAction } from "../../reducers/pay";
 import { PurchaseContainer } from "./style";
 
 const Enroll = ({ match }) => {
@@ -15,6 +16,15 @@ const Enroll = ({ match }) => {
   useEffect(() => {
     dispatch(coursesOneGetRequestAction(courseId));
   }, []);
+  const onClickPayment = () => {
+    const data = {
+      name: coursesItem.title,
+      courseId: courseId,
+      paid_amount: coursesItem.price,
+    };
+    console.log("데이터는?", data);
+    dispatch(freePostRequestAction(data));
+  };
   return (
     <AppLayout>
       <PageHero>
@@ -46,7 +56,11 @@ const Enroll = ({ match }) => {
                 </h3>
               </div>
             </div>
-            <Button type="primary" loading={coursesOneGetLoading}>
+            <Button
+              type="primary"
+              loading={coursesOneGetLoading}
+              onClick={onClickPayment}
+            >
               Pay now
             </Button>
           </div>

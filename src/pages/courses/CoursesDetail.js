@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AppNoColLayout from "../../components/AppNoColLayout";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
+import { payCheckPostRequestAction } from "../../reducers/pay";
 import {
   ConcepConatiner,
   ConceptLayout,
@@ -28,13 +29,13 @@ const CoursesDetail = ({ match }) => {
   const courseId = match.params.id;
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("유즈이펙트 발동?", courseId);
     dispatch(coursesOneGetRequestAction(courseId));
+    dispatch(payCheckPostRequestAction(courseId));
   }, []);
 
   const { coursesItem } = useSelector((state) => state.courses);
-
-  console.log("코스상세데이터", coursesItem);
+  const { payCheckItem } = useSelector((state) => state.pay);
+  console.log("페이체크 아이템은?", payCheckItem);
   return (
     <>
       <AppNoColLayout>
@@ -93,15 +94,35 @@ const CoursesDetail = ({ match }) => {
               <>
                 {coursesItem.price === "0" ? (
                   <>
-                    <Link to={`/video/${coursesItem.video.id}`}>
-                      Enroll now <ArrowRightOutlined />
-                    </Link>
+                    {payCheckItem !== null ? (
+                      <>
+                        <Link to={`/video/${coursesItem.video.id}`}>
+                          Enroll now <ArrowRightOutlined />
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to={`/enroll/${courseId}`}>
+                          Enroll now <ArrowRightOutlined />
+                        </Link>
+                      </>
+                    )}
                   </>
                 ) : (
                   <>
-                    <Link to={`/purchase/${courseId}`}>
-                      Start Coding Now! <ArrowRightOutlined />
-                    </Link>
+                    {payCheckItem !== null ? (
+                      <>
+                        <Link to={`/video/${coursesItem.video.id}`}>
+                          Start Coding now! <ArrowRightOutlined />
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to={`/purchase/${courseId}`}>
+                          Start Coding now! <ArrowRightOutlined />
+                        </Link>
+                      </>
+                    )}
                   </>
                 )}
               </>
