@@ -1,13 +1,17 @@
 import { Button } from "antd";
+import { push } from "connected-react-router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../components/AppLayout";
 import { PageHero } from "../../components/style";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
-import { freePostRequestAction } from "../../reducers/pay";
+import {
+  freePostRequestAction,
+  payCheckPostRequestAction,
+} from "../../reducers/pay";
 import { PurchaseContainer } from "./style";
 
-const Enroll = ({ match }) => {
+const Enroll = ({ match, history }) => {
   const courseId = match.params.id;
   const dispatch = useDispatch();
   const { coursesItem, coursesOneGetLoading } = useSelector(
@@ -15,20 +19,29 @@ const Enroll = ({ match }) => {
   );
   useEffect(() => {
     dispatch(coursesOneGetRequestAction(courseId));
+    dispatch(payCheckPostRequestAction(courseId));
   }, []);
   const onClickPayment = () => {
-    const data = {
-      name: coursesItem.title,
-      courseId: courseId,
-      paid_amount: coursesItem.price,
-    };
-    console.log("데이터는?", data);
-    dispatch(freePostRequestAction(data));
+    if (payCheckItem === null) {
+      const data = {
+        name: coursesItem.title,
+        courseId: courseId,
+        paid_amount: coursesItem.price,
+      };
+      console.log("데이터는?", data);
+      dispatch(freePostRequestAction(data));
+    } else {
+      alert("이미 구매한 강의입니다");
+      history.go(+1);
+    }
   };
+
+  const { payCheckItem } = useSelector((state) => state.pay);
+  console.log("무료강의페이지 페이체크 아이템은?", payCheckItem);
   return (
     <AppLayout>
       <PageHero>
-        <h1>Complete Purchase</h1>
+        <h1>Register For Free</h1>
       </PageHero>
       <PurchaseContainer>
         <div className="purchaseInfo">
@@ -46,12 +59,13 @@ const Enroll = ({ match }) => {
           </div>
           <div className="purchaseInfoRight">
             <div>
-              <h2>Complete Purchase</h2>
+              <h2>Register For Free</h2>
               <div className="totalPrice">
                 <h3>
-                  <span>최종가격 : </span>
                   <b>
-                    ₩&nbsp;{coursesItem !== null ? coursesItem.price : null}
+                    {coursesItem !== null ? (
+                      <>{coursesItem.price === "0" ? "FREE COURSE" : null}</>
+                    ) : null}
                   </b>
                 </h3>
               </div>
@@ -61,7 +75,7 @@ const Enroll = ({ match }) => {
               loading={coursesOneGetLoading}
               onClick={onClickPayment}
             >
-              Pay now
+              Get in There
             </Button>
           </div>
         </div>

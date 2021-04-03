@@ -22,9 +22,10 @@ export const DashBoardBox = styled.div`
       .UserInfo {
         display: flex;
         .UserInfo-Img {
-          border-radius: 50%;
           img {
             width: 130px;
+            height: 130px;
+            border-radius: 50%;
           }
         }
       }

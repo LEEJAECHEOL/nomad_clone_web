@@ -1,7 +1,8 @@
-import { Card, Table } from "antd";
+import { Button, Card, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userPayGetRequestAction } from "../reducers/pay";
+import RefundButton from "./RefundButton";
 
 const DashBoardPayment = ({ match }) => {
   const columns = [
@@ -25,10 +26,22 @@ const DashBoardPayment = ({ match }) => {
       title: "상태",
       dataIndex: "state",
     },
+    {
+      title: "환불",
+      dataIndex: "refund",
+      render: (dataIndex) => (
+        <RefundButton payId={dataIndex}>
+          {dataIndex}
+          환불신청
+        </RefundButton>
+      ),
+    },
   ];
   const dispatch = useDispatch();
   const { userPayList } = useSelector((state) => state.pay);
   const [data, setData] = useState([]);
+
+  console.log("페이리스트는?", userPayList);
 
   useEffect(() => {
     dispatch(userPayGetRequestAction(match));
@@ -44,6 +57,7 @@ const DashBoardPayment = ({ match }) => {
         customer: userPayList[index].buyer_name,
         price: userPayList[index].paid_amount,
         state: userPayList[index].status,
+        refund: userPayList[index].id,
       });
     }
     setData(list);
