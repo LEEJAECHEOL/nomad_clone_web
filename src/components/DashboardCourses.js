@@ -19,10 +19,15 @@ const DashBoardCourse = styled(Card)`
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
     padding: 10px;
-    img {
-      flex: 1;
+    div {
       width: 400px;
-      border-radius: 10px;
+      height: 250px;
+      img {
+        flex: 1;
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+      }
     }
     div {
       flex: 1;

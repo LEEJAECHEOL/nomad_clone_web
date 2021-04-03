@@ -373,15 +373,35 @@ const CoursesDetail = ({ match }) => {
                 <>
                   {coursesItem.price === "0" ? (
                     <>
-                      <Link to={`/enroll/${courseId}`}>
-                        Go to Checkout <ArrowRightOutlined />
-                      </Link>
+                      {payCheckItem !== null ? (
+                        <>
+                          <Link to={`/video/${coursesItem.video.id}`}>
+                            Enroll now <ArrowRightOutlined />
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Link to={`/enroll/${courseId}`}>
+                            Enroll now <ArrowRightOutlined />
+                          </Link>
+                        </>
+                      )}
                     </>
                   ) : (
                     <>
-                      <Link to={`/purchase/${courseId}`}>
-                        Go to Checkout <ArrowRightOutlined />
-                      </Link>
+                      {payCheckItem !== null ? (
+                        <>
+                          <Link to={`/video/${coursesItem.video.id}`}>
+                            Start Coding now! <ArrowRightOutlined />
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Link to={`/purchase/${courseId}`}>
+                            Start Coding now! <ArrowRightOutlined />
+                          </Link>
+                        </>
+                      )}
                     </>
                   )}
                 </>

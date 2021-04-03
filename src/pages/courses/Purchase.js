@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../components/AppLayout";
 import { PageHero } from "../../components/style";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
-import { payPostRequestAction } from "../../reducers/pay";
+import {
+  payCheckPostRequestAction,
+  payPostRequestAction,
+} from "../../reducers/pay";
 import { PurchaseContainer } from "./style";
 
 const Purchase = ({ match }) => {
@@ -16,23 +19,28 @@ const Purchase = ({ match }) => {
   );
   const { principal } = useSelector((state) => state.user);
   const onClickPayment = () => {
-    /* 1. 가맹점 식별하기 */
-    const { IMP } = window;
-    IMP.init(process.env.REACT_APP_IAMPORT_KEY);
+    /* 0 뒤로가기를 통한 중복구매 차단*/
+    if (payCheckItem === null) {
+      /* 1. 가맹점 식별하기 */
+      const { IMP } = window;
+      IMP.init(process.env.REACT_APP_IAMPORT_KEY);
 
-    /* 2. 결제 데이터 정의하기 */
-    const data = {
-      pg: "html5_inicis", // PG사
-      // pay_method: "card", // 결제수단
-      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: coursesItem.price, // 결제금액
-      name: coursesItem.title, // 주문명
-      buyer_name: principal.name, // 구매자 이름
-      buyer_email: principal.email, // 구매자 이메일
-    };
+      /* 2. 결제 데이터 정의하기 */
+      const data = {
+        pg: "html5_inicis", // PG사
+        // pay_method: "card", // 결제수단
+        merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+        amount: coursesItem.price, // 결제금액
+        name: coursesItem.title, // 주문명
+        buyer_name: principal.name, // 구매자 이름
+        buyer_email: principal.email, // 구매자 이메일
+      };
 
-    /* 4. 결제 창 호출하기 */
-    IMP.request_pay(data, callback);
+      /* 4. 결제 창 호출하기 */
+      IMP.request_pay(data, callback);
+    } else {
+      alert("이미 구매한 강의입니다");
+    }
   };
   /* 3. 콜백 함수 정의하기 */
   const callback = (response) => {
@@ -47,8 +55,11 @@ const Purchase = ({ match }) => {
 
   useEffect(() => {
     dispatch(coursesOneGetRequestAction(courseId));
+    dispatch(payCheckPostRequestAction(courseId));
   }, []);
 
+  const { payCheckItem } = useSelector((state) => state.pay);
+  console.log("구매페이지 페이체크 아이템은?", payCheckItem);
   return (
     <>
       <AppLayout>

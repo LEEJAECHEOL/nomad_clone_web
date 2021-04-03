@@ -7,6 +7,7 @@ import {
   COURSES_POST_SUCCESS,
 } from "../../../reducers/admin/courses/courses";
 
+// 관리자 코스 등록
 function coursesPostAPI(data) {
   const config = {
     headers: {
@@ -35,6 +36,7 @@ function* coursesPost(action) {
   }
 }
 
+// 관리자 코스 등록
 function* watchCoursesPost() {
   yield takeLatest(COURSES_POST_REQUEST, coursesPost);
 }

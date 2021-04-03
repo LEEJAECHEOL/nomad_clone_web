@@ -15,9 +15,12 @@ export const Global = createGlobalStyle`
     padding:0;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     z-index: 100;
+    .ant-row{
+      background:rgba(255, 255, 255, 0.7);
+    }
     ul{
-      background:rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(15px);
+      background:transparent;
+      border-bottom:none;
     }
   }
   .ant-layout-header .ant-row {width:100%}
