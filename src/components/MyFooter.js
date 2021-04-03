@@ -5,10 +5,10 @@ import {
   YoutubeFilled,
 } from "@ant-design/icons";
 import { Footer } from "antd/lib/layout/layout";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
-const MyFooter = () => {
+const MyFooter = memo(() => {
   return (
     <>
       <Footer style={{ padding: "24px 50px" }}>
@@ -85,6 +85,6 @@ const MyFooter = () => {
       </Footer>
     </>
   );
-};
+});
 
 export default MyFooter;
