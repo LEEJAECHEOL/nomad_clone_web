@@ -1,21 +1,11 @@
-import { UpOutlined } from "@ant-design/icons";
-import { Menu } from "antd";
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { CommunityBoardItem } from "../pages/community/style";
-import { communityLikePostRequestAction } from "../reducers/community";
 import { timeForToday } from "../util/Script";
 import LikeButton from "./LikeButton";
 import { CommunityLikeButton } from "./style";
 
-const CommunityItem = ({ list }) => {
-  const dispatch = useDispatch();
-  const onClickLikes = useCallback((e) => {
-    const data = e.key;
-    dispatch(communityLikePostRequestAction(data));
-  }, []);
-  console.log(list);
+const CommunityItem = memo(({ list }) => {
   return (
     <>
       <CommunityBoardItem size="large">
@@ -62,6 +52,6 @@ const CommunityItem = ({ list }) => {
       </CommunityBoardItem>
     </>
   );
-};
+});
 
 export default CommunityItem;

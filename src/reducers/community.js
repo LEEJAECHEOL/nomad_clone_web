@@ -186,16 +186,17 @@ const reducer = (state = initialState, action) => {
       case COMMUNITY_LIKE_POST_SUCCESS:
         draft.communityLikePostLoading = false;
         draft.communityLikePostDone = true;
-        console.log("액션", action.data);
         draft.communityList = draft.communityList.map((list) => {
           if (list.id === action.data.id) {
             list.likeCount = action.data.likeCount;
             list.likeCheck = action.data.likeCheck;
-            console.log("바뀐리스트는?", list.likeCount);
-            console.log("바뀐리스트는?", list.likeCheck);
           }
           return list;
         });
+        break;
+      case COMMUNITY_LIKE_POST_FAILURE:
+        draft.communityLikePostLoading = false;
+        draft.communityLikePostError = action.error;
         break;
 
       // 좋아요버튼 누르기
@@ -208,7 +209,6 @@ const reducer = (state = initialState, action) => {
       case COMMUNITY_DETAIL_LIKE_POST_SUCCESS:
         draft.communityDetailLikePostLoading = false;
         draft.communityDetailLikePostDone = true;
-        console.log("액션", action.data);
         if (draft.communityItem.id === action.data.id) {
           draft.communityItem.likeCount = action.data.likeCount;
           draft.communityItem.likeCheck = action.data.likeCheck;
@@ -225,6 +225,7 @@ const reducer = (state = initialState, action) => {
         draft.communityGetLoading = true;
         draft.communityGetDone = false;
         draft.communityGetError = null;
+        draft.communityLikePostError = null;
         break;
 
       case COMMUNITY_GET_SUCCESS:

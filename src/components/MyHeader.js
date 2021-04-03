@@ -1,11 +1,11 @@
 import { Col, Menu, Row } from "antd";
 import { Header } from "antd/lib/layout/layout";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutRequestAction } from "../reducers/user";
 
-const MyHeader = () => {
+const MyHeader = memo(() => {
   const { principal } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const logout = () => {
@@ -77,6 +77,6 @@ const MyHeader = () => {
       </Header>
     </>
   );
-};
+});
 
 export default MyHeader;
