@@ -13,6 +13,8 @@ import { dashBoardGetRequestAction } from "../../reducers/dashboard";
 import { techGetRequestAction } from "../../reducers/admin/tech/index";
 import AppLayout from "../../components/AppLayout";
 import { LockFilled } from "@ant-design/icons";
+import DashboardCourses from "../../components/DashboardCourses";
+import DashBoardPayment from "../../components/DashBoardPayment";
 const { TabPane } = Tabs;
 
 function callback(key) {
@@ -106,10 +108,10 @@ const Dashboard = ({ match }) => {
           </DashBoardBox>
           <DashBoardTabs defaultActiveKey="1" onChange={callback}>
             <TabPane tab="My Courses" key="1">
-              구매한 강의목록
+              <DashboardCourses match={data} />
             </TabPane>
             <TabPane tab="My Payment History" key="2">
-              결제내역
+              <DashBoardPayment match={data} />
             </TabPane>
           </DashBoardTabs>
         </DashBoardContainer>
