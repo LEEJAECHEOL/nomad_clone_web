@@ -74,25 +74,15 @@ export const BadgeSelector = styled(Menu)`
   max-width: 500px;
   margin: 0 auto;
   border: none;
+  position: relative;
   :before {
     display: none;
   }
-  button {
-    height: 100px !important;
-    border: none;
-    span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      padding: 5px;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-        0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      border-radius: 50%;
-      img {
-        width: 100%;
-      }
-    }
+
+  .cancel {
+    border-radius: 50%;
+    position: absolute;
+    bottom: -40px;
   }
 `;
 
