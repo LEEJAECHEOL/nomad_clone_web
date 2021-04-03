@@ -1,42 +1,42 @@
 import { UpOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
+import React, { memo, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { communityLikePostRequestAction } from "../reducers/community";
 
-const LikeButton = ({ listId, count, state }) => {
+const LikeButtonStyle = styled(Button)`
+  position: relative;
+  top: -7px;
+  height: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+`;
+
+const ILikeButton = styled(LikeButtonStyle)`
+  border-color: #40a9ff;
+`;
+
+const LikeButton = memo(({ listId, count, state }) => {
   const dispatch = useDispatch();
+
   const onClickLikes = useCallback((e) => {
-    console.log("실행됨?", listId);
-    console.log("실행됨?", count);
-    console.log("실행됨?", state);
     dispatch(communityLikePostRequestAction(listId));
   }, []);
 
-  const LikeButton = styled(Button)`
-    position: relative;
-    top: -7px;
-    height: 58px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-  `;
-
-  const ILikeButton = styled(LikeButton)`
-    border-color: #40a9ff;
-  `;
   return (
     <>
       {state === "false" ? (
-        <LikeButton onClick={onClickLikes} size="large">
+        <LikeButtonStyle onClick={onClickLikes} size="large">
           <div>
             <UpOutlined />
           </div>
           {count}
-        </LikeButton>
+        </LikeButtonStyle>
       ) : (
         <ILikeButton onClick={onClickLikes} size="large">
           <div>
@@ -47,6 +47,6 @@ const LikeButton = ({ listId, count, state }) => {
       )}
     </>
   );
-};
+});
 
 export default LikeButton;

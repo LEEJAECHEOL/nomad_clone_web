@@ -29,7 +29,7 @@ import {
 } from "../../reducers/category";
 import CategoryBtn from "../../components/AdminCategoryBtn";
 
-const Community = () => {
+const Community = ({ history }) => {
   const dispatch = useDispatch();
   const { principal } = useSelector((state) => state.user);
   const { communityList, hasMorePosts, loadPostsLoading } = useSelector(
@@ -52,7 +52,6 @@ const Community = () => {
     dispatch(categoryGetRequestAction()); // 초기 카테고리 리스트 가져오기
     dispatch(communityGetRequestAction(data)); // 초기 글 목록 가져오기
   }, []);
-
   useEffect(() => {
     function onScroll() {
       if (

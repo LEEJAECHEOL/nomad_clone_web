@@ -86,16 +86,18 @@ function* communityLikePost(action) {
   try {
     const result = yield call(communityLikePostAPI, action.data);
     const data = result.data.data;
+    console.log(result);
     yield put({
-      // 여기수정
       type: COMMUNITY_LIKE_POST_SUCCESS,
       data: data,
     });
   } catch (err) {
     yield put({
       type: COMMUNITY_LIKE_POST_FAILURE,
-      error: "좋아요 실패하였습니다.",
+      error: err.response.data,
     });
+    alert(err.response.data);
+    yield put(push("/login"));
   }
 }
 
@@ -120,8 +122,10 @@ function* communityDetailLikePost(action) {
   } catch (err) {
     yield put({
       type: COMMUNITY_DETAIL_LIKE_POST_FAILURE,
-      error: "좋아요 실패하였습니다.",
+      error: err.response.data,
     });
+    alert(err.response.data);
+    yield put(push("/login"));
   }
 }
 
@@ -221,6 +225,8 @@ function* replyPost(action) {
       type: REPLY_POST_FAILURE,
       error: "댓글작성에 실패하였습니다.",
     });
+    alert(err.response.data);
+    yield put(push("/login"));
   }
 }
 
