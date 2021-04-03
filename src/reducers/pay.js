@@ -38,6 +38,7 @@ export const payPostRequestAction = (data) => {
     data,
   };
 };
+
 export const payGetRequestAction = (data) => {
   return {
     type: PAY_GET_REQUEST,
@@ -46,6 +47,7 @@ export const payGetRequestAction = (data) => {
 };
 
 export const userPayGetRequestAction = (data) => {
+  console.log("리듀서들어옴?", data);
   return {
     type: USER_PAY_GET_REQUEST,
     data,

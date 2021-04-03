@@ -25,11 +25,14 @@ export const CoursesFilter = styled.div`
         margin-bottom: 20px;
       }
       p {
-        span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        button {
           padding: 4px 16px;
-          background: #e5e7eb;
           border-radius: 15px;
-          cursor: pointer;
+          color: #000;
         }
       }
     }
@@ -60,8 +63,9 @@ export const BadgeSelector = styled(Menu)`
   :before {
     display: none;
   }
-  li {
+  button {
     height: 100px !important;
+    border: none;
     span {
       display: flex;
       align-items: center;
@@ -71,7 +75,6 @@ export const BadgeSelector = styled(Menu)`
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -2px rgba(0, 0, 0, 0.05);
       border-radius: 50%;
-      cursor: pointer;
       img {
         width: 100%;
       }

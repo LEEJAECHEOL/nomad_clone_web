@@ -15,6 +15,7 @@ const DashBoardCourse = styled(Card)`
   a {
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
     img {
       flex: 1;
       width: 400px;
