@@ -1,6 +1,16 @@
-import { Menu } from "antd";
+import { Button, Menu } from "antd";
 import styled from "styled-components";
 import { ColorLayout } from "../admin/courses/style";
+
+export const FilterButton = styled(Button)`
+  background-color: ${(props) => props.color};
+  border-color: ${(props) => props.color};
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  :focus {
+    background-color: ${(props) => props.color};
+    border-color: ${(props) => props.color};
+  }
+`;
 
 export const CoursesFilter = styled.div`
   width: 100%;
@@ -29,10 +39,14 @@ export const CoursesFilter = styled.div`
         justify-content: center;
         align-items: center;
         gap: 20px;
+        position: relative;
         button {
-          padding: 4px 16px;
           border-radius: 15px;
           color: #000;
+        }
+        .cancel {
+          position: absolute;
+          bottom: -40px;
         }
       }
     }

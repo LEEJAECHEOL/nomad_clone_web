@@ -1,5 +1,6 @@
+import { CloseOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import AppLayout from "../../components/AppLayout";
@@ -7,10 +8,18 @@ import Course from "../../components/Course";
 import { PageHero } from "../../components/style";
 import { techGetRequestAction } from "../../reducers/admin/tech";
 import { coursesGetRequestAction } from "../../reducers/courses";
-import { BadgeSelector, CoursesBox, CoursesFilter } from "./style";
+import {
+  BadgeSelector,
+  CoursesBox,
+  CoursesFilter,
+  FilterButton,
+} from "./style";
 
 const Courses = () => {
   const dispatch = useDispatch();
+  const [level, setLevel] = useState("");
+  const [isFree, setIsFree] = useState("");
+  const [tech, setTech] = useState("");
 
   useEffect(() => {
     dispatch(coursesGetRequestAction());
@@ -19,7 +28,23 @@ const Courses = () => {
 
   const { techList } = useSelector((state) => state.admintech);
   const { coursesList } = useSelector((state) => state.courses);
-  console.log("dd", coursesList);
+
+  const onClickLevel = useCallback((event) => {
+    setLevel(event.target.innerText);
+  }, []);
+  const onClickLevelCancel = useCallback(() => {
+    setLevel("");
+  }, []);
+  const onClickIsFree = useCallback((event) => {
+    if (event.target.innerText === "Free") {
+      setIsFree(true);
+    } else {
+      setIsFree(false);
+    }
+  }, []);
+  const onClickIsFreeCancel = useCallback(() => {
+    setIsFree("");
+  }, []);
 
   return (
     <>
@@ -33,16 +58,59 @@ const Courses = () => {
             <div>
               <h3>Filter by Level</h3>
               <p>
-                <Button>초급</Button>
-                <Button>중급</Button>
-                <Button>고급</Button>
+                <FilterButton
+                  onClick={onClickLevel}
+                  color={level === "초급" ? "#D1FAE5" : "#fff"}
+                >
+                  초급
+                </FilterButton>
+                <FilterButton
+                  onClick={onClickLevel}
+                  color={level === "중급" ? "#FEF9C3" : "#fff"}
+                >
+                  중급
+                </FilterButton>
+                <FilterButton
+                  onClick={onClickLevel}
+                  color={level === "고급" ? "#DBEAFE" : "#fff"}
+                >
+                  고급
+                </FilterButton>
+                {level !== "" ? (
+                  <Button
+                    className="cancel"
+                    icon={<CloseOutlined />}
+                    onClick={onClickLevelCancel}
+                  ></Button>
+                ) : (
+                  ""
+                )}
               </p>
             </div>
             <div>
               <h3>Filter by Price</h3>
               <p>
-                <Button>Free</Button>
-                <Button>Paid</Button>
+                <FilterButton
+                  onClick={onClickIsFree}
+                  color={isFree === true ? "#D1FAE5" : "#fff"}
+                >
+                  Free
+                </FilterButton>
+                <FilterButton
+                  onClick={onClickIsFree}
+                  color={isFree === false ? "#DBEAFE" : "#fff"}
+                >
+                  Paid
+                </FilterButton>
+                {isFree !== "" ? (
+                  <Button
+                    className="cancel"
+                    icon={<CloseOutlined />}
+                    onClick={onClickIsFreeCancel}
+                  ></Button>
+                ) : (
+                  ""
+                )}
               </p>
             </div>
           </div>
