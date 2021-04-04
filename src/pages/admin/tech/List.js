@@ -12,14 +12,16 @@ import { TechListContainer } from "./style";
 
 const List = ({ history }) => {
   const { pathname } = useLocation();
+  const { principal } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (pathname.includes("/admin")) {
-      alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
-      history.push("/");
-      return;
+      if (principal.roles !== "ROLE_ADMIN") {
+        alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+        history.push("/");
+      }
     }
-  }, [pathname, history]);
+  }, [pathname, history, principal]);
 
   const dispatch = useDispatch();
 
