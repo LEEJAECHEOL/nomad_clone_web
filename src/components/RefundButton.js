@@ -1,10 +1,14 @@
 import { Button } from "antd";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { refundPostRequestAction } from "../reducers/pay";
 
 const RefundButton = ({ payId }) => {
-  console.log(payId);
-  const onClickRefund = (e) => {
-    console.log(e);
+  const dispatch = useDispatch();
+
+  const onClickRefund = () => {
+    const id = { payId: payId };
+    dispatch(refundPostRequestAction(id));
   };
   return <Button onClick={onClickRefund}>환불신청</Button>;
 };

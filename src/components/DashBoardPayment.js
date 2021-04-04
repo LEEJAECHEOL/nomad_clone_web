@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userPayGetRequestAction } from "../reducers/pay";
 import RefundButton from "./RefundButton";
+import RefundCancleButton from "./RefundCancleButton";
 
 const DashBoardPayment = ({ match }) => {
   const columns = [
@@ -29,12 +30,12 @@ const DashBoardPayment = ({ match }) => {
     {
       title: "환불",
       dataIndex: "refund",
-      render: (dataIndex) => (
-        <RefundButton payId={dataIndex}>
-          {dataIndex}
-          환불신청
-        </RefundButton>
-      ),
+      render: (dataIndex) => <RefundButton payId={dataIndex} />,
+    },
+    {
+      title: "환불취소",
+      dataIndex: "refund",
+      render: (dataIndex) => <RefundCancleButton payId={dataIndex} />,
     },
   ];
   const dispatch = useDispatch();

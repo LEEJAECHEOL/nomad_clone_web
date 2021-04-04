@@ -10,6 +10,14 @@ export const initialState = {
   freePostDone: false,
   freePostError: null,
 
+  refundPutLoading: false,
+  refundPutDone: false,
+  refundPutError: null,
+
+  refundCanclePutLoading: false,
+  refundCanclePutDone: false,
+  refundCanclePutError: null,
+
   payGetLoading: false,
   payGetDone: false,
   payGetError: null,
@@ -42,6 +50,16 @@ export const FREE_POST_REQUEST = "FREE_POST_REQUEST";
 export const FREE_POST_SUCCESS = "FREE_POST_SUCCESS";
 export const FREE_POST_FAILURE = "FREE_POST_FAILURE";
 
+// 환불신청
+export const REFUND_POST_REQUEST = "REFUND_POST_REQUEST";
+export const REFUND_POST_SUCCESS = "REFUND_POST_SUCCESS";
+export const REFUND_POST_FAILURE = "REFUND_POST_FAILURE";
+
+// 사용자 환불취소
+export const REFUND_CANCLE_PUT_REQUEST = "REFUND_CANCLE_PUT_REQUEST";
+export const REFUND_CANCLE_PUT_SUCCESS = "REFUND_CANCLE_PUT_SUCCESS";
+export const REFUND_CANCLE_PUT_FAILURE = "REFUND_CANCLE_PUT_FAILURE";
+
 // 관리자용 결제내역
 export const PAY_GET_REQUEST = "PAY_GET_REQUEST";
 export const PAY_GET_SUCCESS = "PAY_GET_SUCCESS";
@@ -70,6 +88,22 @@ export const payPostRequestAction = (data) => {
 export const freePostRequestAction = (data) => {
   return {
     type: FREE_POST_REQUEST,
+    data,
+  };
+};
+
+// 환불신청
+export const refundPostRequestAction = (data) => {
+  return {
+    type: REFUND_POST_REQUEST,
+    data,
+  };
+};
+
+// 사용자 환불취소
+export const refundCanclePutRequestAction = (data) => {
+  return {
+    type: REFUND_CANCLE_PUT_REQUEST,
     data,
   };
 };
@@ -134,6 +168,53 @@ const reducer = (state = initialState, action) => {
       case FREE_POST_FAILURE:
         draft.freePostLoading = false;
         draft.freePostError = action.error;
+        break;
+
+      // 환불신청
+      case REFUND_POST_REQUEST:
+        draft.refundPostLoading = true;
+        draft.refundPostDone = false;
+        draft.refundPostError = null;
+        break;
+
+      case REFUND_POST_SUCCESS:
+        draft.refundPostLoading = false;
+        draft.refundPostDone = true;
+        draft.userPayList = draft.userPayList.map((list) => {
+          if (list.id === action.data.id) {
+            list.status = action.data.status;
+          }
+          return list;
+        });
+        break;
+
+      case REFUND_POST_FAILURE:
+        draft.refundPostLoading = false;
+        draft.refundPostError = action.error;
+        break;
+
+      // 사용자 환불취소신청
+      case REFUND_CANCLE_PUT_REQUEST:
+        draft.refundCanclePostLoading = true;
+        draft.refundCanclePostDone = false;
+        draft.refundCanclePostError = null;
+        break;
+
+      case REFUND_CANCLE_PUT_SUCCESS:
+        draft.refundCanclePostLoading = false;
+        draft.refundCanclePostDone = true;
+        console.log("액션데이터는?", action.data);
+        draft.userPayList = draft.userPayList.map((list) => {
+          if (list.id === action.data.id) {
+            list.status = action.data.status;
+          }
+          return list;
+        });
+        break;
+
+      case REFUND_CANCLE_PUT_FAILURE:
+        draft.refundCanclePostLoading = false;
+        draft.refundCanclePostError = action.error;
         break;
 
       // 어드민 결제목록
