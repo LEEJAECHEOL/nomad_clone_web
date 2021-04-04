@@ -8,13 +8,25 @@ import { communityPostRequestAction } from "../../reducers/community";
 import AppLayout from "../../components/AppLayout";
 import { categoryGetRequestAction } from "../../reducers/category";
 import Checkbox from "antd/lib/checkbox/Checkbox";
+import UploadAdapter from "../../api/UploadAdapter";
 
+const URL = "/upload";
+
+function CustomUploadAdapterPlugin(editor) {
+  editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+    return new UploadAdapter(loader, URL);
+  };
+}
 const Write = () => {
   const [content, setContet] = useState("");
 
   const dispatch = useDispatch();
 
   const { categoryList } = useSelector((state) => state.category);
+
+  const config = {
+    extraPlugins: [CustomUploadAdapterPlugin],
+  };
 
   useEffect(() => {
     dispatch(categoryGetRequestAction());
@@ -62,6 +74,7 @@ const Write = () => {
 
           <WriteEditor
             editor={ClassicEditor}
+            config={config}
             onChange={(event, editor) => {
               const data = editor.getData();
               setContet(data);

@@ -36,14 +36,23 @@ const CoursesDetail = memo(({ history }) => {
   const { techList } = useSelector((state) => state.admintech);
 
   useEffect(() => {
-    if (pathname.includes("/admin")) {
-      if (principal.roles !== "ROLE_ADMIN") {
-        alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
-        history.push("/");
+    if (principal === null) {
+      alert("로그인 후 이용이 가능합니다.");
+      history.push("/login");
+    } else {
+      if (pathname.includes("/admin")) {
+        if (principal.roles !== "ROLE_ADMIN") {
+          alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+          history.push("/");
+        }
       }
-      return;
     }
   }, [pathname, history, principal]);
+
+  useEffect(() => {
+    dispatch(videoAllGetRequestAction());
+    dispatch(techGetRequestAction());
+  }, []);
 
   const onSubmit = useCallback(
     (values) => {
@@ -55,11 +64,6 @@ const CoursesDetail = memo(({ history }) => {
     },
     [background, textColor, dispatch]
   );
-  console.log(techList);
-  useEffect(() => {
-    dispatch(videoAllGetRequestAction());
-    dispatch(techGetRequestAction());
-  }, []);
   return (
     <AppNoColLayout>
       <DivContainer>

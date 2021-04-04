@@ -10,14 +10,41 @@ import {
 } from "../../../reducers/faq";
 import { WriteEditor, WriteForm } from "../../community/style";
 import { AdminFaqContainer } from "./style";
+import UploadAdapter from "../../../api/UploadAdapter";
+import { useLocation } from "react-router";
 
-export default function FaqUpdate({ match }) {
+const URL = "/upload";
+
+function CustomUploadAdapterPlugin(editor) {
+  editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+    return new UploadAdapter(loader, URL);
+  };
+}
+
+export default function FaqUpdate({ match, history }) {
   const faqId = match.params.id;
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const { principal } = useSelector((state) => state.user);
   const [form] = Form.useForm();
   const { faqItem, faqList } = useSelector((state) => state.faq);
   const [content, setContent] = useState();
-
+  const config = {
+    extraPlugins: [CustomUploadAdapterPlugin],
+  };
+  useEffect(() => {
+    if (principal === null) {
+      alert("로그인 후 이용이 가능합니다.");
+      history.push("/login");
+    } else {
+      if (pathname.includes("/admin")) {
+        if (principal.roles !== "ROLE_ADMIN") {
+          alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+          history.push("/");
+        }
+      }
+    }
+  }, [pathname, history, principal]);
   useEffect(() => {
     dispatch(faqOneGetRequestAction(faqId));
     dispatch(faqGetRequestAction());
@@ -59,7 +86,7 @@ export default function FaqUpdate({ match }) {
             </Form.Item>
 
             <WriteEditor
-              // defaultValue={faqItem !== null ? faqItem.content : ""}
+              config={config}
               data={faqItem !== null ? faqItem.content : ""}
               editor={ClassicEditor}
               onChange={(event, editor) => {
