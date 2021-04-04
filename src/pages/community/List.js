@@ -29,7 +29,7 @@ import {
 } from "../../reducers/category";
 import CategoryBtn from "../../components/AdminCategoryBtn";
 
-const Community = ({ history }) => {
+const Community = () => {
   const dispatch = useDispatch();
   const { principal } = useSelector((state) => state.user);
   const { communityList, hasMorePosts, loadPostsLoading } = useSelector(
@@ -127,11 +127,13 @@ const Community = ({ history }) => {
                 </>
               ))}
             </Menu>
-            <CategoryBtn
-              action={categoryPostRequestAction}
-              done={categoryPostDone}
-              loading={categoryPostLoading}
-            />
+            {principal !== null && principal.roles === "ROLE_ADMIN" && (
+              <CategoryBtn
+                action={categoryPostRequestAction}
+                done={categoryPostDone}
+                loading={categoryPostLoading}
+              />
+            )}
           </CommunityCategory>
           {/* 중앙 Board */}
           <CommunityBoard span={14}>

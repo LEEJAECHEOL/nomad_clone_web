@@ -37,7 +37,7 @@ function categoryPostAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  return axios.post("/category", JSON.stringify(data), config);
+  return axios.post("/admin/category", JSON.stringify(data), config);
 }
 
 function* categoryPost(action) {
@@ -52,6 +52,10 @@ function* categoryPost(action) {
       type: CATEGORY_POST_FAILURE,
       error: "FAQ작성에 실패하였습니다.",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 

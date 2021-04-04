@@ -14,6 +14,7 @@ import { FaqContainer, RightCard } from "./style";
 
 const FAQ = () => {
   const dispatch = useDispatch();
+  const { principal } = useSelector((state) => state.user);
   const { faqCategoryPostLoading, faqCategoryPostDone } = useSelector(
     (state) => state.faq
   );
@@ -55,18 +56,18 @@ const FAQ = () => {
               ))
             : null}
         </FaqContainer>
-
-        {/* 권한 검사 - 관리자만*/}
-        <RightCard bordered={false}>
-          <CategoryBtn
-            action={faqCategoryPostRequestAction}
-            done={faqCategoryPostDone}
-            loading={faqCategoryPostLoading}
-          />
-          <Button>
-            <Link to="/admin/faq/write">FAQ 작성하기</Link>
-          </Button>
-        </RightCard>
+        {principal !== null && principal.roles === "ROLE_ADMIN" && (
+          <RightCard bordered={false}>
+            <CategoryBtn
+              action={faqCategoryPostRequestAction}
+              done={faqCategoryPostDone}
+              loading={faqCategoryPostLoading}
+            />
+            <Button>
+              <Link to="/admin/faq/write">FAQ 작성하기</Link>
+            </Button>
+          </RightCard>
+        )}
       </AppLayout>
     </>
   );

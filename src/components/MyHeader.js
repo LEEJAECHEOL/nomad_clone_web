@@ -30,27 +30,31 @@ const MyHeader = memo(() => {
               <Menu.Item key="menu-2">
                 <Link to="/courses">Coureses</Link>
               </Menu.Item>
-              <Menu.Item key="menu-4">
+              <Menu.Item key="menu-3">
                 <Link to="/community">Community</Link>
               </Menu.Item>
-              <Menu.Item key="menu-5">
+              <Menu.Item key="menu-4">
                 <Link to="/faq">FAQ</Link>
               </Menu.Item>
-              <Menu.Item key="menu-12">
-                <Link to="/admin/courses">코스작성하기</Link>
-              </Menu.Item>
-              <Menu.Item key="menu-13">
-                <Link to="/admin/video">강의작성하기</Link>
-              </Menu.Item>
-              <Menu.Item key="16">
-                <Link to="/admin/techList">태크등록하기</Link>
-              </Menu.Item>
-              <Menu.Item key="17">
-                <Link to="/video/1">1번강의</Link>
-              </Menu.Item>
-              <Menu.Item key="18">
-                <Link to="/admin/pay/list">결제리스트</Link>
-              </Menu.Item>
+              {principal !== null && principal.roles === "ROLE_ADMIN" && (
+                <>
+                  <Menu.Item key="menu-10">
+                    <Link to="/admin/courses">코스작성하기</Link>
+                  </Menu.Item>
+                  <Menu.Item key="menu-11">
+                    <Link to="/admin/video">강의작성(동영상)</Link>
+                  </Menu.Item>
+                  <Menu.Item key="menu-12">
+                    <Link to="/admin/techList">태크등록</Link>
+                  </Menu.Item>
+                  <Menu.Item key="menu-13">
+                    <Link to="/admin/pay/list">결제리스트</Link>
+                  </Menu.Item>
+                  {/* <Menu.Item key="menu-14">
+                    <Link to="/video/1">1번강의</Link>
+                  </Menu.Item> */}
+                </>
+              )}
 
               {principal ? (
                 <>

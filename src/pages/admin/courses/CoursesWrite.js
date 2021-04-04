@@ -16,16 +16,25 @@ import {
   SimpleInfoRow,
 } from "./style";
 import RectangleUpload from "../../../components/adminCourses/RectangleUpload";
-import CircleUpload from "../../../components/adminCourses/CircleUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { coursesPostRequestAction } from "../../../reducers/admin/courses/courses";
 import { videoAllGetRequestAction } from "../../../reducers/admin/video";
 import AppNoColLayout from "../../../components/AppNoColLayout";
 import { techGetRequestAction } from "../../../reducers/admin/tech";
+import { useLocation } from "react-router";
 
 const { Option } = Select;
 
-const CoursesDetail = memo(() => {
+const CoursesDetail = memo(({ history }) => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname.includes("/admin")) {
+      alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+      history.push("/");
+      return;
+    }
+  }, [pathname, history]);
   const [background, setBackground] = useState("#fff"); // 배경색
   const [textColor, setTextColor] = useState("#000"); // 배경 바뀐 글자 색
 
