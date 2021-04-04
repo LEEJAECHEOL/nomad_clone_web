@@ -8,9 +8,6 @@ import {
   PROFILE_POST_FAILURE,
   PROFILE_POST_REQUEST,
   PROFILE_POST_SUCCESS,
-  NAME_POST_FAILURE,
-  NAME_POST_REQUEST,
-  NAME_POST_SUCCESS,
 } from "../reducers/dashboard";
 import { push } from "connected-react-router";
 
@@ -34,6 +31,7 @@ function* dashBoardGet(action) {
   }
 }
 
+// 프로필이미지변경
 function profilePostAPI(data) {
   const formData = new FormData();
   formData.append("file", data.file);
@@ -63,33 +61,6 @@ function* profilePost(action) {
   }
 }
 
-function namePostAPI(data) {
-  const config = {
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
-    },
-  };
-  const id = data.id;
-  const name = data.name;
-  return axios.post(`/user/${id}`, JSON.stringify(name), config);
-}
-
-function* namePost(action) {
-  try {
-    yield call(namePostAPI, action.data);
-    yield put({
-      type: NAME_POST_SUCCESS,
-    });
-
-    yield put(push("/"));
-  } catch (err) {
-    yield put({
-      type: NAME_POST_FAILURE,
-      error: "이름 업데이트에 실패하였습니다.",
-    });
-  }
-}
-
 function* watchdashBoardGet() {
   yield takeLatest(DASHBOARD_GET_REQUEST, dashBoardGet);
 }
@@ -98,14 +69,6 @@ function* watchProfilePost() {
   yield takeLatest(PROFILE_POST_REQUEST, profilePost);
 }
 
-function* watchNamePost() {
-  yield takeLatest(NAME_POST_REQUEST, namePost);
-}
-
 export default function* dashBoardSaga() {
-  yield all([
-    fork(watchdashBoardGet),
-    fork(watchProfilePost),
-    fork(watchNamePost),
-  ]);
+  yield all([fork(watchdashBoardGet), fork(watchProfilePost)]);
 }

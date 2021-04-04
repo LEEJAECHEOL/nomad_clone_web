@@ -25,7 +25,14 @@ import {
 } from "./style";
 
 const { Panel } = Collapse;
-const CoursesDetail = ({ match }) => {
+const CoursesDetail = ({ match, history }) => {
+  const { principal } = useSelector((state) => state.user);
+
+  // 로그인하지않은 사용자는 상세페이지 접근불가.
+  if (principal === null) {
+    history.push("/login");
+  }
+
   const courseId = match.params.id;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,6 +43,7 @@ const CoursesDetail = ({ match }) => {
   const { coursesItem } = useSelector((state) => state.courses);
   const { payCheckItem } = useSelector((state) => state.pay);
   console.log("페이체크 아이템은?", payCheckItem);
+
   return (
     <>
       <AppNoColLayout>

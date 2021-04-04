@@ -30,12 +30,12 @@ const DashBoardPayment = ({ match }) => {
     {
       title: "환불",
       dataIndex: "refund",
-      render: (dataIndex) => <RefundButton payId={dataIndex} />,
+      render: (dataIndex) => <RefundButton data={dataIndex} />,
     },
     {
       title: "환불취소",
       dataIndex: "refund",
-      render: (dataIndex) => <RefundCancleButton payId={dataIndex} />,
+      render: (dataIndex) => <RefundCancleButton data={dataIndex} />,
     },
   ];
   const dispatch = useDispatch();
@@ -51,6 +51,10 @@ const DashBoardPayment = ({ match }) => {
   useEffect(() => {
     const list = [];
     for (let index in userPayList) {
+      const data = {
+        id: userPayList[index].id,
+        status: userPayList[index].status,
+      };
       list.push({
         key: index,
         date: userPayList[index].createDate.substr(0, 10),
@@ -58,7 +62,7 @@ const DashBoardPayment = ({ match }) => {
         customer: userPayList[index].buyer_name,
         price: userPayList[index].paid_amount,
         state: userPayList[index].status,
-        refund: userPayList[index].id,
+        refund: data,
       });
     }
     setData(list);

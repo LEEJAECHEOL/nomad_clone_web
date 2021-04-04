@@ -9,6 +9,9 @@ import {
   LOG_IN_SUCCESS,
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
+  NAME_PUT_FAILURE,
+  NAME_PUT_REQUEST,
+  NAME_PUT_SUCCESS,
 } from "../reducers/user";
 import { push } from "connected-react-router";
 // logInAPI, logIn, watchLogIn 세트이다. 복사해서 쓰자.
@@ -66,6 +69,38 @@ function* loadMyInfo() {
     });
   }
 }
+
+// 이름변경
+function namePutAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+  const id = data.id;
+  const name = data.name;
+  return axios.put(`/user/name/${id}`, JSON.stringify(name), config);
+}
+
+function* namePut(action) {
+  try {
+    const result = yield call(namePutAPI, action.data);
+    const data = result.data.data;
+    yield put({
+      type: NAME_PUT_SUCCESS,
+      data: data,
+    });
+
+    yield put(push("/"));
+  } catch (err) {
+    yield put({
+      type: NAME_PUT_FAILURE,
+      error: "이름 업데이트에 실패하였습니다.",
+    });
+  }
+}
+
 function* watchLoadMyInfo() {
   yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
 }
@@ -76,6 +111,16 @@ function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
 
+// 이름변경
+function* watchNamePut() {
+  yield takeLatest(NAME_PUT_REQUEST, namePut);
+}
+
 export default function* userSaga() {
-  yield all([fork(watchLogIn), fork(watchLogOut), fork(watchLoadMyInfo)]);
+  yield all([
+    fork(watchLogIn),
+    fork(watchLogOut),
+    fork(watchLoadMyInfo),
+    fork(watchNamePut),
+  ]);
 }

@@ -3,14 +3,22 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { refundPutRequestAction } from "../reducers/pay";
 
-const RefundButton = ({ payId }) => {
+const RefundButton = ({ data }) => {
   const dispatch = useDispatch();
 
   const onClickRefund = () => {
-    const id = { payId: payId };
+    const id = { payId: data.id };
     dispatch(refundPutRequestAction(id));
   };
-  return <Button onClick={onClickRefund}>환불신청</Button>;
+  return (
+    <>
+      {data.status === "paid" ? (
+        <>
+          <Button onClick={onClickRefund}>환불신청</Button>
+        </>
+      ) : null}
+    </>
+  );
 };
 
 export default RefundButton;
