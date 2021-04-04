@@ -29,9 +29,6 @@ const CoursesDetail = ({ match, history }) => {
   const { principal } = useSelector((state) => state.user);
 
   // 로그인하지않은 사용자는 상세페이지 접근불가.
-  if (principal === null) {
-    history.push("/login");
-  }
 
   const courseId = match.params.id;
   const dispatch = useDispatch();
@@ -44,6 +41,22 @@ const CoursesDetail = ({ match, history }) => {
   const { payCheckItem } = useSelector((state) => state.pay);
   console.log("페이체크 아이템은?", payCheckItem);
 
+  const OnPayPrincipal = () => {
+    console.log("프린시퍼는?", principal);
+    if (principal === null) {
+      history.push("/login");
+    } else {
+      history.push(`/purchase/${courseId}`);
+    }
+  };
+  const OnFreePrincipal = () => {
+    console.log("프린시퍼는?", principal);
+    if (principal === null) {
+      history.push("/login");
+    } else {
+      history.push(`/enroll/${courseId}`);
+    }
+  };
   return (
     <>
       <AppNoColLayout>
@@ -110,7 +123,7 @@ const CoursesDetail = ({ match, history }) => {
                       </>
                     ) : (
                       <>
-                        <Link to={`/enroll/${courseId}`}>
+                        <Link onClick={OnFreePrincipal}>
                           Enroll now <ArrowRightOutlined />
                         </Link>
                       </>
@@ -126,7 +139,7 @@ const CoursesDetail = ({ match, history }) => {
                       </>
                     ) : (
                       <>
-                        <Link to={`/purchase/${courseId}`}>
+                        <Link onClick={OnPayPrincipal}>
                           Start Coding now! <ArrowRightOutlined />
                         </Link>
                       </>
