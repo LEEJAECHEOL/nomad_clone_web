@@ -4,7 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../../components/AppLayout";
 import { payGetRequestAction } from "../../../reducers/pay";
 import RefundedButton from "../../../components/RefundedButton";
-const List = () => {
+import { useLocation } from "react-router";
+const List = ({ history }) => {
+  const { pathname } = useLocation();
+  const { principal } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (pathname.includes("/admin")) {
+      if (principal.roles !== "ROLE_ADMIN") {
+        alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+        history.push("/");
+      }
+    }
+  }, [pathname, history, principal]);
   const columns = [
     {
       title: "결제일자",

@@ -27,20 +27,23 @@ const { Option } = Select;
 
 const CoursesDetail = memo(({ history }) => {
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    if (pathname.includes("/admin")) {
-      alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
-      history.push("/");
-      return;
-    }
-  }, [pathname, history]);
+  const { principal } = useSelector((state) => state.user);
   const [background, setBackground] = useState("#fff"); // 배경색
   const [textColor, setTextColor] = useState("#000"); // 배경 바뀐 글자 색
 
   const dispatch = useDispatch();
   const { videoList } = useSelector((state) => state.adminVideo);
   const { techList } = useSelector((state) => state.admintech);
+
+  useEffect(() => {
+    if (pathname.includes("/admin")) {
+      if (principal.roles !== "ROLE_ADMIN") {
+        alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+        history.push("/");
+      }
+      return;
+    }
+  }, [pathname, history, principal]);
 
   const onSubmit = useCallback(
     (values) => {
