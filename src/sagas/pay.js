@@ -14,9 +14,14 @@ import {
   FREE_POST_SUCCESS,
 
   // 환불신청
-  REFUND_POST_FAILURE,
-  REFUND_POST_REQUEST,
-  REFUND_POST_SUCCESS,
+  REFUND_PUT_FAILURE,
+  REFUND_PUT_REQUEST,
+  REFUND_PUT_SUCCESS,
+
+  // 환불하기
+  REFUNDED_PUT_FAILURE,
+  REFUNDED_PUT_REQUEST,
+  REFUNDED_PUT_SUCCESS,
 
   // 환불취소신청
   REFUND_CANCLE_PUT_FAILURE,
@@ -143,28 +148,57 @@ function* freePost(action) {
 }
 
 // 환불신청
-function refundPostAPI(data) {
+function refundPutAPI(data) {
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+      "Content-Type": "application/json; charset=utf-8",
     },
   };
   console.log("환불데이터는?", data);
-  return axios.post("/pay/refund", JSON.stringify(data), config);
+  return axios.put("/pay/refund", JSON.stringify(data), config);
 }
 
-function* refundPost(action) {
+function* refundPut(action) {
   try {
-    const result = yield call(refundPostAPI, action.data);
+    const result = yield call(refundPutAPI, action.data);
     const data = result.data.data;
     yield put({
-      type: REFUND_POST_SUCCESS,
+      type: REFUND_PUT_SUCCESS,
       data: data,
     });
   } catch (err) {
     yield put({
-      type: REFUND_POST_FAILURE,
+      type: REFUND_PUT_FAILURE,
       error: "환불신청에 실패하였습니다.",
+    });
+  }
+}
+
+// 환불신청
+function refundedPutAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+  console.log("환불데이터는?", data);
+  return axios.put("/pay/refunded", JSON.stringify(data), config);
+}
+
+function* refundedPut(action) {
+  try {
+    const result = yield call(refundedPutAPI, action.data);
+    const data = result.data.data;
+    yield put({
+      type: REFUNDED_PUT_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: REFUNDED_PUT_FAILURE,
+      error: "환불하기에 실패하였습니다.",
     });
   }
 }
@@ -260,11 +294,16 @@ function* watchPayPost() {
 }
 
 // 환불신청
-function* watchRefundPost() {
-  yield takeLatest(REFUND_POST_REQUEST, refundPost);
+function* watchRefundPut() {
+  yield takeLatest(REFUND_PUT_REQUEST, refundPut);
 }
 
 // 환불신청
+function* watchRefundedPut() {
+  yield takeLatest(REFUNDED_PUT_REQUEST, refundedPut);
+}
+
+// 환불취소
 function* watchRefundCanclePut() {
   yield takeLatest(REFUND_CANCLE_PUT_REQUEST, refundCanclePut);
 }
@@ -291,7 +330,8 @@ export default function* paySaga() {
     fork(watchUserPayGet),
     fork(watchFreePost),
     fork(watchPayCheckPost),
-    fork(watchRefundPost),
+    fork(watchRefundPut),
+    fork(watchRefundedPut),
     fork(watchRefundCanclePut),
   ]);
 }
