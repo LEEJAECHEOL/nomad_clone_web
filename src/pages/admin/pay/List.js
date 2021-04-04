@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppLayout from "../../../components/AppLayout";
 import { payGetRequestAction } from "../../../reducers/pay";
+import RefundedButton from "../../../components/RefundedButton";
 const List = () => {
   const columns = [
     {
@@ -25,6 +26,11 @@ const List = () => {
       title: "상태",
       dataIndex: "state",
     },
+    {
+      title: "환불",
+      dataIndex: "refund",
+      render: (dataIndex) => <RefundedButton data={dataIndex} />,
+    },
   ];
   const dispatch = useDispatch();
   const { payList } = useSelector((state) => state.pay);
@@ -37,6 +43,8 @@ const List = () => {
   useEffect(() => {
     const list = [];
     for (let index in payList) {
+      const data = { id: payList[index].id, status: payList[index].status };
+
       list.push({
         key: index,
         date: payList[index].createDate.substr(0, 10),
@@ -44,6 +52,7 @@ const List = () => {
         customer: payList[index].buyer_name,
         price: payList[index].paid_amount,
         state: payList[index].status,
+        refund: data,
       });
     }
     setData(list);

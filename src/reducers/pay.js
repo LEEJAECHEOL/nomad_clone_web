@@ -2,30 +2,42 @@ import produce from "immer";
 
 // 상태
 export const initialState = {
+  // 유료강의 결제하기
   payPostLoading: false,
   payPostDone: false,
   payPostError: null,
 
+  // 무료강의 결제하기
   freePostLoading: false,
   freePostDone: false,
   freePostError: null,
 
+  // 환불신청(사용자)
   refundPutLoading: false,
   refundPutDone: false,
   refundPutError: null,
 
+  // 환불하기(관리자)
+  refundedPutLoading: false,
+  refundedPutDone: false,
+  refundedPutError: null,
+
+  // 환불취소(사용자)
   refundCanclePutLoading: false,
   refundCanclePutDone: false,
   refundCanclePutError: null,
 
+  // 결제내역 가져오기(관리자)
   payGetLoading: false,
   payGetDone: false,
   payGetError: null,
 
+  // 결제한 강의인지 체크
   payCheckPostLoading: false,
   payCheckPostDone: false,
   payCheckPostError: null,
 
+  // 결제내역 가져오기(사용자)
   userPayGetLoading: false,
   userPayGetDone: false,
   userPayGetError: null,
@@ -51,9 +63,14 @@ export const FREE_POST_SUCCESS = "FREE_POST_SUCCESS";
 export const FREE_POST_FAILURE = "FREE_POST_FAILURE";
 
 // 환불신청
-export const REFUND_POST_REQUEST = "REFUND_POST_REQUEST";
-export const REFUND_POST_SUCCESS = "REFUND_POST_SUCCESS";
-export const REFUND_POST_FAILURE = "REFUND_POST_FAILURE";
+export const REFUND_PUT_REQUEST = "REFUND_PUT_REQUEST";
+export const REFUND_PUT_SUCCESS = "REFUND_PUT_SUCCESS";
+export const REFUND_PUT_FAILURE = "REFUND_PUT_FAILURE";
+
+// 환불하기
+export const REFUNDED_PUT_REQUEST = "REFUNDED_PUT_REQUEST";
+export const REFUNDED_PUT_SUCCESS = "REFUNDED_PUT_SUCCESS";
+export const REFUNDED_PUT_FAILURE = "REFUNDED_PUT_FAILURE";
 
 // 사용자 환불취소
 export const REFUND_CANCLE_PUT_REQUEST = "REFUND_CANCLE_PUT_REQUEST";
@@ -93,9 +110,17 @@ export const freePostRequestAction = (data) => {
 };
 
 // 환불신청
-export const refundPostRequestAction = (data) => {
+export const refundPutRequestAction = (data) => {
   return {
-    type: REFUND_POST_REQUEST,
+    type: REFUND_PUT_REQUEST,
+    data,
+  };
+};
+
+// 환불하기
+export const refundedPutRequestAction = (data) => {
+  return {
+    type: REFUNDED_PUT_REQUEST,
     data,
   };
 };
@@ -171,15 +196,15 @@ const reducer = (state = initialState, action) => {
         break;
 
       // 환불신청
-      case REFUND_POST_REQUEST:
-        draft.refundPostLoading = true;
-        draft.refundPostDone = false;
-        draft.refundPostError = null;
+      case REFUND_PUT_REQUEST:
+        draft.refundPutLoading = true;
+        draft.refundPutDone = false;
+        draft.refundPutError = null;
         break;
 
-      case REFUND_POST_SUCCESS:
-        draft.refundPostLoading = false;
-        draft.refundPostDone = true;
+      case REFUND_PUT_SUCCESS:
+        draft.refundPutLoading = false;
+        draft.refundPutDone = true;
         draft.userPayList = draft.userPayList.map((list) => {
           if (list.id === action.data.id) {
             list.status = action.data.status;
@@ -188,9 +213,32 @@ const reducer = (state = initialState, action) => {
         });
         break;
 
-      case REFUND_POST_FAILURE:
-        draft.refundPostLoading = false;
-        draft.refundPostError = action.error;
+      case REFUND_PUT_FAILURE:
+        draft.refundPutLoading = false;
+        draft.refundPutError = action.error;
+        break;
+
+      // 환불하기
+      case REFUNDED_PUT_REQUEST:
+        draft.refundedPutLoading = true;
+        draft.refundedPutDone = false;
+        draft.refundedPutError = null;
+        break;
+
+      case REFUNDED_PUT_SUCCESS:
+        draft.refundedPutLoading = false;
+        draft.refundedPutDone = true;
+        draft.payList = draft.payList.map((list) => {
+          if (list.id === action.data.id) {
+            list.status = action.data.status;
+          }
+          return list;
+        });
+        break;
+
+      case REFUNDED_PUT_FAILURE:
+        draft.refundedPutLoading = false;
+        draft.refundedPutError = action.error;
         break;
 
       // 사용자 환불취소신청
