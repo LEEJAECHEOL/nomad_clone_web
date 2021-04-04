@@ -10,7 +10,12 @@ import {
 
 // 비디오 가져오기
 function videoGetAPI(data) {
-  return axios.get(`/video/${data}`);
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.get(`/video/${data}`, config);
 }
 
 function* videoGet(action) {

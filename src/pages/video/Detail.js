@@ -4,6 +4,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import { CourseTitleIcon, VideoLayout, CourseTitle, VideoMain } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { videoGetRequestAction } from "../../reducers/video";
+import { Link } from "react-router-dom";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -32,15 +33,18 @@ const Detail = ({ match }) => {
     setVimeo(item.props.vimeoId);
     setVimeoTitle(item.props.children[1]);
   }, []);
+  console.log(videoList);
 
   return (
     <>
       <VideoLayout>
         <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
           {collapsed ? (
-            <CourseTitleIcon>
-              <HomeOutlined />
-            </CourseTitleIcon>
+            <Link to="/">
+              <CourseTitleIcon>
+                <HomeOutlined />
+              </CourseTitleIcon>
+            </Link>
           ) : (
             <div className="CourseTitle">
               <h3>[풀스택] 유튜브 클론코딩</h3>
@@ -68,6 +72,7 @@ const Detail = ({ match }) => {
                         key={`${index}-${itemIndex}`}
                         onClick={onClickHandler}
                         vimeoId={item.vimeoId}
+                        disabled={item.vimeoId === "" ? true : false}
                       >
                         {item.title}
                       </Menu.Item>

@@ -27,6 +27,9 @@ export const VideoLayout = styled(Layout)`
   .ant-layout-sider-children {
     width: 100%;
     overflow-y: auto;
+    a svg {
+      font-size: 24px;
+    }
   }
   .ant-layout-sider-trigger {
     position: absolute;
