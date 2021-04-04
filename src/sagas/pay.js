@@ -13,6 +13,16 @@ import {
   FREE_POST_REQUEST,
   FREE_POST_SUCCESS,
 
+  // 환불신청
+  REFUND_POST_FAILURE,
+  REFUND_POST_REQUEST,
+  REFUND_POST_SUCCESS,
+
+  // 환불취소신청
+  REFUND_CANCLE_PUT_FAILURE,
+  REFUND_CANCLE_PUT_REQUEST,
+  REFUND_CANCLE_PUT_SUCCESS,
+
   // 어드민 결제목록확인
   PAY_GET_FAILURE,
   PAY_GET_REQUEST,
@@ -132,6 +142,60 @@ function* freePost(action) {
   }
 }
 
+// 환불신청
+function refundPostAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  console.log("환불데이터는?", data);
+  return axios.post("/pay/refund", JSON.stringify(data), config);
+}
+
+function* refundPost(action) {
+  try {
+    const result = yield call(refundPostAPI, action.data);
+    const data = result.data.data;
+    yield put({
+      type: REFUND_POST_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: REFUND_POST_FAILURE,
+      error: "환불신청에 실패하였습니다.",
+    });
+  }
+}
+
+// 환불취소신청
+function refundCanclePutAPI(data) {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+  return axios.put("/pay/refund/cancle", JSON.stringify(data), config);
+}
+
+function* refundCanclePut(action) {
+  try {
+    const result = yield call(refundCanclePutAPI, action.data);
+    const data = result.data.data;
+    yield put({
+      type: REFUND_CANCLE_PUT_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: REFUND_CANCLE_PUT_FAILURE,
+      error: "환불신청에 실패하였습니다.",
+    });
+  }
+}
+
 // 대시보드페이지 결제목록
 function userPayGetAPI(data) {
   const config = {
@@ -140,7 +204,6 @@ function userPayGetAPI(data) {
     },
   };
   const id = data;
-  console.log("사가로 들어오나요??", id);
   return axios.get(`/pay/${id}`, config);
 }
 
@@ -196,6 +259,16 @@ function* watchPayPost() {
   yield takeLatest(PAY_POST_REQUEST, payPost);
 }
 
+// 환불신청
+function* watchRefundPost() {
+  yield takeLatest(REFUND_POST_REQUEST, refundPost);
+}
+
+// 환불신청
+function* watchRefundCanclePut() {
+  yield takeLatest(REFUND_CANCLE_PUT_REQUEST, refundCanclePut);
+}
+
 // 무료강의 결제하기
 function* watchFreePost() {
   yield takeLatest(FREE_POST_REQUEST, freePost);
@@ -218,5 +291,7 @@ export default function* paySaga() {
     fork(watchUserPayGet),
     fork(watchFreePost),
     fork(watchPayCheckPost),
+    fork(watchRefundPost),
+    fork(watchRefundCanclePut),
   ]);
 }
