@@ -13,21 +13,29 @@ import { useLocation } from "react-router";
 const FolderList = ({ history }) => {
   const { pathname } = useLocation();
   const { principal } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (pathname.includes("/admin")) {
-      if (principal.roles !== "ROLE_ADMIN") {
-        alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
-        history.push("/");
-      }
-    }
-  }, [pathname, history, principal]);
   const dispatch = useDispatch();
   const { videoPostLoading, videoPostDone, videoList } = useSelector(
     (state) => state.adminVideo
   );
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (principal === null) {
+      alert("로그인 후 이용이 가능합니다.");
+      history.push("/login");
+    } else {
+      if (pathname.includes("/admin")) {
+        if (principal.roles !== "ROLE_ADMIN") {
+          alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+          history.push("/");
+        }
+      }
+    }
+  }, [pathname, history, principal]);
+  useEffect(() => {
+    dispatch(videoAllGetRequestAction());
+  }, []);
 
   const showModal = useCallback(() => {
     setIsModalVisible(true);
@@ -43,15 +51,10 @@ const FolderList = ({ history }) => {
   }, [dispatch, form]);
 
   useEffect(() => {
-    dispatch(videoAllGetRequestAction());
-  }, []);
-
-  useEffect(() => {
     if (videoPostDone) {
       handleCancel();
     }
   }, [videoPostDone, handleCancel]);
-
   return (
     <>
       <AppLayout>

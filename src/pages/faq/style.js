@@ -55,18 +55,21 @@ export const FaqBoardContainer = styled(CommunityBoardContainer)`
 export const FaqBoardItem = styled.div`
   padding: 20px 0;
   border-bottom: 1px solid #e5e7eb;
+  img {
+    width: 100%;
+  }
   .faq-detail-title {
     margin: 16px 0;
     h3 {
       font-size: 24px;
     }
   }
-  p {
+  /* p {
     margin: 12px 0;
     padding-left: 20px;
     position: relative;
-  }
-  p:after {
+  } */
+  /* p:after {
     content: "";
     position: absolute;
     left: 0;
@@ -76,7 +79,7 @@ export const FaqBoardItem = styled.div`
     border-radius: 50%;
     background: #000;
     transform: translateY(-50%);
-  }
+  } */
   .faq-detail-image {
     margin: 12px 0;
     img {

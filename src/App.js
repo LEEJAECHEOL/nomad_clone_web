@@ -17,7 +17,6 @@ import UploadTest from "./pages/test/UploadTest";
 import CoursesWrite from "./pages/admin/courses/CoursesWrite";
 import CoursesDetail from "./pages/courses/CoursesDetail";
 import FaqWrite from "./pages/admin/faq/FaqWrite";
-import AdminFaqList from "./pages/admin/faq/AdminFaqList";
 import FolderList from "./pages/admin/video/FolderList";
 import FolderDetail from "./pages/admin/video/FolderDetail";
 import FaqUpdate from "./pages/admin/faq/FaqUpdate";
@@ -25,8 +24,7 @@ import VideoList from "./pages/video/Detail";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadMyInfoRequestAction, logoutRequestAction } from "./reducers/user";
-import CategorySave from "./pages/admin/community/CategorySave";
-import FaqCategorySave from "./pages/admin/faq/FaqCategorySave";
+
 import Purchase from "./pages/courses/Purchase";
 import AdminTechList from "./pages/admin/tech/List";
 import AdminPayList from "./pages/admin/pay/List";
@@ -77,7 +75,6 @@ const App = () => {
         <Route path="/editProfile/:id" exact={true} component={EditProfile} />
         <Route path="/upload" exact={true} component={UploadTest} />
         <Route path="/admin/faq/write" exact={true} component={FaqWrite} />
-        <Route path="/adminFaqList" exact={true} component={AdminFaqList} />
         <Route
           path="/admin/faq/update/:id"
           exact={true}
@@ -87,16 +84,6 @@ const App = () => {
         <Route path="/admin/video" exact={true} component={FolderList} />
         <Route path="/admin/video/:id" exact={true} component={FolderDetail} />
         <Route path="/admin/courses" exact={true} component={CoursesWrite} />
-        <Route
-          path="/admin/communityCategory"
-          exact={true}
-          component={CategorySave}
-        />
-        <Route
-          path="/admin/faqCategory"
-          exact={true}
-          component={FaqCategorySave}
-        />
         <Route path="/purchase/:id" exact={true} component={Purchase} />
         <Route path="/enroll/:id" exact={true} component={Enroll} />
         <Route path="/admin/techList" exact={true} component={AdminTechList} />

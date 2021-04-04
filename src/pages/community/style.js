@@ -71,6 +71,7 @@ export const CommunityBoardItem = styled(Card)`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .Board-Fav {
       width: 45px;
       height: 45px;
@@ -252,6 +253,9 @@ export const CommunityDetailItem = styled(Card)`
 
 export const DetailContent = styled.div`
   padding: 40px 0 0;
+  img {
+    width: 100%;
+  }
 `;
 
 export const ReplyInputForm = styled(Form)`

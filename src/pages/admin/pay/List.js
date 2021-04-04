@@ -10,10 +10,15 @@ const List = ({ history }) => {
   const { principal } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (pathname.includes("/admin")) {
-      if (principal.roles !== "ROLE_ADMIN") {
-        alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
-        history.push("/");
+    if (principal === null) {
+      alert("로그인 후 이용이 가능합니다.");
+      history.push("/login");
+    } else {
+      if (pathname.includes("/admin")) {
+        if (principal.roles !== "ROLE_ADMIN") {
+          alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+          history.push("/");
+        }
       }
     }
   }, [pathname, history, principal]);

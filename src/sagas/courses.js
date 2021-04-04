@@ -44,8 +44,6 @@ function* homeCoursesGet(action) {
   try {
     const result = yield call(homeCoursesGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: HOME_COURSES_GET_SUCCESS,
       data: data,
@@ -59,7 +57,6 @@ function* homeCoursesGet(action) {
 }
 
 function coursesOneGetAPI(data) {
-  console.log("코스1개", data);
   return axios.get(`/courses/${data}`);
 }
 
@@ -67,8 +64,6 @@ function* coursesOneGet(action) {
   try {
     const result = yield call(coursesOneGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: COURSES_ONE_GET_SUCCESS,
       data: data,

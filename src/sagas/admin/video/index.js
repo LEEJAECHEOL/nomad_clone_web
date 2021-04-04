@@ -101,10 +101,6 @@ function* videoAllGet() {
       type: VIDEO_ALL_GET_FAILURE,
       error: "실패",
     });
-    if (err.response.status === 403) {
-      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
-      yield put(push("/"));
-    }
   }
 }
 
@@ -156,10 +152,6 @@ function* videoDetailGet(action) {
       type: VIDEO_DETAIL_GET_FAILURE,
       error: "실패",
     });
-    if (err.response.status === 403) {
-      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
-      yield put(push("/"));
-    }
   }
 }
 function videoPutAPI(data) {
