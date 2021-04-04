@@ -29,9 +29,9 @@ const FaqDetail = ({ match }) => {
   // 아이템
   const { faqItem } = useSelector((state) => state.faq);
 
-  // 유즈이펙트 실행됨?
+  const { principal } = useSelector((state) => state.user);
+
   useEffect(() => {
-    console.log("여기 실행되나요?");
     dispatch(faqOneGetRequestAction(data));
   }, []);
 
@@ -45,8 +45,6 @@ const FaqDetail = ({ match }) => {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
-
-  console.log("이게 디테일 데이터", faqItem);
 
   return (
     <>
@@ -110,65 +108,12 @@ const FaqDetail = ({ match }) => {
                   ? ReactHtmlParser(faqItem.content)
                   : "Content"}
               </FaqBoardItem>
-              {/* <FaqBoardItem>
-              <div className="faq-detail-title">
-                <h3>강의별로 결제 합니다.</h3>
-              </div>
-              <p>각 강의별 책정된 금액에 따라 결제합니다.</p>
-              <p>해당 총 금액에 따라 월 할부 결제를 하실 수 있습니다.</p>
-              <p>정기구독 결제 방식이 아닙니다! 착오없으시기 바랍니다.</p>
-            </FaqBoardItem>
-            <FaqBoardItem>
-              <div className="faq-detail-title">
-                <h3>
-                  국내카드 (KRW. 원화) 및 해외카드 (USD) 가 모두 가능합니다.
-                </h3>
-              </div>
-              <p>국내외 신용카드 및 체크카드로 결제가 가능합니다.</p>
-              <p>
-                해외카드는 VISA, Master, American Express, Maestro 로 결제
-                가능합니다.
-              </p>
-              <p>카카오페이 결제 가능합니다.</p>
-              <p>무통장입금은 지원하지 않습니다.</p>
-            </FaqBoardItem>
-            <FaqBoardItem>
-              <div className="faq-detail-title">
-                <h3>결제시 오류가 발생합니다.</h3>
-              </div>
-              <p>해외카드 결제 시 UnionPay. JCB 지원 안됩니다.</p>
-              <p>해당 카드에 금액이 부족할 경우</p>
-              <p>
-                결제모듈은 인터넷 브라우저 크롬 (Chrome)에 최적화 되어있습니다.
-              </p>
-              <p>국내카드 할부는 신용카드만 가능합니다.</p>
-            </FaqBoardItem>
-            <FaqBoardItem>
-              <div className="faq-detail-title">
-                <h3>결제시 오류가 발생합니다.</h3>
-              </div>
-              <p>해외카드 결제 시 UnionPay. JCB 지원 안됩니다.</p>
-              <p>해당 카드에 금액이 부족할 경우</p>
-              <div className="faq-detail-image">
-                <img src="./images/ZUjk7qh.png" alt="" />
-              </div>
-            </FaqBoardItem>
-            <FaqBoardItem>
-              <div className="faq-detail-title">
-                <h3>결제영수증은 어디에서 확인이 가능한가요?</h3>
-              </div>
-              <p>
-                결제 즉시 강의 등록을 완료했다는 내용을 이메일로 보내드립니다.
-              </p>
-              <p>
-                영수증(카드전표)는 Dashboard &gt; My Payment History &gt;
-                Receipt 를 클릭하셔서 확인이 가능합니다.
-              </p>
-            </FaqBoardItem> */}
             </FaqBoardContainer>
-            <Button>
-              <Link to={`/admin/faq/update/${data}`}>수정하기</Link>
-            </Button>
+            {principal !== null && principal.roles === "ROLE_ADMIN" && (
+              <Button>
+                <Link to={`/admin/faq/update/${data}`}>수정하기</Link>
+              </Button>
+            )}
           </FaqDetailBoard>
         </FaqDetailContainer>
       </AppLayout>

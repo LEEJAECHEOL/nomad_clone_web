@@ -14,7 +14,6 @@ function coursesPostAPI(data) {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
   return axios.post("/admin/courses", JSON.stringify(data), config);
 }
 

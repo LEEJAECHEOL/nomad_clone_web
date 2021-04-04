@@ -74,6 +74,10 @@ function* videoPost(action) {
       type: VIDEO_POST_FAILURE,
       error: "폴더 등록에 실패하였습니다.",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 
@@ -97,6 +101,10 @@ function* videoAllGet() {
       type: VIDEO_ALL_GET_FAILURE,
       error: "실패",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 
@@ -121,6 +129,10 @@ function* videoDelete(action) {
       type: VIDEO_DELETE_FAILURE,
       error: "실패",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 
@@ -144,7 +156,10 @@ function* videoDetailGet(action) {
       type: VIDEO_DETAIL_GET_FAILURE,
       error: "실패",
     });
-    // yield put(push("/admin/video"));
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 function videoPutAPI(data) {
@@ -172,6 +187,10 @@ function* videoPut(action) {
       type: VIDEO_PUT_FAILURE,
       error: "Curriculum 등록에 실패하였습니다.",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 

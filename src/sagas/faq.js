@@ -20,7 +20,6 @@ import {
   FAQ_CATEGORY_POST_SUCCESS,
 } from "../reducers/faq";
 
-// 업데이트 [이부분 모르겠음.[]
 function faqUpdateAPI(data) {
   const config = {
     headers: {
@@ -31,7 +30,6 @@ function faqUpdateAPI(data) {
   return axios.put(`/admin/faq/${data.faqId}`, JSON.stringify(data), config);
 }
 
-// 이부분 막힘.
 function* faqUpdate(action) {
   try {
     const result = yield call(faqUpdateAPI, action.data);
@@ -46,10 +44,13 @@ function* faqUpdate(action) {
       type: FAQ_UPDATE_FAILURE,
       error: "FAQ업데이트에 실패하였습니다.",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 
-// 겟한개 요청
 function faqOneGetAPI(data) {
   return axios.get(`/faq/${data}`);
 }
@@ -58,8 +59,6 @@ function* faqOneGet(action) {
   try {
     const result = yield call(faqOneGetAPI, action.data);
     const data = result.data.data;
-    console.log(result);
-    console.log(data);
     yield put({
       type: FAQ_ONE_GET_SUCCESS,
       data: data,
@@ -72,15 +71,12 @@ function* faqOneGet(action) {
   }
 }
 
-// 포스트
 function faqPostAPI(data) {
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  console.log(config);
-  console.log("포스트실행되니?", data);
   return axios.post("/admin/faq", JSON.stringify(data), config);
 }
 
@@ -96,6 +92,10 @@ function* faqPost(action) {
       type: FAQ_POST_FAILURE,
       error: "FAQ작성에 실패하였습니다.",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 
@@ -141,6 +141,10 @@ function* faqCategoryPost(action) {
       type: FAQ_CATEGORY_POST_FAILURE,
       error: "FAQ작성에 실패하였습니다.",
     });
+    if (err.response.status === 403) {
+      alert("서비스를 사용할 권한이 없습니다. 관리자에게 문의해주세요.");
+      yield put(push("/"));
+    }
   }
 }
 

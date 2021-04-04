@@ -8,8 +8,17 @@ import {
 import FolderListItem from "../../../components/FolderListItem";
 import { CurriculumListCard, ModalForm, VideoList } from "./style";
 import AppLayout from "../../../components/AppLayout";
+import { useLocation } from "react-router";
 
-const FolderList = () => {
+const FolderList = ({ history }) => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname.includes("/admin")) {
+      alert("접근권한이 없습니다. \n 관리자에게 문의해주세요!");
+      history.push("/");
+    }
+  }, [pathname, history]);
   const dispatch = useDispatch();
   const { videoPostLoading, videoPostDone, videoList } = useSelector(
     (state) => state.adminVideo

@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 
 import Home from "./pages/home/Home";
 import Join from "./pages/join/Join";
@@ -33,10 +33,13 @@ import AdminPayList from "./pages/admin/pay/List";
 import Enroll from "./pages/courses/Enroll";
 
 const App = () => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const { loadMyInfoDone, loadMyInfoError } = useSelector(
-    (state) => state.user
-  );
+  const { loadMyInfoError } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   // 새로고침 시 유저 인포 다시 가져오기
   useEffect(() => {
     if (localStorage.getItem("nomadToken")) {
