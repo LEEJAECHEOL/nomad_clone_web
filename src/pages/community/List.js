@@ -102,6 +102,7 @@ const Community = () => {
     },
     [categoryId, dispatch]
   );
+
   return (
     <>
       <AppLayout>
