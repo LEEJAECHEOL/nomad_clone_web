@@ -6,9 +6,9 @@ import styled from "styled-components";
 import AppLayout from "../../components/AppLayout";
 import {
   dashBoardGetRequestAction,
-  namePostRequestAction,
   profilePostRequestAction,
 } from "../../reducers/dashboard";
+import { namePutRequestAction } from "../../reducers/user";
 import {
   AccountInfromation,
   AccountInfromationCol,
@@ -70,7 +70,7 @@ export default function EditProfile({ match }) {
     // const data = { ...values, userId };
     values.id = userId;
     console.log("post데이터는?", values);
-    dispatch(namePostRequestAction(values));
+    dispatch(namePutRequestAction(values));
   };
 
   const [fileList, setFileList] = useState(null);

@@ -12,6 +12,10 @@ export const initialState = {
   logOutDone: false,
   logOutError: null,
   principal: null,
+
+  namePutLoading: false,
+  namePutDone: false,
+  namePutError: null,
 };
 
 // 타입
@@ -26,6 +30,11 @@ export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
 export const LOAD_MY_INFO_REQUEST = "LOAD_MY_INFO_REQUEST";
 export const LOAD_MY_INFO_SUCCESS = "LOAD_MY_INFO_SUCCESS";
 export const LOAD_MY_INFO_FAILURE = "LOAD_MY_INFO_FAILURE";
+
+// 이름변경
+export const NAME_PUT_REQUEST = "NAME_PUT_REQUEST";
+export const NAME_PUT_SUCCESS = "NAME_PUT_SUCCESS";
+export const NAME_PUT_FAILURE = "NAME_PUT_FAILURE";
 
 // 액션
 export const loginRequestAction = (data) => {
@@ -44,7 +53,12 @@ export const loadMyInfoRequestAction = () => {
     type: LOAD_MY_INFO_REQUEST,
   };
 };
-
+export const namePutRequestAction = (data) => {
+  return {
+    type: NAME_PUT_REQUEST,
+    data,
+  };
+};
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
@@ -99,6 +113,25 @@ const reducer = (state = initialState, action) => {
         draft.loadMyInfoLoading = false;
         draft.loadMyInfoError = action.error;
         break;
+
+      // 이름변경
+      case NAME_PUT_REQUEST:
+        draft.namePutLoading = true;
+        draft.namePutDone = false;
+        draft.namePutError = null;
+        break;
+
+      case NAME_PUT_SUCCESS:
+        draft.namePutLoading = false;
+        draft.namePutDone = true;
+        draft.principal.name = action.data.name;
+        break;
+
+      case NAME_PUT_FAILURE:
+        draft.namePutLoading = false;
+        draft.namePutError = action.error;
+        break;
+
       default:
         return state;
     }
