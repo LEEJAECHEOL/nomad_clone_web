@@ -3,14 +3,17 @@ import { push } from "connected-react-router";
 import axios from "axios";
 
 import {
+  // 커뮤니티 카테고리 가져오기
   CATEGORY_GET_FAILURE,
   CATEGORY_GET_REQUEST,
   CATEGORY_GET_SUCCESS,
+  // 커뮤니티 카테고리 등록하기
   CATEGORY_POST_FAILURE,
   CATEGORY_POST_REQUEST,
   CATEGORY_POST_SUCCESS,
 } from "../reducers/category";
 
+// 커뮤니티 카테고리 가져오기
 function categoryGetAPI() {
   return axios.get(`/category`);
 }
@@ -31,6 +34,7 @@ function* categoryGet() {
   }
 }
 
+// 커뮤니티 카테고리 등록하기
 function categoryPostAPI(data) {
   const config = {
     headers: {
@@ -59,6 +63,7 @@ function* categoryPost(action) {
   }
 }
 
+//
 function* watchCategoryGet() {
   yield takeLatest(CATEGORY_GET_REQUEST, categoryGet);
 }

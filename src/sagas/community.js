@@ -248,6 +248,7 @@ function* replyDelete(action) {
     });
   }
 }
+
 function loadPostsAPI(data) {
   return axios.get(
     `/community?sort=${data.sort}&categoryId=${data.categoryId}&page=${data.page}`
