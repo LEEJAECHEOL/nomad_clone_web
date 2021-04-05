@@ -30,6 +30,7 @@ import AdminTechList from "./pages/admin/tech/List";
 import AdminPayList from "./pages/admin/pay/List";
 import Enroll from "./pages/courses/Enroll";
 import AnchorTest from "./pages/test/AnchorTest";
+import FaqContent from "./pages/faq/FaqContent";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -88,7 +89,6 @@ const App = () => {
         <Route path="/enroll/:id" exact={true} component={Enroll} />
         <Route path="/admin/techList" exact={true} component={AdminTechList} />
         <Route path="/admin/pay/list" exact={true} component={AdminPayList} />
-        <Route path="/anchor" exact={true} component={AnchorTest} />
       </Switch>
     </>
   );

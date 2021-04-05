@@ -3,23 +3,38 @@ import { push } from "connected-react-router";
 import axios from "axios";
 
 import {
+  // FAQ 등록
   FAQ_POST_FAILURE,
   FAQ_POST_REQUEST,
   FAQ_POST_SUCCESS,
+
+  // FAQ 수정
   FAQ_UPDATE_FAILURE,
   FAQ_UPDATE_REQUEST,
   FAQ_UPDATE_SUCCESS,
+
+  // FAQ가져오기
   FAQ_GET_FAILURE,
   FAQ_GET_REQUEST,
   FAQ_GET_SUCCESS,
+
+  // FAQ한건 가져오기
   FAQ_ONE_GET_FAILURE,
   FAQ_ONE_GET_REQUEST,
   FAQ_ONE_GET_SUCCESS,
+
+  // FAQ 카테고리 등록
   FAQ_CATEGORY_POST_FAILURE,
   FAQ_CATEGORY_POST_REQUEST,
   FAQ_CATEGORY_POST_SUCCESS,
+
+  // FAQ 카테고리 가져오기
+  FAQ_CATEGORY_GET_FAILURE,
+  FAQ_CATEGORY_GET_REQUEST,
+  FAQ_CATEGORY_GET_SUCCESS,
 } from "../reducers/faq";
 
+// FAQ 수정하기
 function faqUpdateAPI(data) {
   const config = {
     headers: {
@@ -51,6 +66,7 @@ function* faqUpdate(action) {
   }
 }
 
+// FAQ 한건 가져오기
 function faqOneGetAPI(data) {
   return axios.get(`/faq/${data}`);
 }
@@ -71,6 +87,7 @@ function* faqOneGet(action) {
   }
 }
 
+// FAQ등록
 function faqPostAPI(data) {
   const config = {
     headers: {
@@ -99,7 +116,7 @@ function* faqPost(action) {
   }
 }
 
-// 겟요청
+// FAQ 가져오기
 function faqGetAPI() {
   return axios.get(`/faq/category`);
 }
@@ -120,6 +137,7 @@ function* faqGet() {
   }
 }
 
+// FAQ 카테고리 등록
 function faqCategoryPostAPI(data) {
   const config = {
     headers: {
@@ -148,6 +166,27 @@ function* faqCategoryPost(action) {
   }
 }
 
+// FAQ 카테고리 가져오기
+function faqCategoryGetAPI() {
+  return axios.get(`/faq/category`);
+}
+
+function* faqCategoryGet() {
+  try {
+    const result = yield call(faqCategoryGetAPI);
+    const data = result.data.data;
+    yield put({
+      type: FAQ_CATEGORY_GET_SUCCESS,
+      data: data,
+    });
+  } catch (err) {
+    yield put({
+      type: FAQ_CATEGORY_GET_FAILURE,
+      error: "로그인에 실패하였습니다.",
+    });
+  }
+}
+
 function* watchFaqPost() {
   yield takeLatest(FAQ_POST_REQUEST, faqPost);
 }
@@ -163,6 +202,10 @@ function* watchFaqOneGet() {
 function* watchFaqCategoryPost() {
   yield takeLatest(FAQ_CATEGORY_POST_REQUEST, faqCategoryPost);
 }
+function* watchFaqCategoryGet() {
+  yield takeLatest(FAQ_CATEGORY_GET_REQUEST, faqCategoryGet);
+}
+
 export default function* faqSaga() {
   yield all([
     fork(watchFaqPost),
@@ -170,5 +213,6 @@ export default function* faqSaga() {
     fork(watchFaqOneGet),
     fork(watchFaqUpdate),
     fork(watchFaqCategoryPost),
+    fork(watchFaqCategoryGet),
   ]);
 }
