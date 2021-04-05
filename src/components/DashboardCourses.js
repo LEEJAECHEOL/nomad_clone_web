@@ -56,23 +56,27 @@ const DashboardCourses = ({ match }) => {
         {userPayList !== null
           ? userPayList.map((list) => (
               <>
-                <Link to={`/video/${list.course.video.id}`}>
-                  <div>
-                    <img
-                      src={
-                        list.course !== null
-                          ? list.course.previewImage.url
-                          : null
-                      }
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h2>{list.course.title}</h2>
-                    <h3>{list.course.title}</h3>
-                    <p></p>
-                  </div>
-                </Link>
+                {list.course !== null ? (
+                  <>
+                    <Link to={`/video/${list.course.video.id}`}>
+                      <div>
+                        <img
+                          src={
+                            list.course !== null
+                              ? list.course.previewImage.url
+                              : null
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        <h2>{list.course.title}</h2>
+                        <h3>{list.course.title}</h3>
+                        <p></p>
+                      </div>
+                    </Link>
+                  </>
+                ) : null}
               </>
             ))
           : null}

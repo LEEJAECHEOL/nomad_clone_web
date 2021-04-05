@@ -8,7 +8,7 @@ const RefundedButton = ({ data }) => {
   const onClickRefunded = () => {
     console.log(data);
     const id = { payId: data.id };
-    // dispatch(refundedPutRequestAction(id));
+    dispatch(refundedPutRequestAction(id));
   };
   return (
     <>
