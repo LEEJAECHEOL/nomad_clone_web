@@ -42,8 +42,6 @@ const DashBoardPayment = ({ match }) => {
   const { userPayList } = useSelector((state) => state.pay);
   const [data, setData] = useState([]);
 
-  console.log("페이리스트는?", userPayList);
-
   useEffect(() => {
     dispatch(userPayGetRequestAction(match));
   }, []);
