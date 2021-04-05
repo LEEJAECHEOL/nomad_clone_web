@@ -6,8 +6,9 @@ import { refundedPutRequestAction } from "../reducers/pay";
 const RefundedButton = ({ data }) => {
   const dispatch = useDispatch();
   const onClickRefunded = () => {
+    console.log(data);
     const id = { payId: data.id };
-    dispatch(refundedPutRequestAction(id));
+    // dispatch(refundedPutRequestAction(id));
   };
   return (
     <>

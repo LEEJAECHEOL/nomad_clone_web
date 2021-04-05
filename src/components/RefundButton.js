@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Popconfirm } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { refundPutRequestAction } from "../reducers/pay";
@@ -14,7 +14,15 @@ const RefundButton = ({ data }) => {
     <>
       {data.status === "paid" ? (
         <>
-          <Button onClick={onClickRefund}>환불신청</Button>
+          <Popconfirm
+            placement="bottomLeft"
+            title="환불요청을 하시겠습니까?"
+            onConfirm={onClickRefund}
+            okText="환불신청"
+            cancelText="취소"
+          >
+            <Button>환불신청</Button>
+          </Popconfirm>
         </>
       ) : null}
     </>

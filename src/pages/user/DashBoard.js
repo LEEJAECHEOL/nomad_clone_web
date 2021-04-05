@@ -33,7 +33,6 @@ const Dashboard = ({ match }) => {
   const { techList } = useSelector((state) => state.admintech);
 
   useEffect(() => {
-    console.log("유즈이펙트 발동?");
     dispatch(techGetRequestAction());
   }, []);
 
