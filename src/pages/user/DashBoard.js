@@ -37,8 +37,6 @@ const Dashboard = ({ match }) => {
     dispatch(techGetRequestAction());
   }, []);
 
-  console.log(techList);
-
   return (
     <>
       <AppLayout>

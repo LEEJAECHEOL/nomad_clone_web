@@ -73,7 +73,7 @@ function* techGet() {
 // 태크 삭제
 function techDeleteAPI(data) {
   JSON.stringify(data);
-  return axios.delete(`/tech/${data}`);
+  return axios.delete(`/admin/tech/${data}`);
 }
 
 function* techDelete(action) {
