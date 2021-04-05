@@ -79,15 +79,12 @@ function* payPost(action) {
 
 // 강의결제체크
 function payCheckPostAPI(data) {
-  console.log("강의체크 들어오나요?", data);
-
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
   const id = { courseId: data };
-  console.log(id);
   return axios.post(`/pay/check`, JSON.stringify(id), config);
 }
 
@@ -155,7 +152,6 @@ function refundPutAPI(data) {
       "Content-Type": "application/json; charset=utf-8",
     },
   };
-  console.log("환불데이터는?", data);
   return axios.put("/pay/refund", JSON.stringify(data), config);
 }
 
@@ -183,7 +179,6 @@ function refundedPutAPI(data) {
       "Content-Type": "application/json; charset=utf-8",
     },
   };
-  console.log("환불데이터는?", data);
   return axios.put("/pay/refunded", JSON.stringify(data), config);
 }
 

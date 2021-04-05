@@ -7,6 +7,7 @@ import {
   VIDEO_GET_REQUEST,
   VIDEO_GET_SUCCESS,
 } from "../reducers/video";
+import { push } from "connected-react-router";
 
 // 비디오 가져오기
 function videoGetAPI(data) {
@@ -31,6 +32,11 @@ function* videoGet(action) {
       type: VIDEO_GET_FAILURE,
       error: "로그인에 실패하였습니다.",
     });
+
+    if (err.response.status === 400) {
+      alert(err.response.data);
+      yield put(push("/"));
+    }
   }
 }
 

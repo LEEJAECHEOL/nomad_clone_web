@@ -29,7 +29,6 @@ function* logIn(action) {
       data: data,
     });
   } catch (err) {
-    console.log("err" + err);
     yield put({
       type: LOG_IN_FAILURE,
       error: "로그인에 실패하였습니다.",
@@ -98,6 +97,10 @@ function* namePut(action) {
       type: NAME_PUT_FAILURE,
       error: "이름 업데이트에 실패하였습니다.",
     });
+    if (err.response.status === 400) {
+      alert(err.response.data);
+      yield put(push("/"));
+    }
   }
 }
 

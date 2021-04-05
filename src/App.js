@@ -29,8 +29,6 @@ import Purchase from "./pages/courses/Purchase";
 import AdminTechList from "./pages/admin/tech/List";
 import AdminPayList from "./pages/admin/pay/List";
 import Enroll from "./pages/courses/Enroll";
-import AnchorTest from "./pages/test/AnchorTest";
-import FaqContent from "./pages/faq/FaqContent";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -42,17 +40,11 @@ const App = () => {
   }, [pathname]);
   // 새로고침 시 유저 인포 다시 가져오기
   useEffect(() => {
-    if (localStorage.getItem("nomadToken")) {
-      dispatch(loadMyInfoRequestAction());
-    }
+    // if (localStorage.getItem("nomadToken")) {
+    dispatch(loadMyInfoRequestAction());
+    // }
   }, []);
 
-  useEffect(() => {
-    if (loadMyInfoError) {
-      alert(loadMyInfoError.message);
-      dispatch(logoutRequestAction());
-    }
-  }, [loadMyInfoError]);
   return (
     <>
       <Switch>

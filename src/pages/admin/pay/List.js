@@ -7,9 +7,13 @@ import RefundedButton from "../../../components/RefundedButton";
 import { useLocation } from "react-router";
 const List = ({ history }) => {
   const { pathname } = useLocation();
-  const { principal, logInDone } = useSelector((state) => state.user);
+  const { principal, logInDone, loadMyInfoDone } = useSelector(
+    (state) => state.user
+  );
 
   useEffect(() => {
+    console.log(logInDone);
+    console.log(loadMyInfoDone);
     if (logInDone) {
       if (principal === null) {
         alert("로그인 후 이용이 가능합니다.");
@@ -54,6 +58,7 @@ const List = ({ history }) => {
   const dispatch = useDispatch();
   const { payList } = useSelector((state) => state.pay);
   const [data, setData] = useState([]);
+  console.log(payList);
 
   useEffect(() => {
     dispatch(payGetRequestAction());

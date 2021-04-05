@@ -84,6 +84,11 @@ function* faqOneGet(action) {
       type: FAQ_ONE_GET_FAILURE,
       error: "로그인에 실패하였습니다.",
     });
+
+    if (err.response.status === 400) {
+      alert(err.response.data);
+      yield put(push("/faq"));
+    }
   }
 }
 
