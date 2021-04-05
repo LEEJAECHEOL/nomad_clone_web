@@ -55,12 +55,30 @@ const Write = () => {
             Checkbox
           </Checkbox>
           {/* 인풋박스 */}
-          <Form.Item name="title">
+          <Form.Item
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: "Please Input Title!!",
+                type: "string",
+              },
+            ]}
+          >
             <Input placeholder="제목 쓰기" />
           </Form.Item>
 
           {/* 셀렉터 */}
-          <Form.Item name="categoryId">
+          <Form.Item
+            name="categoryId"
+            rules={[
+              {
+                required: true,
+                message: "Please Input categoryId!!",
+                type: "number",
+              },
+            ]}
+          >
             <Select name="categoryId" placeholder="카테고리 고르기">
               {categoryList.map((list) => (
                 <>

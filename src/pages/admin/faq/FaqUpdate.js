@@ -74,7 +74,16 @@ export default function FaqUpdate({ match, history }) {
         <AdminFaqContainer>
           <WriteForm form={form} onFinish={onSubmit}>
             {/* 인풋박스 */}
-            <Form.Item name="title">
+            <Form.Item
+              name="title"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Input Title!!",
+                  type: "string",
+                },
+              ]}
+            >
               <Input placeholder="제목 쓰기" />
             </Form.Item>
 

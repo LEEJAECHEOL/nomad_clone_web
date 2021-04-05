@@ -42,7 +42,13 @@ const CategoryBtn = memo(({ action, done, loading }) => {
           <Form.Item
             label="카테고리 명"
             name="title"
-            rules={[{ required: true, message: "카테고리명을 입력해주세요." }]}
+            rules={[
+              {
+                required: true,
+                message: "카테고리명을 입력해주세요.",
+                type: "string",
+              },
+            ]}
           >
             <Input />
           </Form.Item>

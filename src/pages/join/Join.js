@@ -48,6 +48,7 @@ const Join = () => {
                 {
                   required: true,
                   message: "Please input your username!",
+                  type: "string",
                 },
               ]}
             >
@@ -61,6 +62,7 @@ const Join = () => {
                 {
                   required: true,
                   message: "Please input your email!",
+                  type: "string",
                 },
               ]}
             >
@@ -74,6 +76,7 @@ const Join = () => {
                 {
                   required: true,
                   message: "Please input your password!",
+                  type: "string",
                 },
               ]}
               hasFeedback
@@ -90,6 +93,7 @@ const Join = () => {
                 {
                   required: true,
                   message: "Please confirm your password!",
+                  type: "string",
                 },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
