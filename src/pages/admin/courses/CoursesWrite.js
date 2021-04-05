@@ -34,9 +34,9 @@ const CoursesDetail = memo(({ history }) => {
   const { videoList } = useSelector((state) => state.adminVideo);
   const { techList } = useSelector((state) => state.admintech);
 
-  const { principal, logInDone } = useSelector((state) => state.user);
+  const { principal, loadMyInfoExcution } = useSelector((state) => state.user);
   useEffect(() => {
-    if (logInDone) {
+    if (loadMyInfoExcution) {
       if (principal === null) {
         alert("로그인 후 이용이 가능합니다.");
         history.push("/login");
@@ -49,7 +49,7 @@ const CoursesDetail = memo(({ history }) => {
         }
       }
     }
-  }, [pathname, history, principal, logInDone]);
+  }, [pathname, loadMyInfoExcution]);
 
   useEffect(() => {
     dispatch(videoAllGetRequestAction());

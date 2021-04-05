@@ -15,6 +15,7 @@ import {
   COURSES_FILTER_GET_REQUEST,
   COURSES_FILTER_GET_SUCCESS,
 } from "../reducers/courses";
+import { push } from "connected-react-router";
 
 function coursesGetAPI() {
   return axios.get(`/courses`);
@@ -73,6 +74,11 @@ function* coursesOneGet(action) {
       type: COURSES_ONE_GET_FAILURE,
       error: "로그인에 실패하였습니다.",
     });
+
+    if (err.response.status === 400) {
+      alert(err.response.data);
+      yield put(push("/courses"));
+    }
   }
 }
 function coursesFilterGetAPI(data) {

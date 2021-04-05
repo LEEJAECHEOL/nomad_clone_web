@@ -31,9 +31,9 @@ export default function FaqUpdate({ match, history }) {
   const config = {
     extraPlugins: [CustomUploadAdapterPlugin],
   };
-  const { principal, logInDone } = useSelector((state) => state.user);
+  const { principal, loadMyInfoExcution } = useSelector((state) => state.user);
   useEffect(() => {
-    if (logInDone) {
+    if (loadMyInfoExcution) {
       if (principal === null) {
         alert("로그인 후 이용이 가능합니다.");
         history.push("/login");
@@ -46,7 +46,7 @@ export default function FaqUpdate({ match, history }) {
         }
       }
     }
-  }, [pathname, history, principal, logInDone]);
+  }, [pathname, loadMyInfoExcution]);
   useEffect(() => {
     dispatch(faqOneGetRequestAction(faqId));
     dispatch(faqGetRequestAction());

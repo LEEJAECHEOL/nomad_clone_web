@@ -5,9 +5,12 @@ export const initialState = {
   logInLoading: false,
   logInDone: false,
   logInError: null,
+
   loadMyInfoLoading: false,
-  loadMyInfoDone: false,
+  loadMyInfoExcution: false,
+  loadMyInfo: false,
   loadMyInfoError: null,
+
   logOutLoading: false,
   logOutDone: false,
   logOutError: null,
@@ -99,18 +102,21 @@ const reducer = (state = initialState, action) => {
 
       case LOAD_MY_INFO_REQUEST:
         draft.loadMyInfoLoading = true;
+        draft.loadMyInfoExcution = false;
         draft.loadMyInfoDone = false;
         draft.loadMyInfoError = null;
         break;
 
       case LOAD_MY_INFO_SUCCESS:
         draft.loadMyInfoLoading = false;
+        draft.loadMyInfoExcution = true;
         draft.loadMyInfoDone = true;
         draft.principal = action.data;
         break;
 
       case LOAD_MY_INFO_FAILURE:
         draft.loadMyInfoLoading = false;
+        draft.loadMyInfoExcution = true;
         draft.loadMyInfoError = action.error;
         break;
 

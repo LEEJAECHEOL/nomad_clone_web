@@ -190,7 +190,6 @@ function* communityOneGet(action) {
   try {
     const result = yield call(communityOneGetAPI, action.data);
     const data = result.data.data;
-    console.log("사가쪽 데이터는?", data);
     yield put({
       type: COMMUNITY_ONE_GET_SUCCESS,
       data: data,
@@ -200,6 +199,10 @@ function* communityOneGet(action) {
       type: COMMUNITY_ONE_GET_FAILURE,
       error: "로그인에 실패하였습니다.",
     });
+    if (err.response.status === 400) {
+      alert(err.response.data);
+      yield put(push("/community"));
+    }
   }
 }
 
@@ -246,6 +249,10 @@ function* replyDelete(action) {
       type: REPLY_DELETE_FAILURE,
       error: "댓글삭제에 실패하였습니다.",
     });
+
+    if (err.response.status === 400) {
+      alert(err.response.data);
+    }
   }
 }
 
