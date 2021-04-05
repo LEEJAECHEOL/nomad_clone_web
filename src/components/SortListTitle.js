@@ -64,7 +64,13 @@ const SortListTitle = memo(({ index, text }) => {
           <Form.Item
             label="제목"
             name="title"
-            rules={[{ required: true, message: "제목을 입력해주세요." }]}
+            rules={[
+              {
+                required: true,
+                message: "제목을 입력해주세요.",
+                type: "string",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
