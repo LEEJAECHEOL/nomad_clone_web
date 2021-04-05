@@ -22,6 +22,7 @@ function callback(key) {
 }
 
 const Dashboard = ({ match }) => {
+  const { principal } = useSelector((state) => state.user);
   const data = match.params.id;
   const dispatch = useDispatch();
 
@@ -72,9 +73,20 @@ const Dashboard = ({ match }) => {
                   </div>
                 </div>
                 <ProfileButtonBox>
-                  <Link to={`/editProfile/${data}`} className="btn-blue">
-                    Edit profile
-                  </Link>
+                  {principal !== null ? (
+                    <>
+                      {principal.id === dashBoardItem.id ? (
+                        <>
+                          <Link
+                            to={`/editProfile/${data}`}
+                            className="btn-blue"
+                          >
+                            Edit profile
+                          </Link>
+                        </>
+                      ) : null}
+                    </>
+                  ) : null}
                 </ProfileButtonBox>
               </div>
             </div>
@@ -105,14 +117,22 @@ const Dashboard = ({ match }) => {
               <p className="BadgeContent">BadgeSystem is not implemented</p>
             </div>
           </DashBoardBox>
-          <DashBoardTabs defaultActiveKey="1" onChange={callback}>
-            <TabPane tab="My Courses" key="1">
-              <DashboardCourses match={data} />
-            </TabPane>
-            <TabPane tab="My Payment History" key="2">
-              <DashBoardPayment match={data} />
-            </TabPane>
-          </DashBoardTabs>
+          {principal !== null ? (
+            <>
+              {principal.id === dashBoardItem.id ? (
+                <>
+                  <DashBoardTabs defaultActiveKey="1" onChange={callback}>
+                    <TabPane tab="My Courses" key="1">
+                      <DashboardCourses match={data} />
+                    </TabPane>
+                    <TabPane tab="My Payment History" key="2">
+                      <DashBoardPayment match={data} />
+                    </TabPane>
+                  </DashBoardTabs>
+                </>
+              ) : null}
+            </>
+          ) : null}
         </DashBoardContainer>
       </AppLayout>
     </>

@@ -103,9 +103,6 @@ export default function EditProfile({ match }) {
                 onFinish={onSubmitName}
               >
                 <AccountInputBox>
-                  {/* <Form.Item label="Username" name="username">
-                    <Input disabled />
-                  </Form.Item> */}
                   <EmailInputBox>
                     <input
                       type="text"
@@ -118,7 +115,17 @@ export default function EditProfile({ match }) {
                       <Input type="hidden" />
                     </Form.Item>
                   </EmailInputBox>
-                  <Form.Item label="Name" name="name">
+                  <Form.Item
+                    label="Name"
+                    name="name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please Input name!!",
+                        type: "string",
+                      },
+                    ]}
+                  >
                     <Input />
                   </Form.Item>
                 </AccountInputBox>
@@ -182,23 +189,6 @@ export default function EditProfile({ match }) {
               </Form>
             </AccountInfromationColInput>
           </AccountInfromation>
-          {/* 딜리트어카운트 */}
-          {/* <AccountInfromation>
-            <DeleteAccountCol span={8}>
-              <h2>Delete Account</h2>
-            </DeleteAccountCol>
-            <AccountInfromationColInput span={16}>
-              <Form className="ant-form-vertical">
-                <EmailInputBox>
-                  <p>This is a permanent action and it can't be undone.</p>
-                  <p>
-                    After you delete your account no one will be able to recover
-                    it.
-                  </p>
-                </EmailInputBox>
-              </Form>
-            </AccountInfromationColInput>
-          </AccountInfromation> */}
         </EditProfileContainer>
       </AppLayout>
     </>

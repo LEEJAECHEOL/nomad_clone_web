@@ -68,11 +68,29 @@ const FaqWrite = ({ history }) => {
               </Select>
             </Form.Item>
 
-            <Form.Item name="title">
+            <Form.Item
+              name="title"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Input Title!!",
+                  type: "string",
+                },
+              ]}
+            >
               <Input placeholder="제목" />
             </Form.Item>
 
-            <Form.Item name="content">
+            <Form.Item
+              name="content"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Input Content!!",
+                  type: "string",
+                },
+              ]}
+            >
               <WriteEditor
                 config={config}
                 editor={ClassicEditor}

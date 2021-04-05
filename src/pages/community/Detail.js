@@ -175,7 +175,16 @@ const CommunityDetail = ({ match }) => {
               </CommunityDetailItem>
               {/* 여기 댓글 작성 폼 */}
               <ReplyInputForm onFinish={onSubmit} form={form}>
-                <Form.Item name="content">
+                <Form.Item
+                  name="content"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please Input content!!",
+                      type: "string",
+                    },
+                  ]}
+                >
                   <Input.TextArea />
                 </Form.Item>
                 <Form.Item>

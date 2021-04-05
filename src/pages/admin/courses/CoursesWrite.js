@@ -95,7 +95,13 @@ const CoursesDetail = memo(({ history }) => {
             <BasicCard title="Input Title!!" bordered={false}>
               <Form.Item
                 name="title"
-                // rules={[{ required: true, message: "Please Input Title!!" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Input Title!!",
+                    type: "string",
+                  },
+                ]}
               >
                 <ColorInput
                   placeholder="Input Title!!"
@@ -108,7 +114,13 @@ const CoursesDetail = memo(({ history }) => {
             <BasicCard title="Input Sub Title!!" bordered={false}>
               <Form.Item
                 name="subTitle"
-                // rules={[{ required: true, message: "Please Input SubTitle!!" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Input SubTitle!!",
+                    type: "string",
+                  },
+                ]}
               >
                 <ColorInput
                   placeholder="Input Sub Title!!"
@@ -121,7 +133,13 @@ const CoursesDetail = memo(({ history }) => {
             <BasicCard title="Select Level!!" bordered={false}>
               <Form.Item
                 name="level"
-                // rules={[{ required: true, message: "Please select Level!!" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select Level!!",
+                    type: "string",
+                  },
+                ]}
               >
                 <Select placeholder="선택" style={{ width: 120 }}>
                   <Option value="초급">초급</Option>
@@ -161,7 +179,16 @@ const CoursesDetail = memo(({ history }) => {
               <Col flex="1 1 200px">
                 <MyCard3>
                   <div>
-                    <Form.Item name={["videoInfo", "count"]}>
+                    <Form.Item
+                      name={["videoInfo", "count"]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please select count",
+                          type: "string",
+                        },
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                     <div>개</div>
@@ -172,7 +199,16 @@ const CoursesDetail = memo(({ history }) => {
               <Col flex="1 1 200px">
                 <MyCard3>
                   <div>
-                    <Form.Item name={["videoInfo", "totalMinute"]}>
+                    <Form.Item
+                      name={["videoInfo", "totalMinute"]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please select totalMinute",
+                          type: "string",
+                        },
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                     <div>분</div>
@@ -202,6 +238,13 @@ const CoursesDetail = memo(({ history }) => {
                               {...field}
                               name={[field.name, "title"]}
                               fieldKey={[field.fieldKey, "title"]}
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Please select title",
+                                  type: "string",
+                                },
+                              ]}
                             >
                               <Input placeholder="Input Title" />
                             </Form.Item>
@@ -211,6 +254,13 @@ const CoursesDetail = memo(({ history }) => {
                               {...field}
                               name={[field.name, "content"]}
                               fieldKey={[field.fieldKey, "content"]}
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Please select content",
+                                  type: "string",
+                                },
+                              ]}
                             >
                               <TextArea placeholder="Input Content" />
                             </Form.Item>
@@ -254,7 +304,13 @@ const CoursesDetail = memo(({ history }) => {
                           {...field}
                           name={[field.name, "content"]}
                           fieldKey={[field.fieldKey, "content"]}
-                          rules={[{ required: true, message: "Input Content" }]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Input Content",
+                              type: "string",
+                            },
+                          ]}
                         >
                           <Input placeholder="Input Content" />
                         </Form.Item>
@@ -291,7 +347,11 @@ const CoursesDetail = memo(({ history }) => {
                                 name={[field.name, "content"]}
                                 fieldKey={[field.fieldKey, "content"]}
                                 rules={[
-                                  { required: true, message: "Input Content" },
+                                  {
+                                    required: true,
+                                    message: "Input Content",
+                                    type: "string",
+                                  },
                                 ]}
                               >
                                 <Input placeholder="Input Content" />
@@ -316,13 +376,42 @@ const CoursesDetail = memo(({ history }) => {
                 </Col>
                 <Col flex="1 1 400px">
                   <BasicCard title="Learn Function" bordered={false}>
-                    <Form.Item label="name" name={["skill", "name"]}>
+                    <Form.Item
+                      label="name"
+                      name={["skill", "name"]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Input Name",
+                          type: "string",
+                        },
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
-                    <Form.Item label="section" name={["skill", "section"]}>
+                    <Form.Item
+                      label="section"
+                      name={["skill", "section"]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Input Section",
+                          type: "string",
+                        },
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
-                    <Form.List name={["skill", "package"]}>
+                    <Form.List
+                      name={["skill", "package"]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Input Package",
+                          type: "string",
+                        },
+                      ]}
+                    >
                       {(fields, { add, remove }) => (
                         <>
                           {fields.map((field) => (
@@ -370,7 +459,13 @@ const CoursesDetail = memo(({ history }) => {
                           {...field}
                           name={[field.name, "content"]}
                           fieldKey={[field.fieldKey, "content"]}
-                          rules={[{ required: true, message: "Input Content" }]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Input Content",
+                              type: "content",
+                            },
+                          ]}
                         >
                           <Input placeholder="Input Content" />
                         </Form.Item>
@@ -414,7 +509,13 @@ const CoursesDetail = memo(({ history }) => {
             <BasicCard title="Price" bordered={false}>
               <Form.Item
                 name="price"
-                // rules={[{ required: true, message: "Please Input Title!!" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Input Title!!",
+                    type: "string",
+                  },
+                ]}
               >
                 <Input
                   placeholder="Input Price"
