@@ -16,13 +16,8 @@ import {
 import ReactHtmlParser from "react-html-parser";
 import AppLayout from "../../components/AppLayout";
 import { Link } from "react-router-dom";
-import FaqSelector from "./FaqSelector";
-import FaqContent from "./FaqContent";
 
 const { SubMenu } = Menu;
-
-// submenu keys of first level
-const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
 const FaqDetail = ({ match }) => {
   // 아이디값
@@ -48,7 +43,6 @@ const FaqDetail = ({ match }) => {
     dispatch(faqOneGetRequestAction(id));
   };
 
-  console.log("카테고리 리스트는?", faqCategoryList);
   return (
     <>
       <AppLayout>
