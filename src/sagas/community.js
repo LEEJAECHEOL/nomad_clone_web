@@ -8,6 +8,11 @@ import {
   COMMUNITY_POST_REQUEST,
   COMMUNITY_POST_SUCCESS,
 
+  // 글삭제
+  COMMUNITY_DELETE_FAILURE,
+  COMMUNITY_DELETE_REQUEST,
+  COMMUNITY_DELETE_SUCCESS,
+
   // 게시글좋아요
   COMMUNITY_LIKE_POST_FAILURE,
   COMMUNITY_LIKE_POST_REQUEST,
@@ -256,6 +261,31 @@ function* replyDelete(action) {
   }
 }
 
+// 글삭제
+function communityDeleteAPI(data) {
+  return axios.delete(`/community/${data}`);
+}
+
+function* communityDelete(action) {
+  try {
+    yield call(communityDeleteAPI, action.data);
+    yield put({
+      type: COMMUNITY_DELETE_SUCCESS,
+      data: action.data,
+    });
+    yield put(push("/community"));
+  } catch (err) {
+    yield put({
+      type: COMMUNITY_DELETE_FAILURE,
+      error: "게시글삭제에 실패하였습니다.",
+    });
+
+    if (err.response.status === 400) {
+      alert(err.response.data);
+    }
+  }
+}
+
 function loadPostsAPI(data) {
   return axios.get(
     `/community?sort=${data.sort}&categoryId=${data.categoryId}&page=${data.page}`
@@ -293,6 +323,10 @@ function* watchCommunityPost() {
   yield takeLatest(COMMUNITY_POST_REQUEST, communityPost);
 }
 
+function* watchCommunityDelete() {
+  yield takeLatest(COMMUNITY_DELETE_REQUEST, communityDelete);
+}
+
 function* watchCommunityLikePost() {
   yield takeLatest(COMMUNITY_LIKE_POST_REQUEST, communityLikePost);
 }
@@ -324,5 +358,6 @@ export default function* communitySaga() {
     fork(watchCommunityLikePost),
     fork(watchLoadPosts),
     fork(watchCommunityDetailLikePost),
+    fork(watchCommunityDelete),
   ]);
 }

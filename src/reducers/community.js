@@ -11,6 +11,10 @@ export const initialState = {
   communityPostDone: false,
   communityPostError: null,
 
+  communityDeleteLoading: false,
+  communityDeleteDone: false,
+  communityDeleteError: null,
+
   communityLikePostLoading: false,
   communityLikePostDone: false,
   communityLikePostError: null,
@@ -63,6 +67,10 @@ export const COMMUNITY_GET_REQUEST = "COMMUNITY_GET_REQUEST";
 export const COMMUNITY_GET_SUCCESS = "COMMUNITY_GET_SUCCESS";
 export const COMMUNITY_GET_FAILURE = "COMMUNITY_GET_FAILURE";
 
+export const COMMUNITY_DELETE_REQUEST = "COMMUNITY_DELETE_REQUEST";
+export const COMMUNITY_DELETE_SUCCESS = "COMMUNITY_DELETE_SUCCESS";
+export const COMMUNITY_DELETE_FAILURE = "COMMUNITY_DELETE_FAILURE";
+
 export const COMMUNITY_ONE_GET_REQUEST = "COMMUNITY_ONE_GET_REQUEST";
 export const COMMUNITY_ONE_GET_SUCCESS = "COMMUNITY_ONE_GET_SUCCESS";
 export const COMMUNITY_ONE_GET_FAILURE = "COMMUNITY_ONE_GET_FAILURE";
@@ -98,6 +106,14 @@ export const replyPostRequestAction = (data) => {
 export const replyDeleteRequestAction = (data) => {
   return {
     type: REPLY_DELETE_REQUEST,
+    data,
+  };
+};
+
+// 게시글삭제
+export const communityDeleteRequestAction = (data) => {
+  return {
+    type: COMMUNITY_DELETE_REQUEST,
     data,
   };
 };
@@ -312,6 +328,23 @@ const reducer = (state = initialState, action) => {
       case REPLY_DELETE_FAILURE:
         draft.replyDeleteLoading = false;
         draft.replyDeleteError = action.error;
+        break;
+
+      // 게시글 삭제
+      case COMMUNITY_DELETE_REQUEST:
+        draft.communityDeleteLoading = true;
+        draft.communityDeleteDone = false;
+        draft.communityDeleteError = null;
+        break;
+
+      case COMMUNITY_DELETE_SUCCESS:
+        draft.communityDeleteLoading = false;
+        draft.communityDeleteDone = true;
+        break;
+
+      case COMMUNITY_DELETE_FAILURE:
+        draft.communityDeleteLoading = false;
+        draft.communityDeleteError = action.error;
         break;
 
       case LOAD_POSTS_REQUEST:
