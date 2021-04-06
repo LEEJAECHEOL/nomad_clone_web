@@ -29,7 +29,10 @@ import LikeButton from "../../components/LikeButton";
 import DetailLikeButton from "../../components/adminCourses/DetailLikeButton";
 
 const CommunityDetail = ({ match }) => {
+  const { principal } = useSelector((state) => state.user);
+  console.log("프린시퍼정보", principal);
   const { communityItem } = useSelector((state) => state.community);
+  console.log("커뮤니티아이템 정보", communityItem);
   const { replyPostLoading } = useSelector((state) => state.community);
   const [form] = useForm();
 
