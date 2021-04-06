@@ -12,6 +12,7 @@ import {
   DetailContent,
   CommunityReplyCounter,
   ReplyInputForm,
+  DeleteCommunity,
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -25,8 +26,8 @@ import { Input } from "antd";
 import { timeForToday } from "../../util/Script";
 import AppLayout from "../../components/AppLayout";
 import { useForm } from "antd/lib/form/Form";
-import LikeButton from "../../components/LikeButton";
 import DetailLikeButton from "../../components/adminCourses/DetailLikeButton";
+import ComDeleteButton from "../../components/ComDeleteButton";
 
 const CommunityDetail = ({ match }) => {
   const { principal } = useSelector((state) => state.user);
@@ -176,6 +177,23 @@ const CommunityDetail = ({ match }) => {
                   </p>
                 </DetailContent>
               </CommunityDetailItem>
+              {/* 글삭제 버튼 */}
+              {communityItem !== null ? (
+                <>
+                  {principal !== null ? (
+                    <>
+                      {communityItem.community.user.id === principal.id ? (
+                        <>
+                          <DeleteCommunity>
+                            <ComDeleteButton data={communityItem.id} />
+                          </DeleteCommunity>
+                        </>
+                      ) : null}
+                    </>
+                  ) : null}
+                </>
+              ) : null}
+
               {/* 여기 댓글 작성 폼 */}
               <ReplyInputForm onFinish={onSubmit} form={form}>
                 <Form.Item
@@ -200,6 +218,7 @@ const CommunityDetail = ({ match }) => {
                   </Button>
                 </Form.Item>
               </ReplyInputForm>
+
               {/* 여기 영역에  댓글박스*/}
               <CommunityReplyBoxContainer>
                 <CommunityReplyCounter>

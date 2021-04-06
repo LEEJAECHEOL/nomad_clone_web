@@ -309,3 +309,7 @@ export const SortMenu = styled(Menu)`
     border-bottom: none;
   }
 `;
+export const DeleteCommunity = styled.div`
+  width: 100%;
+  text-align: right;
+`;
