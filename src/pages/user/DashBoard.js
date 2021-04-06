@@ -73,14 +73,18 @@ const Dashboard = ({ match }) => {
                 <ProfileButtonBox>
                   {principal !== null ? (
                     <>
-                      {principal.id === dashBoardItem.id ? (
+                      {dashBoardItem !== null ? (
                         <>
-                          <Link
-                            to={`/editProfile/${data}`}
-                            className="btn-blue"
-                          >
-                            Edit profile
-                          </Link>
+                          {principal.id === dashBoardItem.id ? (
+                            <>
+                              <Link
+                                to={`/editProfile/${data}`}
+                                className="btn-blue"
+                              >
+                                Edit profile
+                              </Link>
+                            </>
+                          ) : null}
                         </>
                       ) : null}
                     </>
@@ -117,16 +121,20 @@ const Dashboard = ({ match }) => {
           </DashBoardBox>
           {principal !== null ? (
             <>
-              {principal.id === dashBoardItem.id ? (
+              {dashBoardItem !== null ? (
                 <>
-                  <DashBoardTabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="My Courses" key="1">
-                      <DashboardCourses match={data} />
-                    </TabPane>
-                    <TabPane tab="My Payment History" key="2">
-                      <DashBoardPayment match={data} />
-                    </TabPane>
-                  </DashBoardTabs>
+                  {principal.id === dashBoardItem.id ? (
+                    <>
+                      <DashBoardTabs defaultActiveKey="1" onChange={callback}>
+                        <TabPane tab="My Courses" key="1">
+                          <DashboardCourses match={data} />
+                        </TabPane>
+                        <TabPane tab="My Payment History" key="2">
+                          <DashBoardPayment match={data} />
+                        </TabPane>
+                      </DashBoardTabs>
+                    </>
+                  ) : null}
                 </>
               ) : null}
             </>

@@ -16,6 +16,7 @@ export const CoursesFilter = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 50px;
   div.Filter-left {
     flex: 1;
     min-width: 483px;
@@ -241,7 +242,7 @@ export const SimpleInfo = styled.div`
       max-width: 192px;
       height: 192px;
       border-radius: 20px;
-      margin-right: 20px;
+      margin-left: 20px;
     }
     div {
       flex: 2;

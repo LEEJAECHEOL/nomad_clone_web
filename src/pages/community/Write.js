@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { communityPostRequestAction } from "../../reducers/community";
 import AppLayout from "../../components/AppLayout";
 import { categoryGetRequestAction } from "../../reducers/category";
-import Checkbox from "antd/lib/checkbox/Checkbox";
 import UploadAdapter from "../../api/UploadAdapter";
 
 const URL = "/upload";
@@ -37,9 +36,6 @@ const Write = () => {
     dispatch(communityPostRequestAction(data));
   };
 
-  function onChange(e) {
-    console.log(`checked = ${e.target.checked}`);
-  }
   const { communityPostLoading } = useSelector((state) => state.community);
 
   return (
@@ -51,9 +47,6 @@ const Write = () => {
 
         {/* Form */}
         <WriteForm onFinish={onSubmit}>
-          <Checkbox onChange={onChange} name="admin">
-            Checkbox
-          </Checkbox>
           {/* 인풋박스 */}
           <Form.Item
             name="title"
