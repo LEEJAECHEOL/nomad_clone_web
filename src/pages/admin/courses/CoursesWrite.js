@@ -408,7 +408,7 @@ const CoursesDetail = memo(({ history }) => {
                         {
                           required: true,
                           message: "Input Package",
-                          type: "string",
+                          type: "array",
                         },
                       ]}
                     >
