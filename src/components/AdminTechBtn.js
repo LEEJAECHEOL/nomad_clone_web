@@ -26,7 +26,7 @@ const AdminTechBtn = () => {
     setIsModalVisible(false);
     setFileList(null);
     form.setFieldsValue({ file: null, title: "", isFilter: false });
-    document.querySelector(".ant-upload-list").innerText = "";
+    // document.querySelector(".ant-upload-list").innerText = "";
   }, [form]);
 
   const handleBefore = useCallback((file) => {

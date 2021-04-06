@@ -74,7 +74,8 @@ const reducer = (state = initialState, action) => {
       case TECH_POST_SUCCESS:
         draft.techPostLoading = false;
         draft.techPostDone = true;
-        draft.techList.push(action.data);
+        console.log("액션데이터는?", action.data);
+        draft.techList = draft.techList.concat(action.data);
         break;
 
       case TECH_POST_FAILURE:

@@ -72,8 +72,12 @@ function* techGet() {
 
 // 태크 삭제
 function techDeleteAPI(data) {
-  JSON.stringify(data);
-  return axios.delete(`/admin/tech/${data}`);
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("nomadToken"),
+    },
+  };
+  return axios.delete(`/admin/tech/${data}`, config);
 }
 
 function* techDelete(action) {

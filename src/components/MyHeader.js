@@ -22,7 +22,7 @@ const MyHeader = memo(() => {
                 <Link to="/">
                   <img
                     className="logo"
-                    src="http://localhost:3000/images/m.svg"
+                    src="http://localhost:3100/images/m.svg"
                     alt="logo"
                   />
                 </Link>
