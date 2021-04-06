@@ -30,6 +30,7 @@ import AdminTechList from "./pages/admin/tech/List";
 import AdminPayList from "./pages/admin/pay/List";
 import Enroll from "./pages/courses/Enroll";
 import AndroidVimeo from "./pages/test/AndroidVimeo";
+import ChannelService from "./api/ChannelService";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -45,7 +46,9 @@ const App = () => {
     dispatch(loadMyInfoRequestAction());
     // }
   }, []);
-
+  ChannelService.boot({
+    pluginKey: "2f146489-45bb-46cc-a6d6-74aa3b8b77be", //please fill with your plugin key
+  });
   return (
     <>
       <Switch>
