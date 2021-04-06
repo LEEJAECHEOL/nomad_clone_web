@@ -63,6 +63,7 @@ const FolderDetail = ({ match, history }) => {
     dispatch(videoPutRequestAction(videoContent));
   }, [dispatch, videoContent]);
 
+  console.log("비디오컨텐트", videoContent);
   return (
     <>
       <AppLayout>

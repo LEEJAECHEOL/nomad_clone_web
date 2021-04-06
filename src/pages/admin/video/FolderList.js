@@ -56,6 +56,7 @@ const FolderList = ({ history }) => {
       handleCancel();
     }
   }, [videoPostDone, handleCancel]);
+
   return (
     <>
       <AppLayout>

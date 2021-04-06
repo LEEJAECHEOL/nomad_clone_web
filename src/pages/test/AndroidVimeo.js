@@ -6,7 +6,6 @@ const AndroidVideoCotainer = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
   iframe {
     width: 1000px;
     height: 500px;
@@ -14,7 +13,8 @@ const AndroidVideoCotainer = styled.div`
 `;
 
 const AndroidVimeo = ({ match }) => {
-  const id = match.prams.id;
+  console.log("매치는?", match);
+  const id = match.params.id;
   return (
     <>
       <AndroidVideoCotainer>
