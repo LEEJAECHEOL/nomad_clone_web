@@ -7,7 +7,7 @@ import { PageHero } from "../../components/style";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
 import {
   freePostRequestAction,
-  payCheckPostRequestAction,
+  payCheckGetRequestAction,
 } from "../../reducers/pay";
 import { PurchaseContainer } from "./style";
 
@@ -19,7 +19,7 @@ const Enroll = ({ match, history }) => {
   );
   useEffect(() => {
     dispatch(coursesOneGetRequestAction(courseId));
-    dispatch(payCheckPostRequestAction(courseId));
+    dispatch(payCheckGetRequestAction(courseId));
   }, []);
   const onClickPayment = () => {
     if (payCheckItem === null) {

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AppNoColLayout from "../../components/AppNoColLayout";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
-import { payCheckPostRequestAction } from "../../reducers/pay";
+import { payCheckGetRequestAction } from "../../reducers/pay";
 import {
   ConcepConatiner,
   ConceptLayout,
@@ -34,7 +34,7 @@ const CoursesDetail = ({ match, history }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(coursesOneGetRequestAction(courseId));
-    dispatch(payCheckPostRequestAction(courseId));
+    dispatch(payCheckGetRequestAction(courseId));
   }, []);
 
   const { coursesItem } = useSelector((state) => state.courses);

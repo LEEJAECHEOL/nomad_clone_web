@@ -34,9 +34,9 @@ import {
   PAY_GET_SUCCESS,
 
   // 결제한 강의인지 체크
-  PAY_CHECK_POST_FAILURE,
-  PAY_CHECK_POST_REQUEST,
-  PAY_CHECK_POST_SUCCESS,
+  PAY_CHECK_GET_FAILURE,
+  PAY_CHECK_GET_REQUEST,
+  PAY_CHECK_GET_SUCCESS,
 
   // 대시보드페이지 결제목록
   USER_PAY_GET_FAILURE,
@@ -78,34 +78,33 @@ function* payPost(action) {
 }
 
 // 강의결제체크
-function payCheckPostAPI(data) {
+function payCheckGetAPI(data) {
   const config = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("nomadToken"),
     },
   };
-  const id = { courseId: data };
-  return axios.post(`/pay/check`, JSON.stringify(id), config);
+  return axios.get(`/pay/check/${data}`, config);
 }
 
-function* payCheckPost(action) {
+function* payCheckGet(action) {
   try {
-    const result = yield call(payCheckPostAPI, action.data);
+    const result = yield call(payCheckGetAPI, action.data);
     const data = result.data.data;
     if (result.data.statusCode === 201) {
       yield put({
-        type: PAY_CHECK_POST_SUCCESS,
+        type: PAY_CHECK_GET_SUCCESS,
         data: data,
       });
     } else {
       yield put({
-        type: PAY_CHECK_POST_FAILURE,
+        type: PAY_CHECK_GET_FAILURE,
         error: "결제정보 체크 실패",
       });
     }
   } catch (err) {
     yield put({
-      type: PAY_CHECK_POST_FAILURE,
+      type: PAY_CHECK_GET_FAILURE,
       error: "결제정보 체크 실패",
     });
   }
@@ -314,8 +313,8 @@ function* watchPayGet() {
 }
 
 // 강의 결제 체크
-function* watchPayCheckPost() {
-  yield takeLatest(PAY_CHECK_POST_REQUEST, payCheckPost);
+function* watchPayCheckGet() {
+  yield takeLatest(PAY_CHECK_GET_REQUEST, payCheckGet);
 }
 
 export default function* paySaga() {
@@ -324,7 +323,7 @@ export default function* paySaga() {
     fork(watchPayGet),
     fork(watchUserPayGet),
     fork(watchFreePost),
-    fork(watchPayCheckPost),
+    fork(watchPayCheckGet),
     fork(watchRefundPut),
     fork(watchRefundedPut),
     fork(watchRefundCanclePut),

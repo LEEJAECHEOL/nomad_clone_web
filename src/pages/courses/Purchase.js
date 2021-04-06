@@ -6,7 +6,7 @@ import AppLayout from "../../components/AppLayout";
 import { PageHero } from "../../components/style";
 import { coursesOneGetRequestAction } from "../../reducers/courses";
 import {
-  payCheckPostRequestAction,
+  payCheckGetRequestAction,
   payPostRequestAction,
 } from "../../reducers/pay";
 import { PurchaseContainer } from "./style";
@@ -55,7 +55,7 @@ const Purchase = ({ match }) => {
 
   useEffect(() => {
     dispatch(coursesOneGetRequestAction(courseId));
-    dispatch(payCheckPostRequestAction(courseId));
+    dispatch(payCheckGetRequestAction(courseId));
   }, []);
 
   const { payCheckItem } = useSelector((state) => state.pay);

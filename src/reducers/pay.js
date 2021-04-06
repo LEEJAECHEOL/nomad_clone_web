@@ -33,9 +33,9 @@ export const initialState = {
   payGetError: null,
 
   // 결제한 강의인지 체크
-  payCheckPostLoading: false,
-  payCheckPostDone: false,
-  payCheckPostError: null,
+  payCheckGetLoading: false,
+  payCheckGetDone: false,
+  payCheckGetError: null,
 
   // 결제내역 가져오기(사용자)
   userPayGetLoading: false,
@@ -88,9 +88,9 @@ export const USER_PAY_GET_SUCCESS = "USER_PAY_GET_SUCCESS";
 export const USER_PAY_GET_FAILURE = "USER_PAY_GET_FAILURE";
 
 // 강의결제 체크
-export const PAY_CHECK_POST_REQUEST = "PAY_CHECK_POST_REQUEST";
-export const PAY_CHECK_POST_SUCCESS = "PAY_CHECK_POST_SUCCESS";
-export const PAY_CHECK_POST_FAILURE = "PAY_CHECK_POST_FAILURE";
+export const PAY_CHECK_GET_REQUEST = "PAY_CHECK_GET_REQUEST";
+export const PAY_CHECK_GET_SUCCESS = "PAY_CHECK_GET_SUCCESS";
+export const PAY_CHECK_GET_FAILURE = "PAY_CHECK_GET_FAILURE";
 
 // 액션
 // 유료강의 등록
@@ -142,9 +142,9 @@ export const payGetRequestAction = (data) => {
 };
 
 // 결제체크
-export const payCheckPostRequestAction = (data) => {
+export const payCheckGetRequestAction = (data) => {
   return {
-    type: PAY_CHECK_POST_REQUEST,
+    type: PAY_CHECK_GET_REQUEST,
     data,
   };
 };
@@ -284,21 +284,21 @@ const reducer = (state = initialState, action) => {
         break;
 
       // 결제체크
-      case PAY_CHECK_POST_REQUEST:
-        draft.payCheckPostLoading = true;
-        draft.payCheckPostDone = false;
-        draft.payCheckPostError = null;
+      case PAY_CHECK_GET_REQUEST:
+        draft.payCheckGetLoading = true;
+        draft.payCheckGetDone = false;
+        draft.payCheckGetError = null;
         break;
 
-      case PAY_CHECK_POST_SUCCESS:
-        draft.payCheckPostLoading = false;
-        draft.payCheckPostDone = true;
+      case PAY_CHECK_GET_SUCCESS:
+        draft.payCheckGetLoading = false;
+        draft.payCheckGetDone = true;
         draft.payCheckItem = action.data;
         break;
 
-      case PAY_CHECK_POST_FAILURE:
-        draft.payCheckPostLoading = false;
-        draft.payCheckPostError = action.error;
+      case PAY_CHECK_GET_FAILURE:
+        draft.payCheckGetLoading = false;
+        draft.payCheckGetError = action.error;
         break;
 
       // 대시보드페이지 결제목록
