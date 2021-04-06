@@ -463,7 +463,7 @@ const CoursesDetail = memo(({ history }) => {
                             {
                               required: true,
                               message: "Input Content",
-                              type: "content",
+                              type: "string",
                             },
                           ]}
                         >
